@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="Add Vite Projekt: praktikums-app" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Vinci4600&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:LeoKuhnZH/WISS-Praktikum-App.git&quot;,
+    &quot;accountId&quot;: &quot;342cb3e0-d030-4c9b-a9b3-d6b83874670a&quot;
+  }
+}</component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.000176016807216" />
+      <entry key="S2" value="1.120322884614178" />
+      <entry key="S5" value="1.6460440393975553" />
+      <entry key="S10" value="2.4641699061010405" />
+      <entry key="S30" value="3.8057101100386035" />
+      <entry key="S60" value="4.34240403047032" />
+      <entry key="M2" value="4.654416165331018" />
+      <entry key="M5" value="4.857501725248062" />
+      <entry key="M10" value="4.928019398554173" />
+      <entry key="M15" value="4.951848816374307" />
+      <entry key="M30" value="4.975841954448691" />
+      <entry key="H1" value="4.987900289244729" />
+      <entry key="H2" value="4.993944963279148" />
+      <entry key="H4" value="4.996971185133338" />
+      <entry key="D1" value="4.999495017352483" />
+      <entry key="W1" value="4.999927855208166" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9265880618903709" />
+      <entry key="MS500" value="0.9850397959420046" />
+      <entry key="S2" value="1.1159824658756403" />
+      <entry key="S5" value="1.6411147624756737" />
+      <entry key="S10" value="2.4571040429072397" />
+      <entry key="S30" value="3.800178513275446" />
+      <entry key="S60" value="4.338943092959849" />
+      <entry key="M2" value="4.652478179983839" />
+      <entry key="M5" value="4.856671748819338" />
+      <entry key="M10" value="4.927594834290264" />
+      <entry key="M15" value="4.951563611346413" />
+      <entry key="M30" value="4.975698262183639" />
+      <entry key="H1" value="4.987828169040075" />
+      <entry key="H2" value="4.993908834453537" />
+      <entry key="H4" value="4.996953103513995" />
+      <entry key="D1" value="4.999492001357278" />
+      <entry key="W1" value="4.999927424293101" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3EFkxm0cq2gYzRbdm47TcmThChQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "dev",
+    "git.auto.fetch.suggestion.counter": "3",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/vince/Documents/Module/Modul_426/WISS-Praktikum-App/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "application.passwordSafe",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.24374.125" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="" />
+      <created>1779781954262</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1779781954262</updated>
+      <workItem from="1779781955590" duration="1647000" />
+      <workItem from="1779866228125" duration="963000" />
+    </task>
+    <task id="LOCAL-00001" summary="Add Vite Projekt: praktikums-app">
+      <option name="closed" value="true" />
+      <created>1779782025961</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1779782025961</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add Vite Projekt: praktikums-app" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Vite Projekt: praktikums-app" />
+  </component>
+</project>

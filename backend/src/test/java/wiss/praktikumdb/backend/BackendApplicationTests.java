@@ -1,4 +1,4 @@
-package wiss.praktikumdb.backend.backend;
+package wiss.praktikumdb.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

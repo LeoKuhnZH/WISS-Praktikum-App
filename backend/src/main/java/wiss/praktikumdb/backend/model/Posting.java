@@ -41,6 +41,8 @@ public class Posting {
         this.status = status;
         this.expirationDate = expirationDate;
         this.dateCreated = dateCreated;
+        @Enumerated(EnumType.STRING)
+        private PostingPosition position;
     }
 
     public Long getId() {
@@ -137,6 +139,13 @@ public class Posting {
 
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+    }
+    public PostingPosition getPosition() {
+    return position;
+    }
+
+    public void setPosition(PostingPosition position) {
+    this.position = position;
     }
 
     

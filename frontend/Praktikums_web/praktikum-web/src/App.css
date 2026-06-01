@@ -21,11 +21,18 @@
   text-shadow: 2px 2px orange;
 }
 
+.reset-password{
+  background-color:goldenrod;
+}
+
+
 
 
 #message{
-  background-color: red;
+  background-color: rgb(216, 227, 15)
 }
+
+
 
 .login-hintergrund-rot{
   background-color: cyan;
@@ -50,6 +57,12 @@
     z-index: 0;
   }
 
+
+  .reset-password2{
+    text-shadow: 2px 2px orangered;
+  }
+
+
   .framework,
   .vite {
     position: absolute;
@@ -71,6 +84,88 @@
     transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
       scale(0.8);
   }
+}
+
+body{
+  margin: 0;
+  font-family:  'Times New Roman', Times, serif;
+  background-color: #f4f6f9;
+  color: #333;
+}
+
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 15px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Styling für die Navigations-Links */
+.navbar a {
+  color: blue;
+  text-decoration: underline;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+ 
+}
+
+/* Hover-Effekt (wenn man mit der Maus darüber fährt) */
+.navbar a:hover {
+  background-color:green;
+  color: brown; /* Moderner Cyan-Akzent */
+  
+}
+
+/* Styling für das Suchformular */
+.navbar form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Das Suchfeld */
+.navbar input[type="search"] {
+  background-color: #222831;
+  color: #fff;
+  border: 1px solid #393e46;
+  padding: 8px 14px !important; /* Überschreibt das Inline-Styling */
+  border-radius: 20px !important; /* Abgerundete Ecken für einen modernen Look */
+  outline: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  width: 200px;
+}
+
+/* Wenn man in das Suchfeld klickt */
+.navbar input[type="search"]:focus {
+  width: 250px; /* Es weitet sich elegant aus */
+  box-shadow: 0 0 8px rgba(0, 255, 245, 0.3);
+}
+
+/* Der Suchen-Button */
+.navbar button[type="submit"] {
+  background-color: brown;
+  border: none;
+  color: #1a1a2e;
+  padding: 8px 14px !important;
+  border-radius: 20px !important;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.navbar button[type="submit"]:hover {
+  background-color: #00adb5;
+  transform: scale(1.05); /* Wird minimal größer beim Hovern */
 }
 
 #center {

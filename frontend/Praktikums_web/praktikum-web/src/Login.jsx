@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-export default function LoginForm() {
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    // Validation checks based on your regex logic
-    const hasLength = password.length >= 8;
-    const hasLower = /[a-z]/.test(password);
-    const hasUpper = /[A-Z]/.test(password);
-    const hasNumber = /\d/.test(password);
-
+function Login() {
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate("/register");
-    };
-
-
+    // Nur noch ein zentraler State für alle Formulardaten
     const [formData, setFormData] = useState({
-        username: '', // Geändert von email zu username für die Stellenanzeigen-App
+        username: '',
         password: '',
         rememberMe: false
     });
 
+    const [error, setError] = useState('');
+
+    // Die Live-Validierung greift jetzt direkt auf formData.password zu!
+    const hasLength = formData.password.length >= 8;
+    const hasLower = /[a-z]/.test(formData.password);
+    const hasUpper = /[A-Z]/.test(formData.password);
+    const hasNumber = /\d/.test(formData.password);
+
+    // Prüft, ob alle Kriterien erfüllt sind
+    const isPasswordValid = hasLength && hasLower && hasUpper && hasNumber;
+
+    const handleClick = (e) => {
+        e.preventDefault(); // Verhindert das Neuladen der Seite beim Link-Klick
+        navigate("/register");
+    };
 
     // Handler für Änderungen in den Inputs
     const handleChange = (e) => {
@@ -37,22 +39,29 @@ export default function LoginForm() {
     // Handler für das Abschicken des Formulars
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (hasLength && hasLower && hasNumber) {
-            console.log("Formular erfoglreich abgeschickt!", { username, password });
+
+        // Fehler zurücksetzen
+        setError('');
+
+        // Abschicken blockieren, wenn das Passwort nicht valide ist
+        if (!isPasswordValid) {
+            setError("Bitte erfülle alle Passwort-Kriterien, bevor du dich einloggst.");
+            return;
         }
-        else {
-            alert("Bitte gültiges Password eingeben");
-        }
+
         // Hier kommt deine Login-Logik (z.B. API-Call an dein Backend) hin
-        console.log('Praktikums-Login abgeschickt:', formData);
-        alert("Erfolgreich eingeloggt");
+        console.log('Praktikums-Login erfolgreich abgeschickt:', formData);
+        alert("Erfolgreich eingeloggt!");
 
         if (formData.password.length < 8) {
-            alert("Das Password ist zu kurz, bitte erneut eingeben!");
+            alert("Das Password ist ungültig!");
         }
-        else {
-            alert("Password wurde korrekt validiert!");
-        }
+
+
+        setError('');
+        console.log("Login mit Credentials abgeschlossen", formData);
+        alert("Du bist erfolgreich mit deinem Konto eingeloggt!");
+        navigate("/register");
     };
 
     return (
@@ -61,12 +70,13 @@ export default function LoginForm() {
 
                 {/* Header-Bereich für das Praktikumsportal */}
                 <div className="text-center mb-6">
-                    <h2 className="text-3xl font-extrabold text-gray-900  shadow-red">
-                        Login mit  Stellenkonto
+                    <h2 className="text-3xl font-extrabold text-gray-900 shadow-red">
+                        Login mit Stellenkonto
                     </h2>
-                    <p className="text-sm text-gray-500 mt-1">
-                    </p>
                 </div>
+
+                {/* Inline-Fehlermeldung, falls die Validierung fehlschlägt */}
+                {error && <div className="text-red-600 font-bold mb-4 text-center">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Benutzername Feld */}
@@ -74,26 +84,23 @@ export default function LoginForm() {
                         <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
                             Benutzername:
                         </label>
-                        <br></br>
                         <input
                             id="username"
                             name="username"
                             type="text"
-                            required="username"
+                            required
                             value={formData.username}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                            placeholder=" DeinUsername"
+                            placeholder="DeinUsername"
                         />
                     </div>
-                    <br></br>
 
                     {/* Passwort Feld */}
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                             Passwort:
                         </label>
-                        <br></br>
                         <input
                             id="password"
                             name="password"
@@ -108,23 +115,20 @@ export default function LoginForm() {
 
                     {/* Interaktionen: Angemeldet bleiben & Passwort vergessen */}
                     <div className="flex items-center justify-between text-sm">
+                        <label className="flex items-center space-x-2 text-gray-600 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                name="rememberMe"
+                                checked={formData.rememberMe}
+                                onChange={handleChange}
+                                className="rounded text-blue-600 focus:ring-blue-500 border-gray-300"
+                            />
+                            <span>Angemeldet bleiben</span>
+                            <br></br>
+                        </label>
 
-                        <a href="#" className="font-medium text-blue-600 hover:underline">
-                            Passwort vergessen?
-                        </a>
+
                     </div>
-                    <label className="flex items-center space-x-2 text-gray-600 cursor-pointer">
-                        <input
-                            type="checkbox"
-                            name="rememberMe"
-                            checked={formData.rememberMe}
-                            onChange={handleChange}
-                            className="rounded text-blue-600 focus:ring-blue-500 border-gray-300"
-                        />
-                        <span>Angemeldet bleiben</span>
-
-                    </label>
-                    <br></br>
 
                     <button
                         type="submit"
@@ -132,34 +136,45 @@ export default function LoginForm() {
                     >
                         Einloggen
                     </button>
+                    <br></br>
+
+                    <a href="/forgotpassword" className="font-medium text-blue-600 hover:underline">
+                        Passwort vergessen?
+                    </a>
                 </form>
 
-                <div id="message">
-                    <h3>Password must contain the following:</h3>
-                    <p id="letter" className={hasLower ? 'valid' : 'invalid'}>
-                        A {hasLower ? <s>lowercase</s> : <b>lowercase</b>} letter
+                {/* Live-Validierungs-Anzeige */}
+                <div id="message" className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 text-sm">
+                    <h3 className="font-bold text-gray-700 mb-2">Das Passwort muss Folgendes enthalten:</h3>
+
+                    <p id="letter" className={hasLower ? 'text-green-600' : 'text-red-500'}>
+                        {hasLower ? <s>✓ Ein Kleinbuchstabe</s> : <span>• Ein <b>Kleinbuchstabe</b></span>}
                     </p>
-                    <p id="capital" className={hasUpper ? 'valid' : 'invalid'}>
-                        A {hasUpper ? <s>capital (uppercase)</s> : <b>capital (uppercase)</b>} letter
+
+                    <p id="capital" className={hasUpper ? 'text-green-600' : 'text-red-500'}>
+                        {hasUpper ? <s>✓ Ein Großbuchstabe</s> : <span>• Ein <b>Großbuchstabe</b></span>}
                     </p>
-                    <p id="number" className={hasNumber ? 'valid' : 'invalid'}>
-                        A {hasNumber ? <s>number</s> : <b>number</b>}
+
+                    <p id="number" className={hasNumber ? 'text-green-600' : 'text-red-500'}>
+                        {hasNumber ? <s>✓ Eine Zahl</s> : <span>• Eine <b>Zahl</b></span>}
                     </p>
-                    <p id="length" className={hasLength ? 'valid' : 'invalid'}>
-                        Minimum {hasLength ? <s>8 characters</s> : <b>8 characters</b>}
+
+                    <p id="length" className={hasLength ? 'text-green-600' : 'text-red-500'}>
+                        {hasLength ? <s>✓ Mindestens 8 Zeichen</s> : <span>• Mindestens <b>8 Zeichen</b></span>}
                     </p>
                 </div>
 
                 {/* Registrieren Link */}
                 <p className="text-sm text-center text-gray-600 mt-6">
                     Noch keinen Account für deine Bewerbung?{' '}
-                    <a href="#" onClick={handleClick} className="font-medium text-blue-600 register hover:underline">
-                        <p> &#8594; Jetzt  Registrieren&#8592;</p>
+                    <a href="#" onClick={handleClick} className="font-medium text-blue-600 hover:underline inline-block mt-1">
+                        &rarr; Jetzt Registrieren &larr;
                     </a>
-
                 </p>
 
             </div>
         </div>
     );
 }
+
+export default Login;   

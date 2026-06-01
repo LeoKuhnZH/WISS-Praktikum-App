@@ -1,5 +1,7 @@
 import './style.css';
 import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 
 function Home() {
     // State erweitert um die Checkbox und ein lokales Error-Feld
@@ -10,6 +12,7 @@ function Home() {
         rememberMe: false // Für die Checkbox
     });
 
+    const navigate = useNavigate();
     const [error, setError] = useState('');
 
     // Änderungen an allen Feldern (auch Checkboxen) erfassen
@@ -26,22 +29,32 @@ function Home() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Validierung: Passwörter müssen übereinstimmen
+        // 1. Validierung: Username-Länge prüfen
+        if (formData.username.length < 8) {
+            setError("Der Username ist zu kurz! Er muss mindestens 8 Zeichen lang sein.");
+            alert("Bitte ein gültiger Username eingeben");
+            return; // Wichtig: Bricht die Funktion hier ab
+        }
+
+        // 2. Validierung: Passwörter müssen übereinstimmen
         if (formData.password !== formData.confirmPassword) {
             setError("Die Passwörter stimmen nicht überein!");
-            return;
+            return; // Bricht die Funktion ab
         }
 
-        // Mindestlänge für Passwort als zusätzlicher Schutz
+        // 3. Validierung: Mindestlänge für Passwort
         if (formData.password.length < 6) {
             setError("Das Passwort muss mindestens 6 Zeichen lang sein.");
-            return;
+            alert("Bitte das Password erneut eingeben!");
+            return; // Bricht die Funktion ab
         }
 
-        // Wenn alles passt: Fehler zurücksetzen
         setError('');
-        console.log("Registrierungsdaten abgesendet:", formData);
-        alert("Registrierung erfolgreich (Test)!");
+        console.log("Registrierung abgeschlossen", formData);
+        alert("Du bist erfolgreich registriert mit deinem Konto!");
+        navigate("/login");
+
+
     };
 
     return (
@@ -93,8 +106,17 @@ function Home() {
                         />
                     </div>
 
-                    {/* Korrigierter Checkbox-Bereich */}
-                    <div className="checkbox-block" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '15px' }}>
+                    <div
+                        className="checkbox-block"
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center', // Schiebt alle Elemente nach rechts
+                            gap: '8px',
+                            marginBottom: '15px'
+                        }}
+                    >
+
                         <input
                             type="checkbox"
                             id="rememberMe"
@@ -102,10 +124,11 @@ function Home() {
                             checked={formData.rememberMe}
                             onChange={handleChange}
                         />
-                        <label htmlFor="rememberMe">Passwort speichern</label>
+                        <br></br>
+                        <label htmlFor="rememberMe"><b>Passwort speichern</b></label>
                     </div>
 
-                    <button type="submit" className="registration">
+                    <button type="submit" className="registration" >
                         Jetzt Registrieren
                     </button>
                 </form>

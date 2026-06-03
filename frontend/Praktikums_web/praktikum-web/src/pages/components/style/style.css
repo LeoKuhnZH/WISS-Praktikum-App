@@ -293,6 +293,7 @@ body{
         right: 0;
         border-right-color: var(--border);
     }
+    /* Elias Styles*/
     .div1{
         display: flex;
         justify-content: center;
@@ -311,5 +312,11 @@ body{
     .card{
         text-align: center; /* text-center */
         margin-bottom: 24px; /* mb-6 */
+    }
+    .titel{
+        font-size: 30px;
+        line-height: 36px;
+        font-weight: 800;
+        color: #111827;
     }
 }

@@ -2,12 +2,12 @@ import './App.css';
 // KORREKTUR 1: Routes, Route und BrowserRouter aus 'react-router-dom' importieren
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-// Deine vorhandenen Imports
-import RegistrirungPage from './RegistrirungPage.jsx';
-import LoginForm from './Login.jsx';
-import Home from './Home.jsx';
+
+import RegistrirungPage from './pages/RegistrirungPage.jsx';
+import LoginForm from './pages/Login.jsx';
+import Home from './pages/Home.jsx';
 import { useState } from 'react';
-import ForgotPassword from './ForgotPassword.jsx';
+
 
 // KORREKTUR 2: Dummy-Komponenten für Filme, Games etc. (falls sie noch nicht existieren)
 // Wenn du diese in eigenen Dateien hast, ersetze sie durch echte Imports wie: 
@@ -28,7 +28,7 @@ function App() {
         <Link to="/register">Registrierung</Link>
         <Link to="/login">Login</Link>
         <Link to="/">Home</Link>
-        <Link to="/forgotpassword">Password</Link>
+
 
         <form onSubmit={handleSucheSubmit} style={{ marginLeft: 'auto', color: 'brown' }}>
           <input
@@ -47,7 +47,7 @@ function App() {
         <Route path="/register" element={<RegistrirungPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route index="/" element={<Home />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
+
       </Routes>
     </BrowserRouter>
   );

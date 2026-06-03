@@ -293,4 +293,10 @@ body{
         right: 0;
         border-right-color: var(--border);
     }
+    .div1{
+        display: flex;
+        justify-content: center;
+        background-color:red ;
+
+    }
 }

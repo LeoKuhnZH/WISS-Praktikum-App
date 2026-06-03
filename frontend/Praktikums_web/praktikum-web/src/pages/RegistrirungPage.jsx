@@ -1,27 +1,69 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import "./components/style/style.css"
+import API from "../services/api";
 
-//Token
 function RegistrirungPage() {
+//token
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+
     const navigate = useNavigate();
 
-    // Nur noch ein zentraler State für alle Formulardaten
-    const [formData, setFormData] = useState({
-        email:'',
-        username: '',
-        password: '',
-        rememberMe: false
-    });
+    const handleRegister = async (e) => {
+        e.preventDefault(); // Formular-Standardverhalten verhindern
 
-    const [error, setError] = useState('');
+        try {
+            const response = await API.post("/auth/register", {
+                username,
+                password,
+                email
+            });
+            // Bei Erfolg z.B. Weiterleitung oder Meldung
+            console.log("Registrierung erfolgreich:", response.data);
+            navigate("/login"); // Beispiel: Weiterleitung zur Login-Seite
+        } catch (error) {
+            console.error("Fehler bei der Registrierung:", error);
+            alert("Bitte Prüfen sie ob ihr paswort 8 zeichen Lang ist ud die E-MAil adresse stimmt");
 
-    // Die Live-Validierung greift jetzt direkt auf formData.password zu!
-    const hasLength = formData.password.length >= 8;
-    const hasLower = /[a-z]/.test(formData.password);
-    const hasUpper = /[A-Z]/.test(formData.password);
-    const hasNumber = /\d/.test(formData.password);
+        }
+    };
+    return (
+        <div className="div1">
+            <div className="div2">
+                <div className="card">
+                    <h2 className="titel">Registrierung</h2>
+                    <form onSubmit={handleRegister}>
+                        <input
+                            type="text"
+                            placeholder="Benutzername"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
 
-    // Prüft, ob alle Kriterien erfüllt sind
-    const isPasswordValid = hasLength && hasLower && hasUpper && hasNumber;
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Passwort"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
 
+                        <button type="submit" className="button">Registrieren</button>
+                    </form>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    )
 }
+export default RegistrirungPage;

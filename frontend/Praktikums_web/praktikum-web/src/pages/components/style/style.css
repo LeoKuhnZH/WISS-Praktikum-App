@@ -308,4 +308,8 @@ body{
         0 4px 6px -4px rgba(0,0,0,0.1);
         padding: 32px;
     }
+    .card{
+        text-align: center; /* text-center */
+        margin-bottom: 24px; /* mb-6 */
+    }
 }

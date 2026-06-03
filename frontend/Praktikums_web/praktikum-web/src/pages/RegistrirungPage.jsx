@@ -4,7 +4,7 @@ import "./components/style/style.css"
 import API from "../services/api";
 
 function RegistrirungPage() {
-//token
+      // Token
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");

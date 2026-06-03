@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="Templat for App.jsx">
+    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="new Folder Pages add">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/ForgotPassword.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/Home.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/Login.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/RegistrirungPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/style.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,23 +34,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.000176016807216" />
-      <entry key="S2" value="1.120322884614178" />
-      <entry key="S5" value="1.6460440393975553" />
-      <entry key="S10" value="2.4641699061010405" />
-      <entry key="S30" value="3.8057101100386035" />
-      <entry key="S60" value="4.34240403047032" />
-      <entry key="M2" value="4.654416165331018" />
-      <entry key="M5" value="4.857501725248062" />
-      <entry key="M10" value="4.928019398554173" />
-      <entry key="M15" value="4.951848816374307" />
-      <entry key="M30" value="4.975841954448691" />
-      <entry key="H1" value="4.987900289244729" />
-      <entry key="H2" value="4.993944963279148" />
-      <entry key="H4" value="4.996971185133338" />
-      <entry key="D1" value="4.999495017352483" />
-      <entry key="W1" value="4.999927855208166" />
+      <entry key="MS100" value="1.000000158391692" />
+      <entry key="MS500" value="1.0436535947313463" />
+      <entry key="S2" value="1.5503917978456836" />
+      <entry key="S5" value="2.450330880405856" />
+      <entry key="S10" value="3.313842663740166" />
+      <entry key="S30" value="4.5167208725001" />
+      <entry key="S60" value="5.428808408927694" />
+      <entry key="M2" value="6.3558882355138575" />
+      <entry key="M5" value="7.273202842767447" />
+      <entry key="M10" value="8.39317482354427" />
+      <entry key="M15" value="9.754618407388453" />
+      <entry key="M30" value="13.000120682461798" />
+      <entry key="H1" value="16.104551453968714" />
+      <entry key="H2" value="18.273787543560978" />
+      <entry key="H4" value="19.558982098825304" />
+      <entry key="D1" value="20.74822464935193" />
+      <entry key="W1" value="20.963737043497837" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -77,23 +72,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9265880618903709" />
-      <entry key="MS500" value="0.9850397959420046" />
-      <entry key="S2" value="1.1159824658756403" />
-      <entry key="S5" value="1.6411147624756737" />
-      <entry key="S10" value="2.4571040429072397" />
-      <entry key="S30" value="3.800178513275446" />
-      <entry key="S60" value="4.338943092959849" />
-      <entry key="M2" value="4.652478179983839" />
-      <entry key="M5" value="4.856671748819338" />
-      <entry key="M10" value="4.927594834290264" />
-      <entry key="M15" value="4.951563611346413" />
-      <entry key="M30" value="4.975698262183639" />
-      <entry key="H1" value="4.987828169040075" />
-      <entry key="H2" value="4.993908834453537" />
-      <entry key="H4" value="4.996953103513995" />
-      <entry key="D1" value="4.999492001357278" />
-      <entry key="W1" value="4.999927424293101" />
+      <entry key="MS100" value="7.666826329593516E-7" />
+      <entry key="MS500" value="0.09933659516223603" />
+      <entry key="S2" value="1.021291733549638" />
+      <entry key="S5" value="2.1469998647511392" />
+      <entry key="S10" value="3.123816166784436" />
+      <entry key="S30" value="4.434692709771498" />
+      <entry key="S60" value="5.378871322300453" />
+      <entry key="M2" value="6.32590268273603" />
+      <entry key="M5" value="7.259236336156373" />
+      <entry key="M10" value="8.385719117643664" />
+      <entry key="M15" value="9.749490460297642" />
+      <entry key="M30" value="12.997433251385452" />
+      <entry key="H1" value="16.103159682737665" />
+      <entry key="H2" value="18.273076093089436" />
+      <entry key="H4" value="19.558621906726387" />
+      <entry key="D1" value="20.748163940440083" />
+      <entry key="W1" value="20.963728353424855" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -105,31 +100,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;3&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/vince/Documents/Module/Modul_426/WISS-Praktikum-App/frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;application.passwordSafe&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "dev",
+    "git.auto.fetch.suggestion.counter": "3",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/vince/Documents/Module/Modul_426/WISS-Praktikum-App/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -147,7 +142,7 @@
       <workItem from="1779781955590" duration="1647000" />
       <workItem from="1779866228125" duration="963000" />
       <workItem from="1779970813345" duration="48000" />
-      <workItem from="1780467785879" duration="387000" />
+      <workItem from="1780467785879" duration="1846000" />
     </task>
     <task id="LOCAL-00001" summary="Add Vite Projekt: praktikums-app">
       <option name="closed" value="true" />
@@ -157,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779782025961</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="new Folder Pages add">
+      <option name="closed" value="true" />
+      <created>1780468208985</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1780468208985</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +191,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add Vite Projekt: praktikums-app" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Vite Projekt: praktikums-app" />
+    <MESSAGE value="new Folder Pages add" />
+    <option name="LAST_COMMIT_MESSAGE" value="new Folder Pages add" />
   </component>
 </project>

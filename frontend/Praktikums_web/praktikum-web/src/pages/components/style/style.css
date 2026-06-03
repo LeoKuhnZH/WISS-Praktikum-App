@@ -319,4 +319,23 @@ body{
         font-weight: 800;
         color: #111827;
     }
+    .button {
+        width: 100%;
+        background-color: #2563eb;
+        color: white;
+        font-weight: 600;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 200ms ease,
+        box-shadow 200ms ease;
+    }
+
+    .button:hover {
+        background-color: #1d4ed8;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+    }
 }

@@ -22,13 +22,16 @@ public class Posting {
     private String status;
     private LocalDate expirationDate;
     private LocalDateTime dateCreated;
+    @Enumerated(EnumType.STRING)
+    private PostingPosition position;
 
     public Posting() {
     }
 
     public Posting(Long id, String title, String company, String body, String email, String phone, String fax,
                    String companyDescription, String website, String status, LocalDate expirationDate,
-                   LocalDateTime dateCreated) {
+                   LocalDateTime dateCreated, PostingPosition position) {
+
         this.id = id;
         this.title = title;
         this.company = company;
@@ -41,8 +44,7 @@ public class Posting {
         this.status = status;
         this.expirationDate = expirationDate;
         this.dateCreated = dateCreated;
-        @Enumerated(EnumType.STRING)
-        private PostingPosition position;
+        this.position = position;
     }
 
     public Long getId() {

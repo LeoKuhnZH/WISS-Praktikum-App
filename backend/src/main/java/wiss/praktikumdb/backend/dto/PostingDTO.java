@@ -1,5 +1,7 @@
 package wiss.praktikumdb.backend.dto;
 
+import wiss.praktikumdb.backend.model.PostingPosition;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -16,13 +18,14 @@ public class PostingDTO {
     private String status;
     private LocalDate expirationDate;
     private LocalDateTime dateCreated;
+    private PostingPosition position;
 
     public PostingDTO() {
     }
 
     public PostingDTO(Long id, String title, String company, String body, String email, String phone,
                       String companyDescription, String website, String status, LocalDate expirationDate,
-                      LocalDateTime dateCreated) {
+                      LocalDateTime dateCreated, PostingPosition position) {
         this.id = id;
         this.title = title;
         this.company = company;
@@ -34,6 +37,7 @@ public class PostingDTO {
         this.status = status;
         this.expirationDate = expirationDate;
         this.dateCreated = dateCreated;
+        this.position = position;
     }
 
     public Long getId() {
@@ -122,5 +126,13 @@ public class PostingDTO {
 
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public PostingPosition getPosition() {
+        return position;
+    }
+
+    public void setPosition(PostingPosition position) {
+        this.position = position;
     }
 }

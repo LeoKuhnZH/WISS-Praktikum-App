@@ -54,6 +54,7 @@ public class PostingService {
         posting.setWebsite(dto.getWebsite());
         posting.setStatus(dto.getStatus());
         posting.setExpirationDate(dto.getExpirationDate());
+        posting.setPosition(dto.getPosition());
 
         Posting updated = postingRepository.save(posting);
         return toDTO(updated);
@@ -109,6 +110,7 @@ public class PostingService {
         dto.setStatus(posting.getStatus());
         dto.setExpirationDate(posting.getExpirationDate());
         dto.setDateCreated(posting.getDateCreated());
+        dto.setPosition(posting.getPosition());
         return dto;
     }
 
@@ -124,6 +126,7 @@ public class PostingService {
         posting.setWebsite(dto.getWebsite());
         posting.setStatus(dto.getStatus());
         posting.setExpirationDate(dto.getExpirationDate());
+        posting.setPosition(dto.getPosition());
         return posting;
     }
 }

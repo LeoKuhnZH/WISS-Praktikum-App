@@ -3,7 +3,7 @@ package wiss.praktikumdb.backend.model;
 import java.util.HashMap;
 import java.util.Map;
 
-enum PostingPosition {
+public enum PostingPosition {
     ICTF("ICT-Fachmann/-frau EFZ"),
     UICT("ICT-Fachmann/-frau EFZ für quereinsteigende Erwachsene"),
     IFZA("Informatiker/in EFZ Lehre (Applikationsentwicklung)"),

@@ -121,7 +121,7 @@ body{
 /* Hover-Effekt (wenn man mit der Maus darüber fährt) */
 .navbar a:hover {
     background-color:green;
-    color: brown; /* Moderner Cyan-Akzent */
+
 
 }
 
@@ -155,7 +155,7 @@ body{
 .navbar button[type="submit"] {
     background-color: brown;
     border: none;
-    color: #1a1a2e;
+
     padding: 8px 14px !important;
     border-radius: 20px !important;
     cursor: pointer;

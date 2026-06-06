@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="RegistrirungPage.jsx done">
+    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="add navbar.css">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/RegistrirungPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/RegistrirungPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Home.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,62 +39,65 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.000000000000037" />
-      <entry key="S10" value="1.0000003003969056" />
-      <entry key="S30" value="1.0318944384497155" />
-      <entry key="S60" value="1.7864364419347196" />
-      <entry key="M2" value="5.413523396958427" />
-      <entry key="M5" value="15.908611552421723" />
-      <entry key="M10" value="28.551801763054172" />
-      <entry key="M15" value="38.1545054467989" />
-      <entry key="M30" value="56.93009633055606" />
-      <entry key="H1" value="75.10586826305426" />
-      <entry key="H2" value="89.12143488917157" />
-      <entry key="H4" value="98.14180205001463" />
-      <entry key="D1" value="107.04222836098559" />
-      <entry key="W1" value="108.71638609915999" />
+      <entry key="MS100" value="1.4821677410364418" />
+      <entry key="MS500" value="3.5449167126813634" />
+      <entry key="S2" value="6.924764355366107" />
+      <entry key="S5" value="8.532279822206547" />
+      <entry key="S10" value="9.218020620645131" />
+      <entry key="S30" value="9.727717629457823" />
+      <entry key="S60" value="9.886290017155027" />
+      <entry key="M2" value="10.755389972159522" />
+      <entry key="M5" value="17.96105562683901" />
+      <entry key="M10" value="31.045564685145344" />
+      <entry key="M15" value="42.69574480996357" />
+      <entry key="M30" value="72.04182233074002" />
+      <entry key="H1" value="112.14420867866897" />
+      <entry key="H2" value="151.97481723713324" />
+      <entry key="H4" value="181.78926727489164" />
+      <entry key="D1" value="214.40275632813066" />
+      <entry key="W1" value="220.88999576296285" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="1.1952657009852061E-204" />
-      <entry key="S2" value="1.0456012994928506E-51" />
-      <entry key="S5" value="4.052718563814858E-21" />
-      <entry key="S10" value="6.366096577821339E-11" />
-      <entry key="S30" value="3.9929242792060193E-4" />
-      <entry key="S60" value="0.019983053917394803" />
-      <entry key="M2" value="0.1435383386584112" />
-      <entry key="M5" value="0.7376407273966243" />
-      <entry key="M10" value="2.1706172397100243" />
-      <entry key="M15" value="3.4347956297188698" />
-      <entry key="M30" value="5.714137657031996" />
-      <entry key="H1" value="7.510746802374724" />
-      <entry key="H2" value="8.652382140726909" />
-      <entry key="H4" value="9.29801526750131" />
-      <entry key="D1" value="9.878862532274395" />
-      <entry key="W1" value="9.982590152150314" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="2.751517637010786E-122" />
+      <entry key="S5" value="2.3759041732955587E-49" />
+      <entry key="S10" value="4.874324746357756E-25" />
+      <entry key="S30" value="7.87000961622796E-9" />
+      <entry key="S60" value="8.918077693613538E-5" />
+      <entry key="M2" value="0.010751805091352587" />
+      <entry key="M5" value="0.3232113621678381" />
+      <entry key="M10" value="1.4566401176279449" />
+      <entry key="M15" value="2.8657703218945914" />
+      <entry key="M30" value="7.125274221384891" />
+      <entry key="H1" value="13.003465288584431" />
+      <entry key="H2" value="18.420358870901538" />
+      <entry key="H4" value="22.205210227725097" />
+      <entry key="D1" value="26.118686282563853" />
+      <entry key="W1" value="26.87190525050241" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8122523963562355" />
-      <entry key="MS500" value="0.9592641193252643" />
-      <entry key="S2" value="0.989656656415207" />
-      <entry key="S5" value="0.9958497530944926" />
-      <entry key="S10" value="0.9979230113985993" />
-      <entry key="S30" value="1.0313590864606685" />
-      <entry key="S60" value="1.8021906954483657" />
-      <entry key="M2" value="5.543373215369992" />
-      <entry key="M5" value="16.617327329412127" />
-      <entry key="M10" value="30.68465172513651" />
-      <entry key="M15" value="41.550973679542594" />
-      <entry key="M30" value="62.61282964230103" />
-      <entry key="H1" value="82.59578410938425" />
-      <entry key="H2" value="97.76168698654438" />
-      <entry key="H4" value="107.43325147587544" />
-      <entry key="D1" value="116.91991976038038" />
-      <entry key="W1" value="118.69880696134949" />
+      <entry key="MS100" value="1.4287041770180697" />
+      <entry key="MS500" value="3.4963340576491806" />
+      <entry key="S2" value="6.893250128249522" />
+      <entry key="S5" value="8.516259738181652" />
+      <entry key="S10" value="9.209308492348582" />
+      <entry key="S30" value="9.724642449859573" />
+      <entry key="S60" value="9.884715059504156" />
+      <entry key="M2" value="10.763405715550126" />
+      <entry key="M5" value="18.275839423454226" />
+      <entry key="M10" value="32.491166354740606" />
+      <entry key="M15" value="45.54930382174448" />
+      <entry key="M30" value="79.15192799107727" />
+      <entry key="H1" value="125.13190758148392" />
+      <entry key="H2" value="170.38288604620976" />
+      <entry key="H4" value="203.986664368233" />
+      <entry key="D1" value="240.51983818395064" />
+      <entry key="W1" value="247.76166328180156" />
     </decayedShown>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
@@ -106,6 +112,7 @@
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
@@ -130,7 +137,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.24374.125" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.25134.101" />
       </set>
     </attachedChunks>
   </component>
@@ -145,7 +152,8 @@
       <workItem from="1779866228125" duration="963000" />
       <workItem from="1779970813345" duration="48000" />
       <workItem from="1780467785879" duration="4813000" />
-      <workItem from="1780474919374" duration="717000" />
+      <workItem from="1780474919374" duration="4676000" />
+      <workItem from="1780749834977" duration="743000" />
     </task>
     <task id="LOCAL-00001" summary="Add Vite Projekt: praktikums-app">
       <option name="closed" value="true" />
@@ -235,7 +243,71 @@
       <option name="project" value="LOCAL" />
       <updated>1780476236338</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="RegistrirungPage.jsx done">
+      <option name="closed" value="true" />
+      <created>1780476516803</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1780476516803</updated>
+    </task>
+    <task id="LOCAL-00013" summary="RegistrirungPage.jsx done">
+      <option name="closed" value="true" />
+      <created>1780476567407</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1780476567407</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Coretur app.jsx and mai.jsx">
+      <option name="closed" value="true" />
+      <created>1780478544536</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1780478544536</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add import './components/style/style.css'">
+      <option name="closed" value="true" />
+      <created>1780479592791</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1780479592791</updated>
+    </task>
+    <task id="LOCAL-00016" summary="correct RegistrirungPage.jsx">
+      <option name="closed" value="true" />
+      <created>1780479637211</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1780479637211</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add navbar.jsx falls nötig">
+      <option name="closed" value="true" />
+      <created>1780479681116</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1780479681116</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add navbar.css">
+      <option name="closed" value="true" />
+      <created>1780480328919</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1780480328919</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add navbar.css">
+      <option name="closed" value="true" />
+      <created>1780480339055</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1780480339055</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,6 +349,11 @@
     <MESSAGE value="add elias Styles" />
     <MESSAGE value="add Button Styles" />
     <MESSAGE value="RegistrirungPage.jsx done" />
-    <option name="LAST_COMMIT_MESSAGE" value="RegistrirungPage.jsx done" />
+    <MESSAGE value="Coretur app.jsx and mai.jsx" />
+    <MESSAGE value="add import './components/style/style.css'" />
+    <MESSAGE value="correct RegistrirungPage.jsx" />
+    <MESSAGE value="add navbar.jsx falls nötig" />
+    <MESSAGE value="add navbar.css" />
+    <option name="LAST_COMMIT_MESSAGE" value="add navbar.css" />
   </component>
 </project>

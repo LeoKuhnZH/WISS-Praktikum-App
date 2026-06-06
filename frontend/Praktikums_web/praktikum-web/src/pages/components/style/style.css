@@ -86,7 +86,7 @@
     }
 }
 
-body{
+body {
     margin: 0;
     font-family:  'Times New Roman', Times, serif;
     background-color: #f4f6f9;
@@ -294,13 +294,13 @@ body{
         border-right-color: var(--border);
     }
     /* Elias Styles*/
-    .div1{
+    .div1 {
         display: flex;
         justify-content: center;
         background-color:red ;
 
     }
-    .div2{
+    .div2 {
         max-width: 448px;
         width: 100%;
         background-color: #fff;
@@ -309,11 +309,11 @@ body{
         0 4px 6px -4px rgba(0,0,0,0.1);
         padding: 32px;
     }
-    .card{
+    .card {
         text-align: center; /* text-center */
         margin-bottom: 24px; /* mb-6 */
     }
-    .titel{
+    .titel {
         font-size: 30px;
         line-height: 36px;
         font-weight: 800;

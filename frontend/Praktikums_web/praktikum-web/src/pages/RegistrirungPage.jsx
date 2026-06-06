@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import "./components/style/style.css"
-//import API from "../services/api";
+
 
 function RegistrirungPage() {
       // Token

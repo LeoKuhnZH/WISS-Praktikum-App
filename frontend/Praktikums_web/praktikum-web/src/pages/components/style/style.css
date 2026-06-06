@@ -1,99 +1,12 @@
-.counter {
-    font-size: 16px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: var(--accent);
-    background: var(--accent-bg);
-    border: 2px solid transparent;
-    transition: border-color 0.3s;
-    margin-bottom: 24px;
-
-    &:hover {
-        border-color: var(--accent-border);
-    }
-    &:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 2px;
-    }
-}
-
-.shadow-red{
-    text-shadow: 2px 2px orange;
-}
-
-.reset-password{
-    background-color:goldenrod;
-}
-
-
-
-
-#message{
-    background-color: rgb(216, 227, 15)
-}
-
-
-
-.login-hintergrund-rot{
-    background-color: cyan;
-}
-.hero {
-    position: relative;
-
-    .base,
-    .framework,
-    .vite {
-        inset-inline: 0;
-        margin: 0 auto;
-    }
-
-    .text-white{
-        background-color: gold;
-    }
-
-    .base {
-        width: 170px;
-        position: relative;
-        z-index: 0;
-    }
-
-
-    .reset-password2{
-        text-shadow: 2px 2px orangered;
-    }
-
-
-    .framework,
-    .vite {
-        position: absolute;
-    }
-
-    .framework {
-        z-index: 1;
-        top: 34px;
-        height: 28px;
-        transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-        scale(1.4);
-    }
-
-    .vite {
-        z-index: 0;
-        top: 107px;
-        height: 26px;
-        width: auto;
-        transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-        scale(0.8);
-    }
-}
-
+/* ===== BODY ===== */
 body {
     margin: 0;
-    font-family:  'Times New Roman', Times, serif;
+    font-family: 'Times New Roman', Times, serif;
     background-color: #f4f6f9;
     color: #333;
 }
 
-
+/* ===== NAVBAR ===== */
 .navbar {
     display: flex;
     align-items: center;
@@ -105,7 +18,6 @@ body {
     z-index: 1000;
 }
 
-/* Styling für die Navigations-Links */
 .navbar a {
     color: blue;
     text-decoration: underline;
@@ -115,227 +27,154 @@ body {
     border-radius: 6px;
     transition: all 0.3s ease;
     margin-right: 10px;
-
 }
 
-/* Hover-Effekt (wenn man mit der Maus darüber fährt) */
 .navbar a:hover {
-    background-color:green;
-
-
+    background-color: green;
 }
 
-/* Styling für das Suchformular */
+/* ===== SEARCH FORM ===== */
 .navbar form {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-left: auto;
 }
 
-/* Das Suchfeld */
 .navbar input[type="search"] {
     background-color: #222831;
     color: #fff;
     border: 1px solid #393e46;
-    padding: 8px 14px !important; /* Überschreibt das Inline-Styling */
-    border-radius: 20px !important; /* Abgerundete Ecken für einen modernen Look */
+    padding: 8px 14px;
+    border-radius: 20px;
     outline: none;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
     width: 200px;
+    transition: 0.3s;
 }
 
-/* Wenn man in das Suchfeld klickt */
 .navbar input[type="search"]:focus {
-    width: 250px; /* Es weitet sich elegant aus */
-    box-shadow: 0 0 8px rgba(0, 255, 245, 0.3);
+    width: 250px;
 }
 
-/* Der Suchen-Button */
 .navbar button[type="submit"] {
     background-color: brown;
     border: none;
-
-    padding: 8px 14px !important;
-    border-radius: 20px !important;
+    padding: 8px 14px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
 .navbar button[type="submit"]:hover {
     background-color: #00adb5;
-    transform: scale(1.05); /* Wird minimal größer beim Hovern */
 }
 
-#center {
+/* ===== LOGIN LAYOUT ===== */
+.div1 {
     display: flex;
-    flex-direction: column;
-    gap: 25px;
-    place-content: center;
-    place-items: center;
-    flex-grow: 1;
-
-    @media (max-width: 1024px) {
-        padding: 32px 20px 24px;
-        gap: 18px;
-    }
+    justify-content: center;
+    background-color: cyan;
+    min-height: 100vh;
 }
 
-#next-steps {
-    display: flex;
-    border-top: 1px solid var(--border);
-    text-align: left;
-
-    & > div {
-        flex: 1 1 0;
-        padding: 32px;
-        @media (max-width: 1024px) {
-            padding: 24px 20px;
-        }
-    }
-
-    .icon {
-        margin-bottom: 16px;
-        width: 22px;
-        height: 22px;
-    }
-
-    @media (max-width: 1024px) {
-        flex-direction: column;
-        text-align: center;
-    }
+.div2 {
+    max-width: 448px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    padding: 32px;
 }
 
-#docs {
-    border-right: 1px solid var(--border);
-
-    @media (max-width: 1024px) {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
+/* ===== TITEL ===== */
+.titel {
+    font-size: 30px;
+    font-weight: 800;
+    color: #111827;
 }
 
-#next-steps ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 8px;
-    margin: 32px 0 0;
-
-    .logo {
-        height: 18px;
-    }
-
-    a {
-        color: var(--text-h);
-        font-size: 16px;
-        border-radius: 6px;
-        background: var(--social-bg);
-        display: flex;
-        padding: 6px 12px;
-        align-items: center;
-        gap: 8px;
-        text-decoration: none;
-        transition: box-shadow 0.3s;
-
-        &:hover {
-            box-shadow: var(--shadow);
-        }
-        .button-icon {
-            height: 18px;
-            width: 18px;
-        }
-    }
-
-    @media (max-width: 1024px) {
-        margin-top: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
-
-        li {
-            flex: 1 1 calc(50% - 8px);
-        }
-
-        a {
-            width: 100%;
-            justify-content: center;
-            box-sizing: border-box;
-        }
-    }
+/* ===== BUTTON ===== */
+.button {
+    width: 100%;
+    background-color: #2563eb;
+    color: white;
+    font-weight: 600;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-#spacer {
-    height: 88px;
-    border-top: 1px solid var(--border);
-    @media (max-width: 1024px) {
-        height: 48px;
-    }
+.button:hover {
+    background-color: #1d4ed8;
 }
 
+/* ===== MESSAGE BOX ===== */
+#message {
+    background-color: rgb(216, 227, 15);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* ===== RESET / EXTRA ===== */
+.reset-password {
+    background-color: goldenrod;
+}
+
+.shadow-red {
+    text-shadow: 2px 2px orange;
+}
+
+/* ===== HERO (nur falls du es nutzt) ===== */
+.hero {
+    position: relative;
+}
+
+.hero .base {
+    width: 170px;
+}
+
+.hero .framework,
+.hero .vite {
+    position: absolute;
+}
+
+/* ===== TICKS (FIXED VERSION) ===== */
 .ticks {
     position: relative;
     width: 100%;
+}
 
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        top: -4.5px;
-        border: 5px solid transparent;
-    }
+.ticks::before,
+.ticks::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    border: 5px solid transparent;
+}
 
-    &::before {
-        left: 0;
-        border-left-color: var(--border);
-    }
-    &::after {
-        right: 0;
-        border-right-color: var(--border);
-    }
-    /* Elias Styles*/
-    .div1 {
-        display: flex;
-        justify-content: center;
-        background-color:red ;
+.ticks::before {
+    left: 0;
+    border-left-color: #ccc;
+}
 
-    }
-    .div2 {
-        max-width: 448px;
-        width: 100%;
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),
-        0 4px 6px -4px rgba(0,0,0,0.1);
-        padding: 32px;
-    }
-    .card {
-        text-align: center; /* text-center */
-        margin-bottom: 24px; /* mb-6 */
-    }
-    .titel {
-        font-size: 30px;
-        line-height: 36px;
-        font-weight: 800;
-        color: #111827;
-    }
-    .button {
-        width: 100%;
-        background-color: #2563eb;
-        color: white;
-        font-weight: 600;
-        padding: 10px 16px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
+.ticks::after {
+    right: 0;
+    border-right-color: #ccc;
+}
 
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: background-color 200ms ease,
-        box-shadow 200ms ease;
-    }
+/* ===== DIVS INNERHALB VON TICKS (WICHTIG FIX) ===== */
+.ticks .div1 {
+    display: flex;
+    justify-content: center;
+    background-color: red;
+}
 
-    .button:hover {
-        background-color: #1d4ed8;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
-    }
+.ticks .div2 {
+    max-width: 448px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 32px;
 }

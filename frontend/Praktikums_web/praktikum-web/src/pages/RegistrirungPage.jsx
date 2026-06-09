@@ -45,7 +45,7 @@ function RegistrirungPage() {
                             placeholder="Benutzername"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                        /><br />
+                        />
 
 
                         <input

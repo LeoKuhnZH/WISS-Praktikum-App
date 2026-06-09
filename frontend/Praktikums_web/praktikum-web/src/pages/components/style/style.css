@@ -178,7 +178,7 @@ body {
     border-radius: 12px;
     padding: 32px;
 }
-.divreg {
+.ticks .divreg {
     display: flex;
     flex-direction: column;
     gap: 10px;

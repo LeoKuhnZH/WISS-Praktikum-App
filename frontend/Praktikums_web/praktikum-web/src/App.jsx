@@ -26,10 +26,11 @@ function App() {
     return (
         <BrowserRouter>
             <nav className="navbar">
-                <Link to="/jobadd">Neuer Job Hinzufügen</Link>
-                <Link to="/register">Registrierung</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/">Home</Link>
+                <Link to="/">| Home |</Link>
+                <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>
+                <Link to="/register">| Registrierung |</Link>
+                <Link to="/login">| Login |</Link>
+
 
 
                 <form onSubmit={handleSucheSubmit} style={{marginLeft: 'auto', color: 'brown'}}>

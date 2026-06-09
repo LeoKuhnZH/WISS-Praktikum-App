@@ -73,7 +73,7 @@ body {
 .div1 {
     display: flex;
     justify-content: center;
-    background-color: cyan;
+    background-color: #ffffff;
     min-height: 100vh;
 }
 
@@ -178,3 +178,9 @@ body {
     border-radius: 12px;
     padding: 32px;
 }
+.divreg {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+

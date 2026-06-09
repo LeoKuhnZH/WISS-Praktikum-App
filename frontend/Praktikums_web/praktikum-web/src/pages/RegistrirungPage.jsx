@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import "./components/style/style.css"
 
 
+
 function RegistrirungPage() {
       // Token
     const [username, setUsername] = useState("");
@@ -20,7 +21,7 @@ function RegistrirungPage() {
                 password,
                 email
             });
-            // Bei Erfolg z.B. Weiterleitung oder Meldung
+                        // Bei Erfolg z.B. Weiterleitung oder Meldung
             console.log("Registrierung erfolgreich:", response.data);
             navigate("/login"); // Beispiel: Weiterleitung zur Login-Seite
         } catch (error) {
@@ -30,17 +31,22 @@ function RegistrirungPage() {
         }
     };
     return (
+        <div>
+
+
         <div className="div1">
             <div className="div2">
                 <div className="card">
                     <h2 className="titel">Registrierung</h2>
+                    <div className="divreg">
                     <form onSubmit={handleRegister}>
                         <input
                             type="text"
                             placeholder="Benutzername"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                        />
+                        /><br />
+
 
                         <input
                             type="email"
@@ -57,12 +63,15 @@ function RegistrirungPage() {
 
                         <button type="submit" className="button">Registrieren</button>
                     </form>
+                    </div>
 
 
                 </div>
 
 
             </div>
+
+        </div>
         </div>
     )
 }

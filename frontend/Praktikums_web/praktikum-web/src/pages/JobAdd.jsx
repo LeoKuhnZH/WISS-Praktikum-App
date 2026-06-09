@@ -2,28 +2,26 @@ import './components/style/style.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE = 'http://localhost:8080/api/posting';
+
 function JobAdd() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        firmenname: '',
-        branche: '',
-        strasseNr: '',
-        plzOrt: '',
-        kontaktperson: '',
+        title: '',
+        company: '',
+        body: '',
         email: '',
-        telefon: '',
+        phone: '',
+        companyDescription: '',
         website: '',
-        stellenbezeichnung: '',
-        beschreibung: '',
-        pensum: '100',
-        startdatum: '',
-        bewerbungsschluss: '',
-        anforderungen: '',
+        expirationDate: '',
+        position: '',
     });
 
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -34,20 +32,44 @@ function JobAdd() {
         e.preventDefault();
         setError('');
 
-        if (!formData.firmenname || !formData.email || !formData.stellenbezeichnung) {
+        if (!formData.title || !formData.company || !formData.email) {
             setError('Bitte fülle alle Pflichtfelder (*) aus.');
             return;
         }
 
+        setLoading(true);
+
         try {
-            // TODO: API-Call an Backend z.B.:
-            // await API.post('/jobs', formData);
-            console.log('Neue Stelle erfasst:', formData);
+            const payload = {
+                title: formData.title,
+                company: formData.company,
+                body: formData.body,
+                email: formData.email,
+                phone: formData.phone,
+                companyDescription: formData.companyDescription,
+                website: formData.website,
+                status: 'ACTIVE',
+                expirationDate: formData.expirationDate || null,
+                position: formData.position || null,
+            };
+
+            const response = await fetch(`${API_BASE}/create`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server Fehler: ${response.status}`);
+            }
+
             setSuccess(true);
             setTimeout(() => navigate('/'), 2500);
         } catch (err) {
             console.error(err);
-            setError('Beim Speichern ist ein Fehler aufgetreten. Bitte versuche es erneut.');
+            setError('Beim Speichern ist ein Fehler aufgetreten. Ist das Backend gestartet?');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -82,67 +104,34 @@ function JobAdd() {
                     <div className="divreg">
 
                         {/* --- FIRMENDATEN --- */}
-                        <h3 style={{ margin: '8px 0 4px', borderBottom: '1px solid #ddd', paddingBottom: '4px' }}>
-                            Firmendaten
-                        </h3>
+                        <h3 style={sectionStyle}>Firmendaten</h3>
 
-                        <label>
+                        <label style={labelStyle}>
                             Firmenname <span style={{ color: 'red' }}>*</span>
                             <input
                                 type="text"
-                                name="firmenname"
+                                name="company"
                                 placeholder="z.B. Muster AG"
-                                value={formData.firmenname}
+                                value={formData.company}
                                 onChange={handleChange}
                                 required
                                 style={inputStyle}
                             />
                         </label>
 
-                        <label>
-                            Branche
-                            <select
-                                name="branche"
-                                value={formData.branche}
+                        <label style={labelStyle}>
+                            Firmenbeschreibung
+                            <textarea
+                                name="companyDescription"
+                                placeholder="Kurze Beschreibung der Firma..."
+                                value={formData.companyDescription}
                                 onChange={handleChange}
-                                style={inputStyle}
-                            >
-                                <option value="">– Branche wählen –</option>
-                                <option value="IT">Informatik / IT</option>
-                                <option value="Kaufmann">Kaufmann / KV</option>
-                                <option value="Gesundheit">Gesundheit</option>
-                                <option value="Handel">Handel / Detailhandel</option>
-                                <option value="Bau">Bau / Handwerk</option>
-                                <option value="Medien">Medien / Grafik</option>
-                                <option value="Andere">Andere</option>
-                            </select>
-                        </label>
-
-                        <label>
-                            Strasse &amp; Hausnummer
-                            <input
-                                type="text"
-                                name="strasseNr"
-                                placeholder="z.B. Bahnhofstrasse 12"
-                                value={formData.strasseNr}
-                                onChange={handleChange}
-                                style={inputStyle}
+                                rows={3}
+                                style={{ ...inputStyle, resize: 'vertical' }}
                             />
                         </label>
 
-                        <label>
-                            PLZ &amp; Ort
-                            <input
-                                type="text"
-                                name="plzOrt"
-                                placeholder="z.B. 8001 Zürich"
-                                value={formData.plzOrt}
-                                onChange={handleChange}
-                                style={inputStyle}
-                            />
-                        </label>
-
-                        <label>
+                        <label style={labelStyle}>
                             Website
                             <input
                                 type="url"
@@ -154,24 +143,10 @@ function JobAdd() {
                             />
                         </label>
 
-                        {/* --- KONTAKTPERSON --- */}
-                        <h3 style={{ margin: '16px 0 4px', borderBottom: '1px solid #ddd', paddingBottom: '4px' }}>
-                            Kontaktperson
-                        </h3>
+                        {/* --- KONTAKT --- */}
+                        <h3 style={sectionStyle}>Kontakt</h3>
 
-                        <label>
-                            Name der Kontaktperson
-                            <input
-                                type="text"
-                                name="kontaktperson"
-                                placeholder="z.B. Max Muster"
-                                value={formData.kontaktperson}
-                                onChange={handleChange}
-                                style={inputStyle}
-                            />
-                        </label>
-
-                        <label>
+                        <label style={labelStyle}>
                             E-Mail <span style={{ color: 'red' }}>*</span>
                             <input
                                 type="email"
@@ -184,98 +159,81 @@ function JobAdd() {
                             />
                         </label>
 
-                        <label>
+                        <label style={labelStyle}>
                             Telefon
                             <input
                                 type="tel"
-                                name="telefon"
+                                name="phone"
                                 placeholder="044 123 45 67"
-                                value={formData.telefon}
+                                value={formData.phone}
                                 onChange={handleChange}
                                 style={inputStyle}
                             />
                         </label>
 
                         {/* --- STELLE --- */}
-                        <h3 style={{ margin: '16px 0 4px', borderBottom: '1px solid #ddd', paddingBottom: '4px' }}>
-                            Stelle
-                        </h3>
+                        <h3 style={sectionStyle}>Stelle</h3>
 
-                        <label>
+                        <label style={labelStyle}>
                             Stellenbezeichnung <span style={{ color: 'red' }}>*</span>
                             <input
                                 type="text"
-                                name="stellenbezeichnung"
+                                name="title"
                                 placeholder="z.B. Informatiker/in EFZ Applikationsentwicklung"
-                                value={formData.stellenbezeichnung}
+                                value={formData.title}
                                 onChange={handleChange}
                                 required
                                 style={inputStyle}
                             />
                         </label>
 
-                        <label>
-                            Beschreibung der Stelle
-                            <textarea
-                                name="beschreibung"
-                                placeholder="Was erwartet die Lernenden? Aufgaben, Projekte, Team..."
-                                value={formData.beschreibung}
-                                onChange={handleChange}
-                                rows={4}
-                                style={{ ...inputStyle, resize: 'vertical' }}
-                            />
-                        </label>
-
-                        <label>
-                            Anforderungen
-                            <textarea
-                                name="anforderungen"
-                                placeholder="z.B. gute Schulnoten, Teamfähigkeit, Interesse an Technik..."
-                                value={formData.anforderungen}
-                                onChange={handleChange}
-                                rows={3}
-                                style={{ ...inputStyle, resize: 'vertical' }}
-                            />
-                        </label>
-
-                        <label>
-                            Pensum (%)
-                            <input
-                                type="number"
-                                name="pensum"
-                                min="20"
-                                max="100"
-                                step="10"
-                                value={formData.pensum}
-                                onChange={handleChange}
-                                style={{ ...inputStyle, width: '100px' }}
-                            />
-                        </label>
-
-                        <label>
-                            Startdatum
-                            <input
-                                type="date"
-                                name="startdatum"
-                                value={formData.startdatum}
+                        <label style={labelStyle}>
+                            Lehrberuf
+                            <select
+                                name="position"
+                                value={formData.position}
                                 onChange={handleChange}
                                 style={inputStyle}
+                            >
+                                <option value="">– Lehrberuf wählen –</option>
+                                <option value="IFZA">Informatiker/in EFZ (Applikationsentwicklung)</option>
+                                <option value="IFZP">Informatiker/in EFZ (Plattformentwicklung)</option>
+                                <option value="ICTF">ICT-Fachmann/-frau EFZ</option>
+                                <option value="UICT">ICT-Fachmann/-frau EFZ (Quereinstieg)</option>
+                                <option value="UIFZ">Informatiker/in EFZ Applikationsentwicklung (Quereinstieg)</option>
+                            </select>
+                        </label>
+
+                        <label style={labelStyle}>
+                            Stellenbeschreibung
+                            <textarea
+                                name="body"
+                                placeholder="Aufgaben, Projekte, Anforderungen, Team..."
+                                value={formData.body}
+                                onChange={handleChange}
+                                rows={5}
+                                style={{ ...inputStyle, resize: 'vertical' }}
                             />
                         </label>
 
-                        <label>
+                        <label style={labelStyle}>
                             Bewerbungsschluss
                             <input
                                 type="date"
-                                name="bewerbungsschluss"
-                                value={formData.bewerbungsschluss}
+                                name="expirationDate"
+                                value={formData.expirationDate}
                                 onChange={handleChange}
                                 style={inputStyle}
                             />
                         </label>
 
-                        <button type="submit" className="button" style={{ marginTop: '12px' }}>
-                            Stelle veröffentlichen
+                        <button
+                            type="submit"
+                            className="button"
+                            style={{ marginTop: '12px', opacity: loading ? 0.6 : 1 }}
+                            disabled={loading}
+                        >
+                            {loading ? 'Wird gespeichert...' : 'Stelle veröffentlichen'}
                         </button>
 
                     </div>
@@ -284,6 +242,21 @@ function JobAdd() {
         </div>
     );
 }
+
+const sectionStyle = {
+    margin: '16px 0 4px',
+    borderBottom: '1px solid #ddd',
+    paddingBottom: '4px',
+    fontFamily: 'inherit',
+};
+
+const labelStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    fontSize: '0.9rem',
+    fontWeight: '500',
+    color: '#374151',
+};
 
 const inputStyle = {
     display: 'block',

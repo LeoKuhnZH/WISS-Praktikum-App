@@ -1,4 +1,4 @@
-/* ===== BODY ===== */
+/* Einheitliche Grundfarben */
 body {
     margin: 0;
     font-family: 'Times New Roman', Times, serif;
@@ -6,34 +6,28 @@ body {
     color: #333;
 }
 
-/* ===== NAVBAR ===== */
+/* NAVBAR */
 .navbar {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 15px 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    background-color: #fff;
 }
 
 .navbar a {
-    color: blue;
-    text-decoration: underline;
+    color: #133faf;
+    text-decoration: none;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: normal;
     padding: 8px 16px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
     margin-right: 10px;
 }
 
 .navbar a:hover {
-    background-color: green;
+    background-color: #ffffff;
 }
 
-/* ===== SEARCH FORM ===== */
 .navbar form {
     display: flex;
     align-items: center;
@@ -41,92 +35,71 @@ body {
     margin-left: auto;
 }
 
-.navbar input[type="search"] {
-    background-color: #222831;
-    color: #fff;
-    border: 1px solid #393e46;
-    padding: 8px 14px;
-    border-radius: 20px;
-    outline: none;
-    width: 200px;
-    transition: 0.3s;
-}
-
-.navbar input[type="search"]:focus {
-    width: 250px;
-}
-
+.navbar input[type="search"],
 .navbar button[type="submit"] {
-    background-color: brown;
-    border: none;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ffffff;
     padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: 0.3s;
+    border-radius: 4px;
 }
 
-.navbar button[type="submit"]:hover {
-    background-color: #00adb5;
-}
-
-/* ===== LOGIN LAYOUT ===== */
+/* LOGIN */
 .div1 {
     display: flex;
     justify-content: center;
-    background-color: #ffffff;
     min-height: 100vh;
+    background-color: #fff;
 }
 
 .div2 {
     max-width: 448px;
     width: 100%;
     background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
     padding: 32px;
+    border: 1px solid #ddd;
 }
 
-/* ===== TITEL ===== */
+/* TITEL */
 .titel {
-    font-size: 30px;
-    font-weight: 800;
-    color: #111827;
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: #333;
 }
 
-/* ===== BUTTON ===== */
+/* BUTTON */
 .button {
     width: 100%;
-    background-color: #2563eb;
-    color: white;
-    font-weight: 600;
+    background-color: #fff;
+    color: #333;
+    font-weight: normal;
     padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
+    border: 1px solid #ccc;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .button:hover {
-    background-color: #1d4ed8;
+    background-color: #f0f0f0;
 }
 
-/* ===== MESSAGE BOX ===== */
+/* MESSAGE */
 #message {
-    background-color: rgb(216, 227, 15);
+    background-color: #f0f0f0;
+    color: #333;
     padding: 10px;
-    border-radius: 6px;
+    border: 1px solid #ccc;
 }
 
-/* ===== RESET / EXTRA ===== */
+/* RESET */
 .reset-password {
-    background-color: goldenrod;
+    background-color: #f0f0f0;
 }
 
 .shadow-red {
-    text-shadow: 2px 2px orange;
+    text-shadow: none;
 }
 
-/* ===== HERO (nur falls du es nutzt) ===== */
+/* HERO */
 .hero {
     position: relative;
 }
@@ -140,7 +113,7 @@ body {
     position: absolute;
 }
 
-/* ===== TICKS (FIXED VERSION) ===== */
+/* TICKS */
 .ticks {
     position: relative;
     width: 100%;
@@ -164,23 +137,22 @@ body {
     border-right-color: #ccc;
 }
 
-/* ===== DIVS INNERHALB VON TICKS (WICHTIG FIX) ===== */
 .ticks .div1 {
     display: flex;
     justify-content: center;
-    background-color: red;
+    background-color: #fff;
 }
 
 .ticks .div2 {
     max-width: 448px;
     width: 100%;
     background-color: #fff;
-    border-radius: 12px;
     padding: 32px;
+    border: 1px solid #ddd;
 }
+
 .ticks .divreg {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-

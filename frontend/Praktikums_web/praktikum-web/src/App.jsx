@@ -5,7 +5,7 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
 import RegistrirungPage from './pages/RegistrirungPage.jsx';
 import LoginForm from './pages/Login.jsx';
-import Home from './pages/Home.jsx';
+//import Home from './pages/Home.jsx';
 import JobAdd from './pages/JobAdd.jsx';
 import {useState} from 'react';
 
@@ -26,7 +26,7 @@ function App() {
     return (
         <BrowserRouter>
             <nav className="navbar">
-                <Link to="/">| Home |</Link>
+                {/*<Link to="/">| Home |</Link>*/}
                 <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>
                 <Link to="/register">| Registrierung |</Link>
                 <Link to="/login">| Login |</Link>
@@ -51,7 +51,7 @@ function App() {
 
                 <Route path="/register" element={<RegistrirungPage/>}/>
                 <Route path="/login" element={<LoginForm/>}/>
-                <Route index="/" element={<Home/>}/>
+                {/*<Route index="/" element={<Home/>}/>*/}
 
             </Routes>
         </BrowserRouter>

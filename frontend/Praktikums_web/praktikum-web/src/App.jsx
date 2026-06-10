@@ -5,9 +5,10 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
 import RegistrirungPage from './pages/RegistrirungPage.jsx';
 import LoginForm from './pages/Login.jsx';
-//import Home from './pages/Home.jsx';
+import Home from './pages/Home.jsx';
 import JobAdd from './pages/JobAdd.jsx';
-import {useState} from 'react';
+
+import { useState, useRef } from 'react';
 
 
 // KORREKTUR 2: Dummy-Komponenten für Filme, Games etc. (falls sie noch nicht existieren)
@@ -23,13 +24,52 @@ function App() {
         event.preventDefault();
         alert("Nach dem Begriff" + "" + suchbegriff + "" + "wird gesucht");
     };
+
+    //Radio 24
+    const radioRef = useRef(
+        new Audio("https://energyzuerich.ice.infomaniak.ch/energyzuerich-high.mp3")
+    );
+
+    const [radioLaeuft, setRadioLaeuft] = useState(false);
+
+    const playRadio = () => {
+        radioRef.current.load();
+        radioRef.current.play().catch(err => console.log(err));
+        setRadioLaeuft(true);
+    };
+
+    const stopRadio = () => {
+        radioRef.current.pause();
+        radioRef.current.currentTime = 0;
+        setRadioLaeuft(false);
+    };
+
+    const toggleRadio = () => {
+        if (radioLaeuft) {
+            stopRadio();
+        } else {
+            playRadio();
+        }
+    };
     return (
         <BrowserRouter>
             <nav className="navbar">
-                {/*<Link to="/">| Home |</Link>*/}
+                <Link to="/">| Home |</Link>
                 <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>
                 <Link to="/register">| Registrierung |</Link>
                 <Link to="/login">| Login |</Link>
+
+                <button
+                    onClick={toggleRadio}
+                    style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: 'inherit'
+                    }}
+                >
+                    | {radioLaeuft ? '⏸ Radio' : '▶ Radio'} |
+                </button>
 
 
 
@@ -51,7 +91,7 @@ function App() {
 
                 <Route path="/register" element={<RegistrirungPage/>}/>
                 <Route path="/login" element={<LoginForm/>}/>
-                {/*<Route index="/" element={<Home/>}/>*/}
+                <Route index="/" element={<Home/>}/>
 
             </Routes>
         </BrowserRouter>

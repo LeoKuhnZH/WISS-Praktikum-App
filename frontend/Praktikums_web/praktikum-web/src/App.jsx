@@ -1,20 +1,12 @@
 import './App.css';
-// KORREKTUR 1: Routes, Route und BrowserRouter aus 'react-router-dom' importieren
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { useState, useRef } from 'react';
 
 import RegistrirungPage from './pages/RegistrirungPage.jsx';
 import LoginForm from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
 import JobAdd from './pages/JobAdd.jsx';
-
-import { useState, useRef } from 'react';
-
-
-// KORREKTUR 2: Dummy-Komponenten für Filme, Games etc. (falls sie noch nicht existieren)
-// Wenn du diese in eigenen Dateien hast, ersetze sie durch echte Imports wie: 
-// import Filme from './Filme.jsx';
-
+import PrivacyBanner from './components1/PrivacyBanner.jsx';
 
 function App() {
 
@@ -25,7 +17,6 @@ function App() {
         alert("Nach dem Begriff" + "" + suchbegriff + "" + "wird gesucht");
     };
 
-    //Radio 24
     const radioRef = useRef(
         new Audio("https://energyzuerich.ice.infomaniak.ch/energyzuerich-high.mp3")
     );
@@ -45,59 +36,43 @@ function App() {
     };
 
     const toggleRadio = () => {
-        if (radioLaeuft) {
-            stopRadio();
-        } else {
-            playRadio();
-        }
+        if (radioLaeuft) stopRadio();
+        else playRadio();
     };
+
     return (
         <BrowserRouter>
+            <PrivacyBanner />
             <nav className="navbar">
                 <Link to="/">| Home |</Link>
                 <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>
                 <Link to="/register">| Registrierung |</Link>
                 <Link to="/login">| Login |</Link>
 
-                <button
-                    onClick={toggleRadio}
-                    style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontSize: 'inherit'
-                    }}
-                >
+                <button onClick={toggleRadio} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit' }}>
                     | {radioLaeuft ? '⏸ Radio' : '▶ Radio'} |
                 </button>
 
-
-
-                <form onSubmit={handleSucheSubmit} style={{marginLeft: 'auto', color: 'brown'}}>
+                <form onSubmit={handleSucheSubmit} style={{ marginLeft: 'auto', color: 'brown' }}>
                     <input
                         type="search"
                         placeholder="Suchen..."
                         value={suchbegriff}
                         onChange={(e) => setsuchbegriff(e.target.value)}
-                        style={{padding: '5px 10px', borderRadius: '4px', border: '1px solid #ccc'}}
+                        style={{ padding: '5px 10px', borderRadius: '4px', border: '1px solid #ccc' }}
                     />
-                    <button type="submit" style={{padding: '5px 10px', marginLeft: '5px'}}>🔍</button>
+                    <button type="submit" style={{ padding: '5px 10px', marginLeft: '5px' }}>🔍</button>
                 </form>
             </nav>
 
             <Routes>
-
-                <Route path="/jobadd" element={<JobAdd/>} />
-
-                <Route path="/register" element={<RegistrirungPage/>}/>
-                <Route path="/login" element={<LoginForm/>}/>
-                <Route index="/" element={<Home/>}/>
-
+                <Route path="/jobadd" element={<JobAdd />} />
+                <Route path="/register" element={<RegistrirungPage />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route index="/" element={<Home />} />
             </Routes>
         </BrowserRouter>
     );
 }
 
 export default App;
-
-

@@ -36,7 +36,7 @@ function RegistrirungPage() {
 
         <div className="div1">
             <div className="div2">
-                <div className="card">
+                <div className="divreg">
                     <h2 className="titel">Registrierung</h2>
                     <div className="divreg">
                     <form onSubmit={handleRegister}>

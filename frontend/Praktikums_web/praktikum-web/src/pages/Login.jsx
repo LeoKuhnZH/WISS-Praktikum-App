@@ -245,7 +245,7 @@ function Login() {
 </form>
  
                 <div className="lg-footer">
-                    Noch kein Konto? <Link to="/">Registrieren</Link>
+                    Noch kein Konto? <Link to="/register">Registrieren</Link>
 </div>
 </div>
 </div>

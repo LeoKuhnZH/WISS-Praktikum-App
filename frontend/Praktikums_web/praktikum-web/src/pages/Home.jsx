@@ -1,11 +1,11 @@
-import  { useState } from 'react'; // Wichtig: useState importieren!
+import { useState } from 'react'; // Wichtig: useState importieren!
 import { useNavigate } from "react-router-dom";
 import UBS from '../assets/UBS.png';
 import Ergon from '../assets/Ergon.png';
 import Timer from '../assets/Timer.png';
 import Escola from '../assets/Escola.png';
 import Smoca from '../assets/Smoca.png';
-import  Boutique from '../assets/Boutique.png';
+import Boutique from '../assets/Boutique.png';
 import Bergos from '../assets/Bergos.jpg';
 import Cloud from '../assets/Cloud.jpg';
 import Netcetera from '../assets/Netcetera.jpg';
@@ -16,7 +16,20 @@ function Home() {
     const navigate = useNavigate();
     const [selectedBeruf, setSelectedBeruf] = useState('');
 
-    // 1. Die Angebote leben jetzt im State, damit man sie löschen kann
+    // State für das "Neue Stelle hinzufügen"-Formular
+    const [newJob, setNewJob] = useState({
+        titel: '',
+        firma: '',
+        kategorie: '',
+        beschreibung: '',
+        standort: '',
+        dauer: '',
+        start: '',
+        anforderung: '',
+        verguetung: ''
+    });
+
+    // 1. Die Angebote leben jetzt im State, damit man sie löschen und hinzufügen kann
     const [stellenAngebote, setStellenAngebote] = useState([
         {
             id: 1,
@@ -40,7 +53,7 @@ function Home() {
             titel: "Informatik-Praktikum EFZ — Web-Entwicklung",
             firma: "Boutique Tech Agency",
             kategorie: "applikationsentwicklung",
-            logo:  Boutique,
+            logo: Boutique,
             beschreibung: "Konzeption und Umsetzung von responsiven Webseiten und Full-Stack-Komponenten (React & Spring Boot) für KMU-Kunden in einem kleinen, agilen Team.",
             details: {
                 standort: "Zürich-West",
@@ -106,8 +119,6 @@ function Home() {
             },
             verguetung: "CHF 1'300.00 — CHF 1'700.00 / Monat"
         },
-
-
         {
             id: 6,
             titel: "Informatik-Praktikum EFZ — Full-Stack (React & Spring Boot)",
@@ -161,12 +172,11 @@ function Home() {
             },
             verguetung: "CHF 1'350.00 — CHF 1'750.00 / Monat"
         },
-
         {
             id: 9,
             titel: "Informatik-Praktikum EFZ — Applikationsentwicklung Way-Up(w/m/d)",
             firma: "Netcetera AG",
-            logo: Netcetera ,
+            logo: Netcetera,
             kategorie: "applikationsentwicklung_wayup",
             beschreibung: "Unterstütze unser Team bei der Entwicklung massgeschneiderter Softwarelösungen. Du arbeitest aktiv an der Schnittstelle zwischen Business-Anforderungen und IT, begleitest den gesamten Software-Lebenszyklus und hilfst bei der Anbindung und dem Design von RESTful APIs.",
             details: {
@@ -197,11 +207,9 @@ function Home() {
             },
             verguetung: "CHF 1'280.00 — CHF 1'580.00 / Monat"
         }
-
-
     ]);
 
-    // 2. Das Löschen funktioniert jetzt reaktiv über setStellenAngebote
+    // Funktion zum Löschen
     const handleDeleteJob = (id) => {
         if (window.confirm("Möchtest du dieses Jobangebot wirklich löschen?")) {
             const aktualisierteStellen = stellenAngebote.filter(stelle => stelle.id !== id);
@@ -210,7 +218,61 @@ function Home() {
         }
     };
 
-    // Nur NOCH EINMAL deklariert:
+    // NEU: Handler für die Formular-Eingaben
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNewJob(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    // NEU: Funktion zum Hinzufügen einer neuen Stelle
+    const handleAddJob = (e) => {
+        e.preventDefault();
+
+        // Validierung, ob die wichtigsten Felder ausgefüllt sind
+        if (!newJob.titel || !newJob.firma || !newJob.beschreibung) {
+            alert("Bitte fülle mindestens Titel, Firma und Beschreibung aus!");
+            return;
+        }
+
+        const neueStelle = {
+            id: Date.now(), // Eindeutige ID generieren
+            titel: newJob.titel,
+            firma: newJob.firma,
+            logo: Timer, // Standard-Platzhalter, da lokale Bild-Imports statisch sind
+            kategorie: newJob.kategorie,
+            beschreibung: newJob.beschreibung,
+            details: {
+                standort: newJob.standort || "Nicht angegeben",
+                dauer: newJob.dauer || "Nach Vereinbarung",
+                start: newJob.start || "Sofort",
+                anforderung: newJob.anforderung || "Keine speziellen Anforderungen",
+                timerIcon: Timer,
+                publikationsdatum: "Gerade eben"
+            },
+            verguetung: newJob.verguetung ? `CHF ${newJob.verguetung} / Monat` : "Nicht angegeben"
+        };
+
+        setStellenAngebote([neueStelle, ...stellenAngebote]); // Neue Stelle oben hinzufügen
+        alert("Neue Praktikumsstelle erfolgreich hinzugefügt!");
+
+        // Formular zurücksetzen
+        setNewJob({
+            titel: '',
+            firma: '',
+            kategorie: 'applikationsentwicklung',
+            beschreibung: '',
+            standort: '',
+            dauer: '',
+            start: '',
+            anforderung: '',
+            verguetung: ''
+        });
+    };
+
+    // Filter-Logik
     const gefiltertePraktikas = stellenAngebote.filter(stelle => {
         if (selectedBeruf === '') {
             return true;
@@ -222,14 +284,66 @@ function Home() {
     return (
         <div className="home-container" style={{ padding: '20px', fontFamily: 'sans-serif' }}>
 
-
             <header className="home-header">
-                <h1><ins>Aktuelle  verfügbare Praktikumsstellen</ins></h1>
+                <h1><ins>Aktuelle verfügbare Praktikumsstellen</ins></h1>
             </header>
 
             <h2>
                 <marquee>Entdecke einzigartige Jobangebote, welche einzigartig auf dein Profil zugeschnitten sind</marquee>
             </h2>
+
+            {/* NEU: Formular zum Hinzufügen einer neuen Praktikumsstelle */}
+            <div className="add-job-section" style={styles.formContainer}>
+                <h3 style={{ marginTop: 0, color: '#0f172a' }}>Neue Praktikumsstelle hinzufügen</h3>
+                <form onSubmit={handleAddJob} style={styles.form}>
+                    <input type="text" name="titel" placeholder="Job-Titel (z.B. Frontend Entwickler)" value={newJob.titel} onChange={handleInputChange} style={styles.input} />
+                    <input type="text" name="firma" placeholder="Firma (z.B. MyTech AG)" value={newJob.firma} onChange={handleInputChange} style={styles.input} />
+
+                    <select name="kategorie" value={newJob.kategorie} onChange={handleInputChange} style={styles.input}>
+                        <option value="applikationsentwicklung">Informatiker EFZ Applikationsentwicklung</option>
+                        <option value="plattformentwicklung">Informatiker EFZ Plattformentwicklung</option>
+                        <option value="applikationsentwicklung_wayup">Informatiker EFZ Applikationsentwicklung (Way-up)</option>
+                        <option value="fachmann">ICT-Fachmann/Fachfrau EFZ</option>
+                    </select>
+
+                    <input type="text" name="standort" placeholder="Standort (z.B. Zürich)" value={newJob.standort} onChange={handleInputChange} style={styles.input} />
+                    <select
+                        name="start"
+                        value={newJob.start}
+                        onChange={handleInputChange}
+                        style={styles.input}
+                    >
+                        <option value="">-- Startzeitpunkt wählen --</option>
+                        <option value="August 2026">August 2026 (Lehrbeginn)</option>
+                        <option value="Per sofort">Per sofort</option>
+                        <option value="Nach Vereinbarung">Nach Vereinbarung</option>
+                    </select>
+
+                    <div>
+                        <label htmlFor="dauer-select" style={{ marginRight: '10px', fontWeight: 'bold' }}>Dauer auswählen: </label>
+                        <select
+                            name="dauer"
+                            id="dauer-select"
+                            value={newJob.dauer}
+                            onChange={handleInputChange}
+                            style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                        >
+                            <option value="">-- Alle Zeiträume --</option>
+                            <option value="6">6 Monate(Minimum)</option>
+                            <option value="8">8 Monate</option>
+                            <option value="12 - 24 Monate">12-Monate</option>
+                            <option value="24 Monate (Pflichtpraktikum)">1 Jahr(24 Monate Pflichtpraktikum)</option>
+                            <option value="48 Monate">2 Jahre Pflichtpraktikum</option>
+                        </select>
+                    </div>
+                    <input type="text" name="verguetung" placeholder="Vergütung (z.B. 1'200.00)" value={newJob.verguetung} onChange={handleInputChange} style={styles.input} />
+
+                    <textarea name="beschreibung" placeholder="Kurze Berufsbeschreibung..." value={newJob.beschreibung} onChange={handleInputChange} style={{ ...styles.input, gridColumn: '1 / -1', height: '60px' }} />
+                    <textarea name="anforderung" placeholder="Anforderungen an den Bewerber..." value={newJob.anforderung} onChange={handleInputChange} style={{ ...styles.input, gridColumn: '1 / -1', height: '60px' }} />
+
+                    <button type="submit" style={styles.submitButton}>Inserat aufschalten</button>
+                </form>
+            </div>
 
             {/* Filter-Bereich */}
             <div className="filter-section" style={{ margin: '20px 0', padding: '10px', backgroundColor: '#f1f5f9', borderRadius: '8px' }}>
@@ -312,7 +426,7 @@ function Home() {
                 )}
             </main>
             <div className="box3">
-                <h2 onClick={() => navigate("/login")} style={{ cursor: 'pointer' }}><ins>Du suchst etwas spezielles? Individuelles Suchauftrag erstellen </ins></h2>
+                <h2 onClick={() => navigate("/search")} style={{ cursor: 'pointer' }}><ins>Du suchst etwas spezielles? Individuelles Suchauftrag erstellen </ins></h2>
             </div>
         </div>
     );
@@ -395,7 +509,6 @@ const styles = {
         fontWeight: '700',
         color: '#0284c7',
     },
-    // Hinzugefügter Style für den Delete-Button
     deleteButton: {
         backgroundColor: '#ef4444',
         color: '#ffffff',
@@ -406,6 +519,38 @@ const styles = {
         width: '100%',
         fontWeight: '600',
         marginTop: '10px'
+    },
+    // NEU: Styles für das Eingabeformular
+    formContainer: {
+        backgroundColor: '#f8fafc',
+        border: '1px solid #cbd5e1',
+        borderRadius: '8px',
+        padding: '20px',
+        marginBottom: '20px'
+    },
+    form: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '10px'
+    },
+    input: {
+        padding: '8px',
+        borderRadius: '4px',
+        border: '1px solid #cbd5e1',
+        fontSize: '14px',
+        fontFamily: 'sans-serif'
+    },
+    submitButton: {
+        gridColumn: '1 / -1',
+        backgroundColor: '#10b981',
+        color: 'white',
+        border: 'none',
+        padding: '10px',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        fontWeight: '600',
+        fontSize: '15px',
+        marginTop: '5px'
     }
 };
 

@@ -39,7 +39,7 @@ function RegistrierungPage() {
     return (
         <div className="lg-page">
             <div className="lg-card">
-                <h2 className="lg-title">Registrierung</h2>
+                <h1 className="lg-title">Registrierung</h1>
 
                 {error && (
                     <div className="lg-error" role="alert">
@@ -97,7 +97,29 @@ function RegistrierungPage() {
                         Registrieren
                     </button>
                 </form>
+                <br>
+                </br>
+                <div className="rg-card">
+                    <h3 className="#"> Anforderungen:</h3>
+                    <p>Passwort-Anforderungen:</p>
+                    <ul>
+                        <li className="rg-item"> Mindestens 8 Zeichen lang</li>
+                        <li className="rg-item">Mindestens 1 Großbuchstabe (A-Z)</li>
+                        <li className="rg-item">Mindestens 1 Kleinbuchstabe (a-z)</li>
+                        <li className="rg-item">Mindestens 1 Zahl (0-9)</li>
+                        <li className="rg-item">Mindestens 1 Sonderzeichen (!@#$%^&* usw.)</li>
+
+                    </ul>
+                    <p>E-Mail-Anforderungen:</p>
+                    <ul>
+                        <li className="rg-item">Muss eine gültige E-Mail-Adresse sein</li>
+                        <li className="rg-item">Muss ein @ enthalten</li>
+                        <li className="rg-item">Muss eine Domain enthalten (z.B. .de, .com, .ch)</li>
+
+                    </ul>
+                </div>
             </div>
+
         </div>
     );
 }

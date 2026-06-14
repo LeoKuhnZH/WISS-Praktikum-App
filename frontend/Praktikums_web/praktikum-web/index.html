@@ -1,13 +1,33 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Praktikum Website</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Das Favicon für den Browser-Tab (wird vom Browser automatisch klein skaliert) -->
+  <link rel="icon" type="image/jpeg" href="/src/assets/Praktikum.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Praktikumsportal WISS Connect</title>
+
+  <style>
+    /* Falls du das Logo als riesigen Hintergrund oder Header-Element willst */
+    .hero-logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      background: #fafafa;
+    }
+    .hero-logo {
+      max-width: 500px; /* Hier steuerst du, wie gigantisch das Icon sein soll */
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+<!-- Das Logo direkt groß auf der Startseite platziert -->
+
+<!-- Hier klinkt sich deine React-Applikation ein -->
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
+</body>
 </html>

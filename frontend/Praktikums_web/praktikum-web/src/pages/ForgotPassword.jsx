@@ -1,37 +1,35 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function ForgotPassword() {
     const navigate = useNavigate();
 
-    // 1. State für Formulardaten und Fehlermeldungen definiert
+    // 1. State für Formulardaten definiert (Unnötiges 'password' entfernt, da es 'newpassword' ist)
     const [formData, setFormData] = useState({
         username: '',
-        password: '',
-        confirmPassword: '',
         oldpassword: '',
-        rememberMe: ''
+        newpassword: '',
+        confirmPassword: '',
+        rememberMe: false // Als Boolean für die Checkbox initialisiert
     });
 
+    const [error, setError] = useState('');
 
-
-
-    const hasLength = formData.password.length >= 8;
-    const hasLower = /[a-z]/.test(formData.password);
-    const hasUpper = /[A-Z]/.test(formData.password);
-    const hasNumber = /\d/.test(formData.password);
+    // Dynamische Passwort-Validierung (basiert jetzt korrekt auf 'newpassword')
+    const hasLength = formData.newpassword.length >= 8;
+    const hasLower = /[a-z]/.test(formData.newpassword);
+    const hasUpper = /[A-Z]/.test(formData.newpassword);
+    const hasNumber = /\d/.test(formData.newpassword);
 
     // Prüft, ob alle Kriterien erfüllt sind
     const isPasswordValid = hasLength && hasLower && hasUpper && hasNumber;
 
-    const [error, setError] = useState('');
-
-    // 2. handleChange-Funktion hinzugefügt, damit man überhaupt tippen kann
+    // 2. Optimierte handleChange-Funktion (beachtet auch Checkboxes)
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, checked } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: type === 'checkbox' ? checked : value
         }));
     };
 
@@ -44,21 +42,23 @@ function ForgotPassword() {
             return;
         }
 
-        // Validierung: Mindestlänge für Passwort
-        if (formData.password.length < 6) {
-            setError("Das neue Passwort muss mindestens 6 Zeichen lang sein.");
+        // Validierung: Altes Passwort prüfen
+        if (formData.oldpassword.length < 6) {
+            setError("Das alte Passwort ist zu kurz!");
+            alert("Bitte ein korrektes Passwort eingeben");
+            return;
+        }
+
+        // Validierung: Neues Passwort muss den komplexen Kriterien entsprechen
+        if (!isPasswordValid) {
+            setError("Das neue Passwort erfüllt die Sicherheitsanforderungen nicht.");
             return;
         }
 
         // Validierung: Passwörter müssen übereinstimmen
-        if (formData.password !== formData.confirmPassword) {
+        if (formData.newpassword !== formData.confirmPassword) {
             setError("Die Passwörter stimmen nicht überein!");
             return;
-        }
-
-        if (formData.oldpassword < 6) {
-            setError("Das alte Password ist zu kurz!");
-            alert("Bitte ein korrektes Password eingeben");
         }
 
         // Wenn alles passt:
@@ -66,7 +66,7 @@ function ForgotPassword() {
         console.log("Passwort erfolgreich zurückgesetzt", formData);
         alert("Dein Passwort wurde erfolgreich geändert!");
 
-        // Weiterleitung zum Login (oder wo auch immer du hinwillst)
+        // Weiterleitung zum Login
         navigate("/login");
     };
 
@@ -75,7 +75,7 @@ function ForgotPassword() {
             <div className="form-karte bg-white p-8 rounded-xl shadow-md w-full max-w-md">
                 <h2 className="form-titel text-2xl font-bold mb-6 reset-password2 text-center">Reset Password</h2>
 
-                {/* Fehlermeldung im UI anzeigen, wenn eine existiert */}
+                {/* Fehlermeldung im UI anzeigen */}
                 {error && (
                     <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
                         {error}
@@ -91,50 +91,50 @@ function ForgotPassword() {
                         <input
                             id="username"
                             name="username"
-                            type="text"
-                            required="username eingeben..."
+                            type="text" // Wenn es ein Username ist, lieber 'text'. Wenn E-Mail gewünscht, auf 'email' lassen.
+                            required
                             value={formData.username}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                             placeholder="DeinUsername"
                         />
-
                     </div>
 
+                    {/* Altes Passwort Feld */}
                     <div>
-                        <label htmlfor="oldpassword" classname=" block text-sm font-medium text-gray-700 mb-1">Altes Password</label>
+                        <label htmlFor="oldpassword" className="block text-sm font-medium text-gray-700 mb-1">
+                            Altes Passwort:
+                        </label>
                         <input
                             id="oldpassword"
                             name="oldpassword"
                             type="password"
-                            required="Bitte Password eingeben"
+                            required
                             value={formData.oldpassword}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                            placeholder="Altes Password eingeben"
+                            placeholder="Altes Passwort eingeben"
                         />
-
-
-
                     </div>
-                    {/* Passwort Feld */}
+
+                    {/* Neues Passwort Feld */}
                     <div>
-                        <label htmlFor="oldpassword" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="newpassword" className="block text-sm font-medium text-gray-700 mb-1">
                             Neues Passwort*:
                         </label>
                         <input
-                            id="password"
-                            name="password"
+                            id="newpassword"
+                            name="newpassword"
                             type="password"
-                            required="Password bitte eingeben"
-                            value={formData.o}
+                            required
+                            value={formData.newpassword}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                             placeholder="••••••••"
                         />
                     </div>
 
-                    {/* Passwort bestätigen Feld (Fehlte im JSX) */}
+                    {/* Passwort bestätigen Feld */}
                     <div>
                         <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
                             Neues Passwort bestätigen:
@@ -143,7 +143,7 @@ function ForgotPassword() {
                             id="confirmPassword"
                             name="confirmPassword"
                             type="password"
-                            required="Neues Password eingeben"
+                            required
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
@@ -151,43 +151,48 @@ function ForgotPassword() {
                         />
                     </div>
 
-                    <input
-                        type="checkbox"
-                        id="rememberMe"
-                        name="rememberMe"
-                        checked={formData.rememberMe}
-                        onChange={handleChange}
-                    />
-                    <label htmlFor="rememberMe"><b>Passwort speichern</b></label>
-
-
-                    <div id="message" className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 text-sm">
-                        <h3 className="font-bold text-gray-700 mb-2">Das Passwort muss Folgendes enthalten:</h3>
-
-                        <p id="letter" className={hasLower ? 'text-green-600' : 'text-red-500'}>
-                            {hasLower ? <s>✓ Ein Kleinbuchstabe</s> : <span>• Ein <b>Kleinbuchstabe</b></span>}
-                        </p>
-
-                        <p id="capital" className={hasUpper ? 'text-green-600' : 'text-red-500'}>
-                            {hasUpper ? <s>✓ Ein Großbuchstabe</s> : <span>• Ein <b>Großbuchstabe</b></span>}
-                        </p>
-
-                        <p id="number" className={hasNumber ? 'text-green-600' : 'text-red-500'}>
-                            {hasNumber ? <s>✓ Eine Zahl</s> : <span>• Eine <b>Zahl</b></span>}
-                        </p>
-
-                        <p id="length" className={hasLength ? 'text-green-600' : 'text-red-500'}>
-                            {hasLength ? <s>✓ Mindestens 8 Zeichen</s> : <span>• Mindestens <b>8 Zeichen</b></span>}
-                        </p>
+                    {/* Remember Me Checkbox */}
+                    <div className="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            name="rememberMe"
+                            checked={formData.rememberMe}
+                            onChange={handleChange}
+                            className="rounded text-blue-600 focus:ring-blue-500"
+                        />
+                        <label htmlFor="rememberMe" className="text-sm text-gray-700">
+                            <b>Passwort speichern</b>
+                        </label>
                     </div>
 
+                    {/* Live-Validierungs-Box */}
+                    <div id="message" className="password-box p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <h3 className="title font-semibold text-sm mb-2 text-gray-700">Das Passwort muss Folgendes enthalten:</h3>
+
+                        <p id="letter" className={hasLower ? 'text-green-600 text-sm' : 'text-red-500 text-sm'}>
+                            {hasLower ? <span>✓ Ein <b>Kleinbuchstabe</b></span> : <span>• Ein <b>Kleinbuchstabe</b></span>}
+                        </p>
+
+                        <p id="capital" className={hasUpper ? 'text-green-600 text-sm' : 'text-red-500 text-sm'}>
+                            {hasUpper ? <span>✓ Ein <b>Großbuchstabe</b></span> : <span>• Ein <b>Großbuchstabe</b></span>}
+                        </p>
+
+                        <p id="number" className={hasNumber ? 'text-green-600 text-sm' : 'text-red-500 text-sm'}>
+                            {hasNumber ? <span>✓ Eine <b>Zahl</b></span> : <span>• Eine <b>Zahl</b></span>}
+                        </p>
+
+                        <p id="length" className={hasLength ? 'text-green-600 text-sm' : 'text-red-500 text-sm'}>
+                            {hasLength ? <span>✓ Mindestens <b>8 Zeichen</b></span> : <span>• Mindestens <b>8 Zeichen</b></span>}
+                        </p>
+                    </div>
 
                     {/* Button zum Abschicken */}
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg  reset-password transition"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg reset-password transition"
                     >
-                        Jetzt Password zurücksetzen
+                        Jetzt Passwort zurücksetzen
                     </button>
                 </form>
             </div>

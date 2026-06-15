@@ -7,6 +7,7 @@ import LoginForm from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
 import JobAdd from './pages/JobAdd.jsx';
 import PrivacyBanner from './components1/PrivacyBanner.jsx';
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
                 <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>
                 <Link to="/register">| Registrierung |</Link>
                 <Link to="/login">| Login |</Link>
+                <Link to="/forgotpassword">|Password vergessen|</Link>
 
                 <button onClick={toggleRadio} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit' }}>
                     | {radioLaeuft ? '⏸ Radio' : '▶ Radio'} |
@@ -70,6 +72,7 @@ function App() {
                 <Route path="/register" element={<RegistrirungPage />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route index="/" element={<Home />} />
+                <Route path="/forgotpassword" element={<ForgotPassword />} />
             </Routes>
         </BrowserRouter>
     );

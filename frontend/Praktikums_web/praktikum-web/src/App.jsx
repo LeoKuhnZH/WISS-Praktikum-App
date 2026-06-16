@@ -19,7 +19,7 @@ function App() {
     };
 
     const radioRef = useRef(
-        new Audio("https://energyzuerich.ice.infomaniak.ch/energyzuerich-high.mp3")
+        new Audio("https://livestreaming-node-1.srg-ssr.ch/srgssr/rsc_de/mp3/128")
     );
 
     const [radioLaeuft, setRadioLaeuft] = useState(false);

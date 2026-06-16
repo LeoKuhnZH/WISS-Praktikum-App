@@ -10,6 +10,7 @@ import Bergos from '../assets/Bergos.jpg';
 import Cloud from '../assets/Cloud.jpg';
 import Netcetera from '../assets/Netcetera.jpg';
 import Avaloq from '../assets/Avaloq.jpg';
+import "./components/style/style.css";
 
 function Home() {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ function Home() {
     const [selectedverguetung, setSelectedverguetung]= useState('');
 
     // State für das "Neue Stelle hinzufügen"-Formular
-    const [newJob, setNewJob] = useState({
+    /*const [newJob, setNewJob] = useState({
         titel: '',
         firma: '',
         kategorie: 'applikationsentwicklung',
@@ -35,7 +36,7 @@ function Home() {
         start: '',
         anforderung: '',
         verguetung: ''
-    });
+    });*/
 
     // Die Angebote im State
     const [stellenAngebote, setStellenAngebote] = useState([
@@ -229,7 +230,7 @@ function Home() {
         }));
     };
 
-    // Funktion zum Hinzufügen einer neuen Stelle
+    /* Funktion zum Hinzufügen einer neuen Stelle
     const handleAddJob = (e) => {
         e.preventDefault();
 
@@ -270,7 +271,7 @@ function Home() {
             anforderung: '',
             verguetung: ''
         });
-    };
+    };*/
 
     // --- KOMBINIERTE FILTER-LOGIK ---
     const gefiltertePraktikas = stellenAngebote.filter(stelle => {
@@ -341,7 +342,7 @@ function Home() {
         <div className="home-container" style={{ padding: '20px', fontFamily: 'sans-serif' }}>
 
             <header className="home-header">
-                <h1><ins>Aktuelle verfügbare Praktikumsstellen</ins></h1>
+                <h1 className="lg-title">Aktuelle verfügbare Praktikumsstellen</h1>
             </header>
 
             <marquee>
@@ -351,7 +352,7 @@ function Home() {
             </marquee>
 
             {/* Formular zum Hinzufügen einer neuen Praktikumsstelle */}
-            <div className="add-job-section" style={styles.formContainer}>
+            {/*<div className="add-job-section" style={styles.formContainer}>
                 <h3 style={{ marginTop: 0, color: '#0f172a' }}>Neue Praktikumsstelle hinzufügen</h3>
                 <form onSubmit={handleAddJob} style={styles.form}>
                     <input type="text" name="titel" placeholder="Job-Titel (z.B. Frontend Entwickler)" value={newJob.titel} onChange={handleInputChange} style={styles.input} />
@@ -381,11 +382,11 @@ function Home() {
 
                     <button type="submit" style={styles.submitButton}>Inserat aufschalten</button>
                 </form>
-            </div>
+            </div>*/}
 
             {/* --- FILTER-BEREICH --- */}
             <div className="filter-section" style={styles.filterContainer}>
-                <h3 style={{ marginTop: 0, marginBottom: '15px', color: '#1e293b' }}>🔍  Nach beliebigen Kriterien  filtern</h3>
+                <h3 style={{ marginTop: 0, marginBottom: '15px', color: '#1e293b' }}>  Nach beliebigen Kriterien  filtern</h3>
                 <div style={styles.filterGrid}>
 
                     {/* Filter 1: Kategorie */}
@@ -564,16 +565,12 @@ function Home() {
                         </div>
                     ))
                 ) : (
-                    <p style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'orange', padding: '40px' }}>
-                        Aktuell keine offenen Praktikumsstellen für die ausgewählten Filterkriterien vorhanden.
-                    </p>
+                    <h1>Top Stellen</h1>
                 )}
             </main>
 
             <div className="box3">
-                <h2 onClick={() => navigate("/search")} style={{ cursor: 'pointer' }}>
-                    <ins>Du suchst etwas spezielles? Individuellen Suchauftrag erstellen</ins>
-                </h2>
+
             </div>
         </div>
     );

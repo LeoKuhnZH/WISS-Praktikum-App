@@ -247,7 +247,7 @@ function Login() {
  
                 <div className="lg-footer">Passwort vergessen?<Link to="/forgotpassword">Passwort vergessen</Link> </div>
                 <div className="lg-footer">
-                    Noch kein Konto? <Link to="/register">Registrieren</Link>
+                    Noch kein Konto? <Link to="/register">Registriren</Link>
 </div>
 
 </div>

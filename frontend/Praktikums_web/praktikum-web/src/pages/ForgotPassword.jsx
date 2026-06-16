@@ -1,6 +1,6 @@
 import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import "./components/style/style.css";
 function ForgotPassword() {
     const navigate = useNavigate();
 
@@ -71,9 +71,10 @@ function ForgotPassword() {
     };
 
     return (
-        <div className="login-hintergrund-rot min-h-screen flex items-center justify-center">
-            <div className="form-karte bg-white p-8 rounded-xl shadow-md w-full max-w-md">
-                <h2 className="form-titel text-2xl font-bold mb-6 reset-password2 text-center">Reset Password</h2>
+        <div className="lg-page">
+            <div className="lg-card">
+                <h1 className="lg-title">Reset Password</h1>
+                <br></br>
 
                 {/* Fehlermeldung im UI anzeigen */}
                 {error && (
@@ -82,12 +83,12 @@ function ForgotPassword() {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} >
                     {/* Benutzername Feld */}
-                    <div>
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                            Benutzername*:
-                        </label>
+
+
+
+                    <div className="lg-field">
                         <input
                             id="username"
                             name="username"
@@ -95,33 +96,17 @@ function ForgotPassword() {
                             required
                             value={formData.username}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                            placeholder="DeinUsername"
+                            className="lg-input"
+                            placeholder="E-mail"
                         />
                     </div>
 
-                    {/* Altes Passwort Feld */}
-                    <div>
-                        <label htmlFor="oldpassword" className="block text-sm font-medium text-gray-700 mb-1">
-                            Altes Passwort:
-                        </label>
-                        <input
-                            id="oldpassword"
-                            name="oldpassword"
-                            type="password"
-                            required
-                            value={formData.oldpassword}
-                            onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                            placeholder="Altes Passwort eingeben"
-                        />
-                    </div>
+
+
 
                     {/* Neues Passwort Feld */}
-                    <div>
-                        <label htmlFor="newpassword" className="block text-sm font-medium text-gray-700 mb-1">
-                            Neues Passwort*:
-                        </label>
+                    <div className="lg-field">
+
                         <input
                             id="newpassword"
                             name="newpassword"
@@ -129,16 +114,14 @@ function ForgotPassword() {
                             required
                             value={formData.newpassword}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                            placeholder="••••••••"
+                            placeholder="newpassword"
+                            className="lg-input"
                         />
                     </div>
 
                     {/* Passwort bestätigen Feld */}
-                    <div>
-                        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                            Neues Passwort bestätigen:
-                        </label>
+                    <div className="lg-field">
+
                         <input
                             id="confirmPassword"
                             name="confirmPassword"
@@ -146,28 +129,16 @@ function ForgotPassword() {
                             required
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                            placeholder="••••••••"
+                            className="lg-input"
+                            placeholder="confirmPassword"
                         />
                     </div>
 
                     {/* Remember Me Checkbox */}
-                    <div className="flex items-center gap-2">
-                        <input
-                            type="checkbox"
-                            id="rememberMe"
-                            name="rememberMe"
-                            checked={formData.rememberMe}
-                            onChange={handleChange}
-                            className="rounded text-blue-600 focus:ring-blue-500"
-                        />
-                        <label htmlFor="rememberMe" className="text-sm text-gray-700">
-                            <b>Passwort speichern</b>
-                        </label>
-                    </div>
+
 
                     {/* Live-Validierungs-Box */}
-                    <div id="message" className="password-box p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="rg-card">
                         <h3 className="title font-semibold text-sm mb-2 text-gray-700">Das Passwort muss Folgendes enthalten:</h3>
 
                         <p id="letter" className={hasLower ? 'text-green-600 text-sm' : 'text-red-500 text-sm'}>
@@ -188,9 +159,10 @@ function ForgotPassword() {
                     </div>
 
                     {/* Button zum Abschicken */}
+                    <br></br>
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg reset-password transition"
+                        className="lg-btn"
                     >
                         Jetzt Passwort zurücksetzen
                     </button>

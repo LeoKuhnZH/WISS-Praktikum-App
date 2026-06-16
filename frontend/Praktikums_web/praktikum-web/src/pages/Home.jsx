@@ -11,16 +11,24 @@ import Cloud from '../assets/Cloud.jpg';
 import Netcetera from '../assets/Netcetera.jpg';
 import Avaloq from '../assets/Avaloq.jpg';
 
-
 function Home() {
     const navigate = useNavigate();
+
+    /**
+     * Filter für Praktikas nach Datum etc
+     */
     const [selectedBeruf, setSelectedBeruf] = useState('');
+    const [selectedStandort, setSelectedStandort] = useState('');
+    const [selectedStartdatum, setSelectedStartdatum] = useState('');
+    const [selectedPublikation, setSelectedPublikation] = useState('');
+    const [selectedFirma, setSelectedFirma] = useState('');
+    const [selectedverguetung, setSelectedverguetung]= useState('');
 
     // State für das "Neue Stelle hinzufügen"-Formular
     const [newJob, setNewJob] = useState({
         titel: '',
         firma: '',
-        kategorie: '',
+        kategorie: 'applikationsentwicklung',
         beschreibung: '',
         standort: '',
         dauer: '',
@@ -29,7 +37,7 @@ function Home() {
         verguetung: ''
     });
 
-    // 1. Die Angebote leben jetzt im State, damit man sie löschen und hinzufügen kann
+    // Die Angebote im State
     const [stellenAngebote, setStellenAngebote] = useState([
         {
             id: 1,
@@ -62,7 +70,6 @@ function Home() {
                 anforderung: "Laufende Informatik-Ausbildung (z.B. WISS), Motivation für moderne Frontend-Technologien wie Vue.js, React, Angular, Ruby",
                 timerIcon: Timer,
                 publikationsdatum: "Vor 10 Tagen",
-
             },
             verguetung: "CHF 1'100.00 — CHF 1'500.00 / Monat"
         },
@@ -80,14 +87,13 @@ function Home() {
                 anforderung: "Gutes Auge für Design, Typografie und Nutzerführung. Erste Erfahrungen mit Figma oder Adobe XD von Vorteil.",
                 timerIcon: Timer,
                 publikationsdatum: "Vor 5 Tagen",
-
             },
             verguetung: "CHF 1'100.00 — CHF 1'450.00 / Monat"
         },
         {
             id: 4,
             titel: "Informatik-Praktikum EFZ — Backend Java Entwicklung",
-            firma: "Ergon Informatik Ag",
+            firma: "Ergon Informatik AG",
             logo: Ergon,
             kategorie: "applikationsentwicklung",
             beschreibung: "Konzeption, Entwicklung und Absicherung von RESTful APIs und Microservices im Banking-Umfeld. Du arbeitest an Kernkomponenten moderner Finanzsoftware.",
@@ -98,7 +104,6 @@ function Home() {
                 anforderung: "Solide Grundkenntnisse in Java und objektorientierter Programmierung. Erste Erfahrungen mit Spring Boot, Java SQL oder Docker sind ein Plus aber kein Muss",
                 timerIcon: Timer,
                 publikationsdatum: "Vor 5 Tagen",
-
             },
             verguetung: "CHF 1'250.00 — CHF 1'650.00 / Monat"
         },
@@ -114,7 +119,7 @@ function Home() {
                 dauer: "12 - 24 Monate",
                 start: "August 2026",
                 anforderung: "Interesse an Linux-Systemen, Netzwerken und Automatisierung. Erste Berührungspunkte mit Docker, Kubernetes, Git oder Bash-Scripting sowie Linux",
-                publikationsdatum: "am 29.5.2025",
+                publikationsdatum: "Vor 14 Tagen",
                 timerIcon: Timer
             },
             verguetung: "CHF 1'300.00 — CHF 1'700.00 / Monat"
@@ -150,7 +155,6 @@ function Home() {
                 anforderung: "Verständnis von relationalen Datenbanken (MySQL) und Spass an UI/UX-Design. Erste Erfahrungen mit Git und Containerisierung (Docker) von Vorteil.",
                 publikationsdatum: "Vor 5 Tagen",
                 timerIcon: Timer
-
             },
             verguetung: "CHF 1'250.00 — CHF 1'550.00 / Monat"
         },
@@ -168,7 +172,6 @@ function Home() {
                 anforderung: "Grundwissen in objektorientierter Programmierung (Java) und SQL. Interesse an wirtschaftlichen Zusammenhängen und hoher Code-Qualität durch automatisiertes Testen.",
                 timerIcon: Timer,
                 publikationsdatum: "Vor 6 Tagen",
-
             },
             verguetung: "CHF 1'350.00 — CHF 1'750.00 / Monat"
         },
@@ -186,7 +189,6 @@ function Home() {
                 anforderung: "Laufende Ausbildung Informatik EFZ. Erste praktische Erfahrungen in der objektorientierten Programmierung (Java/C#) und relationalen Datenbanken. Starkes Interesse an der Brücke zwischen Wirtschaft und IT.",
                 timerIcon: Timer,
                 publikationsdatum: "Vor 1 Tag",
-
             },
             verguetung: "CHF 1'300.00 — CHF 1'650.00 / Monat"
         },
@@ -218,7 +220,7 @@ function Home() {
         }
     };
 
-    // NEU: Handler für die Formular-Eingaben
+    // Handler für die Formular-Eingaben
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewJob(prev => ({
@@ -227,38 +229,36 @@ function Home() {
         }));
     };
 
-    // NEU: Funktion zum Hinzufügen einer neuen Stelle
+    // Funktion zum Hinzufügen einer neuen Stelle
     const handleAddJob = (e) => {
         e.preventDefault();
 
-        // Validierung, ob die wichtigsten Felder ausgefüllt sind
         if (!newJob.titel || !newJob.firma || !newJob.beschreibung) {
             alert("Bitte fülle mindestens Titel, Firma und Beschreibung aus!");
             return;
         }
 
         const neueStelle = {
-            id: Date.now(), // Eindeutige ID generieren
+            id: Date.now(),
             titel: newJob.titel,
             firma: newJob.firma,
-            logo: Timer, // Standard-Platzhalter, da lokale Bild-Imports statisch sind
+            logo: Timer,
             kategorie: newJob.kategorie,
             beschreibung: newJob.beschreibung,
             details: {
                 standort: newJob.standort || "Nicht angegeben",
                 dauer: newJob.dauer || "Nach Vereinbarung",
-                start: newJob.start || "Sofort",
+                start: newJob.start || "August 2026",
                 anforderung: newJob.anforderung || "Keine speziellen Anforderungen",
                 timerIcon: Timer,
-                publikationsdatum: "Gerade eben"
+                publikationsdatum: "Vor 0 Tagen"
             },
             verguetung: newJob.verguetung ? `CHF ${newJob.verguetung} / Monat` : "Nicht angegeben"
         };
 
-        setStellenAngebote([neueStelle, ...stellenAngebote]); // Neue Stelle oben hinzufügen
+        setStellenAngebote([neueStelle, ...stellenAngebote]);
         alert("Neue Praktikumsstelle erfolgreich hinzugefügt!");
 
-        // Formular zurücksetzen
         setNewJob({
             titel: '',
             firma: '',
@@ -272,14 +272,70 @@ function Home() {
         });
     };
 
-    // Filter-Logik
+    // --- KOMBINIERTE FILTER-LOGIK ---
     const gefiltertePraktikas = stellenAngebote.filter(stelle => {
-        if (selectedBeruf === '') {
-            return true;
-        } else {
-            return stelle.kategorie === selectedBeruf;
+        const matchKategorie = selectedBeruf === '' || stelle.kategorie === selectedBeruf;
+
+        const matchStandort = selectedStandort === '' ||
+            stelle.details.standort.toLowerCase().includes(selectedStandort.toLowerCase());
+
+        const matchStart = selectedStartdatum === '' || stelle.details.start === selectedStartdatum;
+
+        const matchSelectedFirma = selectedFirma === '' ||
+            stelle.firma.toLowerCase().includes(selectedFirma.toLowerCase());
+
+        let matchPublikation = true;
+        if (selectedPublikation !== '') {
+            const tage = parseInt(stelle.details.publikationsdatum.replace(/[^0-9]/g, ''), 10) || 0;
+
+            if (selectedPublikation === 'heute') {
+                matchPublikation = stelle.details.publikationsdatum.includes('0 Tage') || stelle.details.publikationsdatum.includes('1 Tag');
+            } else if (selectedPublikation === 'woche') {
+                matchPublikation = tage <= 7;
+            } else if (selectedPublikation === 'paar Tage') {
+                matchPublikation = tage <= 5;
+            } else if (selectedPublikation === 'monat') {
+                matchPublikation = tage <= 30;
+            }
         }
-    });
+
+        let matchVergütung = true;
+        if (selectedverguetung !== '') {
+            const lohnText = stelle.verguetung || '';
+
+            // Holt nur die allererste Zahl vor dem ersten "CHF"- / Trennzeichen-Wirrwarr.
+            // Macht aus "CHF 1'250.00 — CHF 1'650.00" sauber -> "1250"
+            const ersteZahlMatch = lohnText.replace(/['\s]/g, '').match(/\d+/);
+            const lohnAnzahl = ersteZahlMatch ? parseInt(ersteZahlMatch[0], 10) : 0;
+
+            if (selectedverguetung === 'lohn-bereich') {
+                // Prüft, ob der Mindestlohn im Bereich zwischen 1250 und 1350 liegt
+                matchVergütung = lohnAnzahl >= 1250 && lohnAnzahl <= 1350;
+            }
+            else if (selectedverguetung === 'lohn-bereich2') {
+                // Prüft den zweiten Bereich zwischen 1350 und 1750
+                matchVergütung = lohnAnzahl >= 1350 && lohnAnzahl <= 1750;
+            }
+            else {
+                // Vergleicht den extrahierten Mindestlohn mit dem exakt ausgewählten Einzelwert
+                const gewaehlterLohn = parseInt(selectedverguetung, 10) || 0;
+                matchVergütung = lohnAnzahl === gewaehlterLohn;
+            }
+        }
+
+        return matchKategorie && matchStandort && matchStart && matchPublikation && matchSelectedFirma && matchVergütung;
+    }); // <-- Das hier behebt den Vite-Fehler! (Runde Klammer schliesst das .filter() )
+
+
+    const resetFilter = () => {
+        setSelectedBeruf('');
+        setSelectedStandort('');
+        setSelectedStartdatum('');
+        setSelectedPublikation('');
+        setSelectedFirma('');
+        setSelectedverguetung('');
+
+    };
 
     return (
         <div className="home-container" style={{ padding: '20px', fontFamily: 'sans-serif' }}>
@@ -288,11 +344,13 @@ function Home() {
                 <h1><ins>Aktuelle verfügbare Praktikumsstellen</ins></h1>
             </header>
 
-            <h2>
-                <marquee>Entdecke einzigartige Jobangebote, welche einzigartig auf dein Profil zugeschnitten sind</marquee>
-            </h2>
+            <marquee>
+                <h2 style={{ textShadow: "2px 2px violet" }}>
+                    Entdecke einzigartige Jobangebote, welche einzigartig auf dein Profil zugeschnitten sind
+                </h2>
+            </marquee>
 
-            {/* NEU: Formular zum Hinzufügen einer neuen Praktikumsstelle */}
+            {/* Formular zum Hinzufügen einer neuen Praktikumsstelle */}
             <div className="add-job-section" style={styles.formContainer}>
                 <h3 style={{ marginTop: 0, color: '#0f172a' }}>Neue Praktikumsstelle hinzufügen</h3>
                 <form onSubmit={handleAddJob} style={styles.form}>
@@ -306,36 +364,16 @@ function Home() {
                         <option value="fachmann">ICT-Fachmann/Fachfrau EFZ</option>
                     </select>
 
-                    <input type="text" name="standort" placeholder="Standort (z.B. Zürich)" value={newJob.standort} onChange={handleInputChange} style={styles.input} />
-                    <select
-                        name="start"
-                        value={newJob.start}
-                        onChange={handleInputChange}
-                        style={styles.input}
-                    >
-                        <option value="">-- Startzeitpunkt wählen --</option>
+                    <input type="text" name="standort" placeholder="Standort (z.B. Zürich Oerlikon)" value={newJob.standort} onChange={handleInputChange} style={styles.input} />
+
+                    <select name="start" value={newJob.start} onChange={handleInputChange} style={styles.input}>
                         <option value="August 2026">August 2026 (Lehrbeginn)</option>
+                        <option value="August 2027">August 2027 (Lehrbeginn)</option>
                         <option value="Per sofort">Per sofort</option>
                         <option value="Nach Vereinbarung">Nach Vereinbarung</option>
                     </select>
 
-                    <div>
-                        <label htmlFor="dauer-select" style={{ marginRight: '10px', fontWeight: 'bold' }}>Dauer auswählen: </label>
-                        <select
-                            name="dauer"
-                            id="dauer-select"
-                            value={newJob.dauer}
-                            onChange={handleInputChange}
-                            style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-                        >
-                            <option value="">-- Alle Zeiträume --</option>
-                            <option value="6">6 Monate(Minimum)</option>
-                            <option value="8">8 Monate</option>
-                            <option value="12 - 24 Monate">12-Monate</option>
-                            <option value="24 Monate (Pflichtpraktikum)">1 Jahr(24 Monate Pflichtpraktikum)</option>
-                            <option value="48 Monate">2 Jahre Pflichtpraktikum</option>
-                        </select>
-                    </div>
+                    <input type="text" name="dauer" placeholder="Dauer (z.B. 24 Monate)" value={newJob.dauer} onChange={handleInputChange} style={styles.input} />
                     <input type="text" name="verguetung" placeholder="Vergütung (z.B. 1'200.00)" value={newJob.verguetung} onChange={handleInputChange} style={styles.input} />
 
                     <textarea name="beschreibung" placeholder="Kurze Berufsbeschreibung..." value={newJob.beschreibung} onChange={handleInputChange} style={{ ...styles.input, gridColumn: '1 / -1', height: '60px' }} />
@@ -345,22 +383,128 @@ function Home() {
                 </form>
             </div>
 
-            {/* Filter-Bereich */}
-            <div className="filter-section" style={{ margin: '20px 0', padding: '10px', backgroundColor: '#f1f5f9', borderRadius: '8px' }}>
-                <label htmlFor="beruf-select" style={{ marginRight: '10px', fontWeight: 'bold' }}>Beruf auswählen: </label>
-                <select
-                    name="beruf"
-                    id="beruf-select"
-                    value={selectedBeruf}
-                    onChange={(e) => setSelectedBeruf(e.target.value)}
-                    style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-                >
-                    <option value="">-- IT-Beruf auswählen --</option>
-                    <option value="applikationsentwicklung">Informatiker EFZ Applikationsentwicklung</option>
-                    <option value="plattformentwicklung">Informatiker EFZ Plattformentwicklung</option>
-                    <option value="applikationsentwicklung_wayup">Informatiker EFZ Applikationsentwicklung (Way-up)</option>
-                    <option value="fachmann">ICT-Fachmann/Fachfrau EFZ</option>
-                </select>
+            {/* --- FILTER-BEREICH --- */}
+            <div className="filter-section" style={styles.filterContainer}>
+                <h3 style={{ marginTop: 0, marginBottom: '15px', color: '#1e293b' }}>🔍  Nach beliebigen Kriterien  filtern</h3>
+                <div style={styles.filterGrid}>
+
+                    {/* Filter 1: Kategorie */}
+                    <div>
+                        <label htmlFor="beruf-select" style={styles.filterLabel}>Fachbereich:</label>
+                        <select
+                            id="beruf-select"
+                            value={selectedBeruf}
+                            onChange={(e) => setSelectedBeruf(e.target.value)}
+                            style={styles.filterSelect}
+                        >
+                            <option value="">-- Alle Berufe --</option>
+                            <option value="applikationsentwicklung">Informatiker EFZ Applikationsentwicklung</option>
+                            <option value="plattformentwicklung">Informatiker EFZ Plattformentwicklung</option>
+                            <option value="applikationsentwicklung_wayup">Informatiker EFZ Applikationsentwicklung (Way-up)</option>
+                            <option value="fachmann">ICT-Fachmann/Fachfrau EFZ</option>
+                        </select>
+                    </div>
+
+                    {/* Filter 2: Firma */}
+                    <div>
+                        <label htmlFor="firma-select" style={styles.filterLabel}>Firma:</label>
+                        <select
+                            id="firma-select"
+                            value={selectedFirma}
+                            onChange={(e) => setSelectedFirma(e.target.value)}
+                            style={styles.filterSelect}
+                        >
+                            <option value="">-- Alle Firmen --</option>
+                            <option value="Ergon">Ergon Informatik AG</option>
+                            <option value="Smoca">Smoca AG</option>
+                            <option value="UBS">UBS AG</option>
+                            <option value="Avaloq">Avaloq</option>
+                            <option value="Netcetera">Netcetera</option>
+                            <option value="Boutique">Boutique Tech Agency</option>
+                            <option value="Enterprise Cloud">Enterprise Cloud Systems</option>
+                            <option value="Escola">Escola GmbH</option>
+                            <option value="Bergos">Bergos AG</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label htmlFor="lohn-select" style={styles.filterLabel}>Praktikumslohn:</label>
+                        <select
+                            id="lohn-select"
+                            value={selectedverguetung}
+                            onChange={(e) => setSelectedverguetung(e.target.value)}
+                            style={styles.filterSelect}
+                        >
+                            <option value="">-- Alle Praktikumsvergütungen --</option>
+                            <option value="lohn-bereich"> Zwischen 1'250 CHF - 1'350 CHF </option>
+                            <option value="1250">1'250 CHF</option>
+                            <option value="1100">1'100 CHF</option>
+                            <option value="1350">1'350 CHF</option>
+                            <option value="1280">1'280 CHF</option>
+                            <option value="lohn-bereich2">Zwischen 1'350  CHF und -1'700 CHF </option>
+                        </select>
+                    </div>
+
+                    {/* Filter 3: Standort */}
+                    <div>
+                        <label htmlFor="standort-select" style={styles.filterLabel}>Region / Ort:</label>
+                        <select
+                            id="standort-select"
+                            value={selectedStandort}
+                            onChange={(e) => setSelectedStandort(e.target.value)}
+                            style={styles.filterSelect}
+                        >
+                            <option value="">-- Alle Standorte --</option>
+                            <option value="Zürich">Zürich (Gesamt)</option>
+                            <option value="Oerlikon">Zürich-Oerlikon</option>
+                            <option value="Altstetten">Zürich-Altstetten</option>
+                            <option value="Winterthur">Winterthur</option>
+                            <option value="Zürich-West">Züri-West</option>
+                        </select>
+                    </div>
+
+                    {/* Filter 4: Startzeitpunkt */}
+                    <div>
+                        <label htmlFor="start-select" style={styles.filterLabel}>Startzeitpunkt:</label>
+                        <select
+                            id="start-select"
+                            value={selectedStartdatum}
+                            onChange={(e) => setSelectedStartdatum(e.target.value)}
+                            style={styles.filterSelect}
+                        >
+                            <option value="">-- Jedes Startdatum --</option>
+                            <option value="August 2026">August 2026</option>
+                            <option value="August 2027">August 2027</option>
+                            <option value="Per sofort">Per sofort</option>
+                            <option value="Nach Vereinbarung">Nach Vereinbarung</option>
+                        </select>
+                    </div>
+
+                    {/* Filter 5: Publikationsdatum */}
+                    <div>
+                        <label htmlFor="pub-select" style={styles.filterLabel}>Veröffentlichungsdatum:</label>
+                        <select
+                            id="pub-select"
+                            value={selectedPublikation}
+                            onChange={(e) => setSelectedPublikation(e.target.value)}
+                            style={styles.filterSelect}
+                        >
+                            <option value="">-- Beliebiges Datum --</option>
+                            <option value="heute">Letzte 24-48 Stunden</option>
+                            <option value="paar Tage">Letzte 5 Tage</option>
+                            <option value="woche">Letzte 7 Tage</option>
+                            <option value="monat">Letzte 30 Tage</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                {/* Filter zurücksetzen Button */}
+                {(selectedBeruf || selectedStandort || selectedStartdatum || selectedPublikation || selectedFirma ||selectedverguetung) && (
+                    <button onClick={resetFilter} style={styles.resetButton}>
+                        Filter zurücksetzen
+                    </button>
+                )}
             </div>
 
             {/* Grid-Anzeige der Stellenkarten */}
@@ -420,17 +564,20 @@ function Home() {
                         </div>
                     ))
                 ) : (
-                    <p style={{ gridColumn: '1 / -1', textAlign: 'center', color: '#64748b', padding: '20px' }}>
-                        Aktuell keine offenen Praktikumsstellen für diesen Fachbereich vorhanden.
+                    <p style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'orange', padding: '40px' }}>
+                        Aktuell keine offenen Praktikumsstellen für die ausgewählten Filterkriterien vorhanden.
                     </p>
                 )}
             </main>
+
             <div className="box3">
-                <h2 onClick={() => navigate("/search")} style={{ cursor: 'pointer' }}><ins>Du suchst etwas spezielles? Individuelles Suchauftrag erstellen </ins></h2>
+                <h2 onClick={() => navigate("/search")} style={{ cursor: 'pointer' }}>
+                    <ins>Du suchst etwas spezielles? Individuellen Suchauftrag erstellen</ins>
+                </h2>
             </div>
         </div>
     );
-}
+};
 
 const styles = {
     grid: {
@@ -520,7 +667,6 @@ const styles = {
         fontWeight: '600',
         marginTop: '10px'
     },
-    // NEU: Styles für das Eingabeformular
     formContainer: {
         backgroundColor: '#f8fafc',
         border: '1px solid #cbd5e1',
@@ -551,6 +697,44 @@ const styles = {
         fontWeight: '600',
         fontSize: '15px',
         marginTop: '5px'
+    },
+    filterContainer: {
+        margin: '20px 0',
+        padding: '20px',
+        backgroundColor: '#f1f5f9',
+        borderRadius: '8px',
+        border: '1px solid #e2e8f0'
+    },
+    filterGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '15px'
+    },
+    filterLabel: {
+        display: 'block',
+        fontSize: '13px',
+        fontWeight: 'bold',
+        marginBottom: '5px',
+        color: '#475569'
+    },
+    filterSelect: {
+        width: '100%',
+        padding: '8px',
+        borderRadius: '4px',
+        border: '1px solid #cbd5e1',
+        fontSize: '14px',
+        backgroundColor: '#fff'
+    },
+    resetButton: {
+        marginTop: '15px',
+        backgroundColor: '#64748b',
+
+        color: 'white',
+        border: 'none',
+        padding: '8px 15px',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        fontWeight: '600'
     }
 };
 

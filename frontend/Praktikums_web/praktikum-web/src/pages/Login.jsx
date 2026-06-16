@@ -243,10 +243,13 @@ function Login() {
                         {loading ? "Wird geladen..." : "Login"}
 </button>
 </form>
+
  
+                <div className="lg-footer">Passwort vergessen?<Link to="/forgotpassword">Passwort vergessen</Link> </div>
                 <div className="lg-footer">
                     Noch kein Konto? <Link to="/register">Registrieren</Link>
 </div>
+
 </div>
 </div>
     );

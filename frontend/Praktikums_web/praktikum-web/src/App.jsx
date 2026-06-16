@@ -7,6 +7,7 @@ import LoginForm from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
 import JobAdd from './pages/JobAdd.jsx';
 import PrivacyBanner from './components1/PrivacyBanner.jsx';
+import logo from './assets/PraktikumRound.png';
 
 function App() {
 
@@ -44,7 +45,13 @@ function App() {
         <BrowserRouter>
             <PrivacyBanner />
             <nav className="navbar">
-                <Link to="/">| Home |</Link>
+                <Link to="/" className="logo-link">
+                    <img
+                        src={logo}
+                        alt="WISS Hub"
+                        className="navbar-logo"
+                    />
+                </Link>
                 <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>
                 <Link to="/register">| Registrierung |</Link>
                 <Link to="/login">| Login |</Link>

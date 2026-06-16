@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx';
 import JobAdd from './pages/JobAdd.jsx';
 import PrivacyBanner from './components1/PrivacyBanner.jsx';
 import logo from './assets/PraktikumRound.png';
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 
 function App() {
 
@@ -77,6 +78,7 @@ function App() {
                 <Route path="/jobadd" element={<JobAdd />} />
                 <Route path="/register" element={<RegistrirungPage />} />
                 <Route path="/login" element={<LoginForm />} />
+                <Route path="/forgotpassword" element={<ForgotPassword />} />
                 <Route index="/" element={<Home />} />
 
             </Routes>

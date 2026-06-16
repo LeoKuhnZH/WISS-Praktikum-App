@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
- 
+ import ForgotPassword from "./ForgotPassword.jsx";
 function Login() {
     const navigate = useNavigate();
  
@@ -246,8 +246,8 @@ function Login() {
 
  
                 <div className="lg-footer">Passwort vergessen?<Link to="/forgotpassword">Passwort vergessen</Link> </div>
-                <div className="lg-footer">
-                    Noch kein Konto? <Link to="/register">Registriren</Link>
+
+                <div className="lg-footer">Noch kein Konto? <Link to="/register">Registriren</Link>
 </div>
 
 </div>

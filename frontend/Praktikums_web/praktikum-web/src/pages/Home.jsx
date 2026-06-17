@@ -516,13 +516,13 @@ function Home() {
                             <div className="card-header">
                                 <h2 className="job-title">{stelle.titel}</h2>
                                 <img
-                                    style={styles.logo}
+                                    className="logo"
                                     src={stelle.logo}
                                     alt={`${stelle.firma} Logo`}
                                 />
                             </div>
 
-                            <hr style={styles.divider} />
+                            <hr className="divider" />
 
                             <div style={styles.section}>
                                 <h3 style={styles.sectionTitle}>Berufsbeschreibung</h3>
@@ -583,17 +583,8 @@ const styles = {
 
 
 
-    logo: {
-        height: '120px',
-        objectFit: 'contain',
-        maxWidth: '100px',
-    },
-    divider: {
-        border: '0',
-        height: '1px',
-        backgroundColor: '#e2e8f0',
-        margin: '15px 0',
-    },
+
+
     section: {
         marginBottom: '12px',
     },

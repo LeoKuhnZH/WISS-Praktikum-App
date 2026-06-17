@@ -556,9 +556,9 @@ function Home() {
                                 <span className="price-value">{stelle.verguetung}</span>
                             </div>
 
-                            <button
+                            <button className="delete-button"
                                 onClick={() => handleDeleteJob(stelle.id)}
-                                style={styles.deleteButton}
+
                             >
                                 Inserat entfernen
                             </button>
@@ -590,24 +590,8 @@ const styles = {
 
 
 
-    deleteButton: {
-        backgroundColor: '#ef4444',
-        color: '#ffffff',
-        border: 'none',
-        padding: '10px',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        width: '100%',
-        fontWeight: '600',
-        marginTop: '10px'
-    },
-    formContainer: {
-        backgroundColor: '#f8fafc',
-        border: '1px solid #cbd5e1',
-        borderRadius: '8px',
-        padding: '20px',
-        marginBottom: '20px'
-    },
+
+
     form: {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',

@@ -537,7 +537,7 @@ function Home() {
                                         Zu den Details
                                     </a>
                                 </h2>
-                                <ul style={styles.list}>
+                                <ul className="list">
                                     <li><strong>Firma:</strong> {stelle.firma}</li>
                                     <li><strong>Standort:</strong> {stelle.details.standort}</li>
                                     <li><strong>Praktikumsdauer:</strong> {stelle.details.dauer}</li>
@@ -586,17 +586,8 @@ const styles = {
 
 
 
-    text: {
-        fontSize: '14px',
-        color: '#334155',
-        margin: 0,
-    },
-    list: {
-        paddingLeft: '18px',
-        margin: 0,
-        fontSize: '13px',
-        color: '#334155',
-    },
+
+
     priceContainer: {
         backgroundColor: '#f1f5f9',
         padding: '10px',

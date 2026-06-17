@@ -9,11 +9,48 @@ import java.util.Optional;
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
-    Optional<AppUser> findByUsernameIgnoreCase(String username);
+    /**
+     * Find by username optional.
+     *
+     * @param username the username
+     * @return the optional
+     */
+// Custom Query Methods für User Management
+    Optional<AppUser> findByUsername(String username);
 
-    Optional<AppUser> findByEmailIgnoreCase(String email);
+    /**
+     * Find by email optional.
+     *
+     * @param email the email
+     * @return the optional
+     */
+    Optional<AppUser> findByEmail(String email);
 
-    boolean existsByUsernameIgnoreCase(String username);
+    /**
+     * Find by email and password optional.
+     *
+     * @param email    the email
+     * @param password the password
+     * @return the optional
+     */
+// Für Login-Validierung
+    Optional<AppUser> findByEmailAndPassword(
+            String email, String password);
 
-    boolean existsByEmailIgnoreCase(String email);
+    /**
+     * Exists by username boolean.
+     *
+     * @param username the username
+     * @return the boolean
+     */
+// Prüfung ob Username bereits existiert
+    boolean existsByUsername(String username);
+
+    /**
+     * Exists by email boolean.
+     *
+     * @param email the email
+     * @return the boolean
+     */
+    boolean existsByEmail(String email);
 }

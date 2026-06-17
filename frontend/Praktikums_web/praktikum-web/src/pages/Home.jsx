@@ -524,8 +524,8 @@ function Home() {
 
                             <hr className="divider" />
 
-                            <div style={styles.section}>
-                                <h3 style={styles.sectionTitle}>Berufsbeschreibung</h3>
+                            <div className="section">
+                                <h3 className="section-title">Berufsbeschreibung</h3>
                                 <p style={styles.text}>{stelle.beschreibung}</p>
                             </div>
 
@@ -585,15 +585,7 @@ const styles = {
 
 
 
-    section: {
-        marginBottom: '12px',
-    },
-    sectionTitle: {
-        fontSize: '13px',
-        textTransform: 'uppercase',
-        color: '#64748b',
-        margin: '0 0 6px 0',
-    },
+
     text: {
         fontSize: '14px',
         color: '#334155',

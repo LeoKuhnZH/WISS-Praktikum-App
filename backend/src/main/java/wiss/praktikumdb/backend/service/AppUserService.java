@@ -72,37 +72,34 @@ public class AppUserService {
      * @param username the username
      * @return the optional
      */
-    public Optional<AppUser> findByUsername(String username) {
+    public Optional<AppUser> findByUsername(String username) {  
         return userRepository.findByUsername(username);
+    }
+
+    /**
+     * Find by username or email optional.
+     *
+     * @param usernameOrEmail the username or email
+     * @return the optional
+     */
+    public Optional<AppUser> findByUsernameOrEmail(String usernameOrEmail) {
+        return userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
     }
 
     /**
      * Authenticate user optional.
      *
-     * @param username    the username
+     * @param user        the user
      * @param rawPassword the raw password
      * @return the optional
      */
-    public Optional<AppUser> authenticateUser(String username, String rawPassword) {
-        // User suchen
-        Optional<AppUser> userOpt = userRepository.findByUsername(username);
-
-        if (userOpt.isPresent()) {
-            AppUser user = userOpt.get();
-
-            // Passwort prüfen (BCrypt macht das intern mit Salt)
-            if (passwordEncoder.matches(rawPassword, user.getPassword())) {
-                return userOpt;  // Login erfolgreich
-            }
+    public Optional<AppUser> authenticateUser(AppUser user, String rawPassword) {
+        // Passwort prüfen (BCrypt macht das intern mit Salt)
+        if (passwordEncoder.matches(rawPassword, user.getPassword())) {
+            return Optional.of(user);  // Login erfolgreich
         }
 
-        return Optional.empty();  // Login fehlgeschlagen
-    }
-
-    private boolean isValidEmail(String email) {
-        return email != null &&
-                email.contains("@") &&
-                email.length() > 3;
+        return Optional.empty();  // Login fehlgeschlagen       
     }
 
     /**

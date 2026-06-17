@@ -104,49 +104,37 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(
-            @Valid @RequestBody LoginRequestDTO request) {
+            @Valid @RequestBody LoginRequestDTO request) {      
         try {
             // 1. User finden (Username oder Email)
-            Optional<AppUser> userOpt;
-
-            // Prüfen ob Email oder Username
-            if (request.getUsernameOrEmail().contains("@")) {
-                // Hat @? → Email
-                userOpt = appUserService
-                        .findByEmail(request.getUsernameOrEmail());
-            } else {
-                // Kein @? → Username
-                userOpt = appUserService
-                        .findByUsername(request.getUsernameOrEmail());
-            }
+            Optional<AppUser> userOpt = appUserService.findByUsernameOrEmail(request.getUsernameOrEmail());
 
             // User existiert nicht
             if (userOpt.isEmpty()) {
                 return ResponseEntity
-                        .status(HttpStatus.UNAUTHORIZED)
+                        .status(HttpStatus.UNAUTHORIZED)        
                         .body(Map.of(ERROR_TEXT_BEGINNING, "Ungültige Anmeldedaten"));
             }
 
             AppUser user = userOpt.get();
 
-            // 2. Passwort prüfen mit authenticateUser
+            // 2. Passwort prüfen
             Optional<AppUser> authenticatedUser =
-                    appUserService.authenticateUser(user.getUsername(),
-                            request.getPassword());
+                    appUserService.authenticateUser(user, request.getPassword());
 
             if (authenticatedUser.isEmpty()) {
                 // Passwort falsch
                 return ResponseEntity
-                        .status(HttpStatus.UNAUTHORIZED)
+                        .status(HttpStatus.UNAUTHORIZED)        
                         .body(Map.of(ERROR_TEXT_BEGINNING, "Ungültige Anmeldedaten"));
             }
 
             // 3. JWT Token generieren
+            // Wir nutzen "ROLE_" + role.name() für Konsistenz mit Spring Security
             String token = jwtService.generateToken(
                     user.getUsername(),
-                    user.getRole().name()
+                    "ROLE_" + user.getRole().name()
             );
-
 
 
 

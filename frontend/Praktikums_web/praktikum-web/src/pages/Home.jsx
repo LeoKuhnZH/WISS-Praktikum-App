@@ -598,17 +598,7 @@ const styles = {
 
 
 
-    resetButton: {
-        marginTop: '15px',
-        backgroundColor: '#64748b',
 
-        color: 'white',
-        border: 'none',
-        padding: '8px 15px',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        fontWeight: '600'
-    }
 };
 
 export default Home;

@@ -551,9 +551,9 @@ function Home() {
                             </div>
 
                             {/* Praktikumsvergütung */}
-                            <div style={styles.priceContainer}>
-                                <span style={styles.priceLabel}>Praktikumsvergütung:</span>
-                                <span style={styles.priceValue}>{stelle.verguetung}</span>
+                            <div className="price-container">
+                                <span className="price-label">Praktikumsvergütung:</span>
+                                <span className="price-value">{stelle.verguetung}</span>
                             </div>
 
                             <button
@@ -588,24 +588,8 @@ const styles = {
 
 
 
-    priceContainer: {
-        backgroundColor: '#f1f5f9',
-        padding: '10px',
-        borderRadius: '6px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginTop: '10px',
-        marginBottom: '15px',
-    },
-    priceLabel: {
-        fontSize: '13px',
-        fontWeight: '600',
-    },
-    priceValue: {
-        fontSize: '13px',
-        fontWeight: '700',
-        color: '#0284c7',
-    },
+
+
     deleteButton: {
         backgroundColor: '#ef4444',
         color: '#ffffff',

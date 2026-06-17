@@ -385,7 +385,7 @@ function Home() {
             </div>*/}
 
             {/* --- FILTER-BEREICH --- */}
-            <div className="filter-section" style={styles.filterContainer}>
+            <div className="filter-container">
                 <h3 style={{ marginTop: 0, marginBottom: '15px', color: '#1e293b' }}>  Nach beliebigen Kriterien  filtern</h3>
                 <div style={styles.filterGrid}>
 
@@ -592,37 +592,10 @@ const styles = {
 
 
 
-    form: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '10px'
-    },
-    input: {
-        padding: '8px',
-        borderRadius: '4px',
-        border: '1px solid #cbd5e1',
-        fontSize: '14px',
-        fontFamily: 'sans-serif'
-    },
-    submitButton: {
-        gridColumn: '1 / -1',
-        backgroundColor: '#10b981',
-        color: 'white',
-        border: 'none',
-        padding: '10px',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        fontWeight: '600',
-        fontSize: '15px',
-        marginTop: '5px'
-    },
-    filterContainer: {
-        margin: '20px 0',
-        padding: '20px',
-        backgroundColor: '#f1f5f9',
-        borderRadius: '8px',
-        border: '1px solid #e2e8f0'
-    },
+
+
+
+
     filterGrid: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',

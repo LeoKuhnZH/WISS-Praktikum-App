@@ -509,10 +509,10 @@ function Home() {
             </div>
 
             {/* Grid-Anzeige der Stellenkarten */}
-            <main className="job-list" style={styles.grid}>
+            <main className="grid" >
                 {gefiltertePraktikas.length > 0 ? (
                     gefiltertePraktikas.map((stelle) => (
-                        <div key={stelle.id} style={styles.card}>
+                        <div className="card">
                             <div style={styles.cardHeader}>
                                 <h2 style={styles.jobTitle}>{stelle.titel}</h2>
                                 <img
@@ -577,22 +577,10 @@ function Home() {
 };
 
 const styles = {
-    grid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-        gap: '25px',
-        marginTop: '20px',
-    },
-    card: {
-        backgroundColor: '#ffffff',
-        borderRadius: '12px',
-        padding: '20px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        border: '1px solid #e2e8f0'
-    },
+
+
+
+
     cardHeader: {
         display: 'flex',
         justifyContent: 'space-between',

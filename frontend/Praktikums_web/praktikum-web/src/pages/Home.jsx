@@ -513,8 +513,8 @@ function Home() {
                 {gefiltertePraktikas.length > 0 ? (
                     gefiltertePraktikas.map((stelle) => (
                         <div className="card">
-                            <div style={styles.cardHeader}>
-                                <h2 style={styles.jobTitle}>{stelle.titel}</h2>
+                            <div className="card-header">
+                                <h2 className="job-title">{stelle.titel}</h2>
                                 <img
                                     style={styles.logo}
                                     src={stelle.logo}
@@ -581,17 +581,8 @@ const styles = {
 
 
 
-    cardHeader: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        gap: '10px',
-    },
-    jobTitle: {
-        fontSize: '18px',
-        color: '#0f172a',
-        margin: '0 0 10px 0',
-    },
+
+
     logo: {
         height: '120px',
         objectFit: 'contain',

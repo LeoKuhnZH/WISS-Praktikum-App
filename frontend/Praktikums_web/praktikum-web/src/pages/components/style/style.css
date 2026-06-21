@@ -211,6 +211,22 @@ body {
     text-align: center;
     margin: 0 0 8px;
 }
+
+
+.jump-element {
+    display: inline-block;
+}
+
+
+@keyframes jump {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+
+}
 .lg-sub {
     color: #6b7280;
     font-size: 14px;
@@ -227,7 +243,22 @@ body {
     border-radius: 10px;
     margin-bottom: 18px;
 }
-.lg-field { margin-bottom: 16px; position: relative; }
+
+
+
+.lg-field {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Erzeugt einen sauberen Abstand zwischen Input und Button */
+    width: 100%;
+}
+
+/* Das Input-Feld nimmt den restlichen verfügbaren Platz ein */
+.lg-field .lg-input {
+    flex: 1; /* Lässt das Input-Feld dynamisch den Platz ausfüllen */
+}
+
 .lg-input {
     width: 100%;
     box-sizing: border-box;
@@ -240,25 +271,36 @@ body {
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
+
+/* Der Button steht jetzt als eigenständige Box daneben */
+.lg-toggle {
+    background: #e2e8f0;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px; /* Passt optisch zu den abgerundeten Ecken des Inputs */
+    color: black;
+    padding: 13px 14px;  /* Gleiches vertikales Padding wie das Input-Feld für gleiche Höhe */
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 75px;     /* Verhindert Layout-Verschiebungen beim Wechsel von Show/Hide */
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.lg-toggle:hover {
+    background: #cbd5e1;
+}
+
 .lg-input::placeholder { color: #9ca3af; }
 .lg-input:focus {
     border-color: #87CEEB;
     box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.3);
 }
-.lg-toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #6b7280;
-    font-size: 13px;
-    padding: 6px 8px;
-    border-radius: 8px;
-}
-.lg-toggle:hover { color: #1f2937; }
+
+
+
+
+
 .lg-remember {
     display: flex;
     align-items: center;
@@ -299,10 +341,11 @@ body {
     font-size: 14px;
     color: #6b7280;
 }
-.lg-footer a {
-    color: #4aa8d8;
+.lg-footer a :hover {
+    
     text-decoration: none;
     font-weight: 600;
+    color:red;
 }
 .lg-footer a:hover { text-decoration: underline; }
 @media (max-width: 480px) {
@@ -324,9 +367,10 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 25px;
     margin-top: 20px;
+    background-color: #10b981;
 }
 .card {
-    background-color: #ffffff;
+    background-color: yellow;
     border-radius: 12px;
     padding: 20px;
     box-shadow:
@@ -352,12 +396,9 @@ body {
 }
 
 .logo {
-    height: 120px;
+    height: 200px;
     object-fit: contain;
     max-width: 100px;
-}
-
-.divider {
     border: 0;
     height: 1px;
     background-color: #e2e8f0;
@@ -366,12 +407,14 @@ body {
 
 .section {
     margin-bottom: 12px;
+    border-color:yellow;
 }
 
 .section-title {
     font-size: 13px;
     text-transform: uppercase;
     color: #64748b;
+
     margin: 0 0 6px 0;
 }
 
@@ -390,12 +433,14 @@ body {
 
 .price-container {
     background-color: #f1f5f9;
+    background-color:orange;    
     padding: 10px;
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
     margin-bottom: 15px;
+    justify-items: center;
 }
 
 .price-label {

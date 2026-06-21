@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./components/style/style.css";
 
 // Pfad anpassen!
@@ -10,6 +10,7 @@ function RegistrierungPage() {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
@@ -80,16 +81,22 @@ function RegistrierungPage() {
                             autoComplete="new-password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            style={{paddingRight: "70px"}}
+                            style={{ paddingRight: "70px" }}
                             required
                         />
-                        <button
-                            type="button"
-                            className="lg-toggle"
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? "Hide" : "Show"}
-                        </button>
+
+
+
+
+                    <button
+                        type="button"
+                        className="lg-toggle"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? "Hide" : "Show"}
+                    </button>
+
+
                     </div>
                     <div className="lg-field">
                         <input
@@ -97,9 +104,9 @@ function RegistrierungPage() {
                             type={showPassword ? "text" : "password"}
                             placeholder="Confirm Passwort"
                             autoComplete="new-password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            style={{paddingRight: "70px"}}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            style={{ paddingRight: "70px" }}
                             required
                         />
 

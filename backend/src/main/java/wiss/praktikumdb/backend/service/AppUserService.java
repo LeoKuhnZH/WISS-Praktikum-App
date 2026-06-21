@@ -13,70 +13,102 @@ import java.util.Optional;
 @Transactional
 public class AppUserService {
 
-    private final AppUserRepository appUserRepository;
+    // Dependencies via Constructor Injection (Best Practice!)
+    private final AppUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AppUserService(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
-        this.appUserRepository = appUserRepository;
+    /**
+     * Instantiates a new App user service.
+     *
+     * @param userRepository  the user repository
+     * @param passwordEncoder the password encoder
+     */
+    public AppUserService(AppUserRepository userRepository,
+                          PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public AppUser registerUser(String username, String email, String rawPassword) {
-        String normalizedUsername = normalizeUsername(username);
-        String normalizedEmail = normalizeEmail(email);
+    /**
+     * Register user app user.
+     *
+     * @param username    the username
+     * @param email       the email
+     * @param rawPassword the raw password
+     * @param role        the role
+     * @return the app user
+     */
+    public AppUser registerUser(String username, String email,
+                                String rawPassword, Role role) {
 
-        if (appUserRepository.existsByUsernameIgnoreCase(normalizedUsername)) {
-            throw new IllegalArgumentException("Username ist bereits vergeben");
+        // Validierung: Username bereits vergeben?
+        if (userRepository.existsByUsername(username)) {
+            throw new IllegalArgumentException(
+                    "Username '" + username + "' ist bereits vergeben"
+            );
         }
 
-        if (appUserRepository.existsByEmailIgnoreCase(normalizedEmail)) {
-            throw new IllegalArgumentException("E-Mail ist bereits registriert");
+        // Validierung: E-Mail bereits registriert?
+        if (userRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException(
+                    "Email '" + email + "' ist bereits registriert"
+            );
         }
 
-        AppUser user = new AppUser();
-        user.setUsername(normalizedUsername);
-        user.setEmail(normalizedEmail);
-        user.setPassword(passwordEncoder.encode(rawPassword));
-        user.setRole(Role.USER);
+        // Passwort hashen (NIE raw password speichern!)
+        String hashedPassword = passwordEncoder.encode(rawPassword);
 
-        return appUserRepository.save(user);
+        // User Entity erstellen
+        AppUser newUser = new AppUser(username, email, hashedPassword, role);
+
+        // Speichern und zurückgeben
+        // save() gibt den gespeicherten User MIT ID zurück
+        return userRepository.save(newUser);
     }
 
-    @Transactional(readOnly = true)
-    public Optional<AppUser> findByLogin(String usernameOrEmail) {
-        if (usernameOrEmail == null || usernameOrEmail.isBlank()) {
-            return Optional.empty();
-        }
-
-        String login = usernameOrEmail.trim();
-        if (login.contains("@")) {
-            return appUserRepository.findByEmailIgnoreCase(login.toLowerCase());
-        }
-
-        return appUserRepository.findByUsernameIgnoreCase(login);
+    /**
+     * Find by username optional.
+     *
+     * @param username the username
+     * @return the optional
+     */
+    public Optional<AppUser> findByUsername(String username) {  
+        return userRepository.findByUsername(username);
     }
 
-    @Transactional(readOnly = true)
-    public Optional<AppUser> authenticate(String usernameOrEmail, String rawPassword) {
-        if (rawPassword == null) {
-            return Optional.empty();
-        }
-
-        return findByLogin(usernameOrEmail)
-                .filter(user -> passwordEncoder.matches(rawPassword, user.getPassword()));
+    /**
+     * Find by username or email optional.
+     *
+     * @param usernameOrEmail the username or email
+     * @return the optional
+     */
+    public Optional<AppUser> findByUsernameOrEmail(String usernameOrEmail) {
+        return userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
     }
 
-    private String normalizeUsername(String username) {
-        if (username == null || username.isBlank()) {
-            throw new IllegalArgumentException("Username ist erforderlich");
+    /**
+     * Authenticate user optional.
+     *
+     * @param user        the user
+     * @param rawPassword the raw password
+     * @return the optional
+     */
+    public Optional<AppUser> authenticateUser(AppUser user, String rawPassword) {
+        // Passwort prüfen (BCrypt macht das intern mit Salt)
+        if (passwordEncoder.matches(rawPassword, user.getPassword())) {
+            return Optional.of(user);  // Login erfolgreich
         }
-        return username.trim();
+
+        return Optional.empty();  // Login fehlgeschlagen       
     }
 
-    private String normalizeEmail(String email) {
-        if (email == null || email.isBlank()) {
-            throw new IllegalArgumentException("E-Mail ist erforderlich");
-        }
-        return email.trim().toLowerCase();
+    /**
+     * Find by email optional.
+     *
+     * @param email the email
+     * @return the optional
+     */
+    public Optional<AppUser> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

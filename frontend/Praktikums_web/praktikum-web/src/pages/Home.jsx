@@ -385,18 +385,18 @@ function Home() {
             </div>*/}
 
             {/* --- FILTER-BEREICH --- */}
-            <div className="filter-section" style={styles.filterContainer}>
+            <div className="filter-container">
                 <h3 style={{ marginTop: 0, marginBottom: '15px', color: '#1e293b' }}>  Nach beliebigen Kriterien  filtern</h3>
-                <div style={styles.filterGrid}>
+                <div className="filter-group">
 
                     {/* Filter 1: Kategorie */}
                     <div>
-                        <label htmlFor="beruf-select" style={styles.filterLabel}>Fachbereich:</label>
+                        <label htmlFor="beruf-select" className="filter-label">Fachbereich:</label>
                         <select
                             id="beruf-select"
                             value={selectedBeruf}
                             onChange={(e) => setSelectedBeruf(e.target.value)}
-                            style={styles.filterSelect}
+                            className="filter-group"
                         >
                             <option value="">-- Alle Berufe --</option>
                             <option value="applikationsentwicklung">Informatiker EFZ Applikationsentwicklung</option>
@@ -408,12 +408,12 @@ function Home() {
 
                     {/* Filter 2: Firma */}
                     <div>
-                        <label htmlFor="firma-select" style={styles.filterLabel}>Firma:</label>
+                        <label htmlFor="firma-select" className="filter-label">Firma:</label>
                         <select
                             id="firma-select"
                             value={selectedFirma}
                             onChange={(e) => setSelectedFirma(e.target.value)}
-                            style={styles.filterSelect}
+                            className="filter-select"
                         >
                             <option value="">-- Alle Firmen --</option>
                             <option value="Ergon">Ergon Informatik AG</option>
@@ -429,7 +429,7 @@ function Home() {
                     </div>
 
                     <div>
-                        <label htmlFor="lohn-select" style={styles.filterLabel}>Praktikumslohn:</label>
+                        <label htmlFor="lohn-select" className="filter-label">Praktikumslohn:</label>
                         <select
                             id="lohn-select"
                             value={selectedverguetung}
@@ -448,12 +448,12 @@ function Home() {
 
                     {/* Filter 3: Standort */}
                     <div>
-                        <label htmlFor="standort-select" style={styles.filterLabel}>Region / Ort:</label>
+                        <label htmlFor="standort-select" className="filter-label">Region / Ort:</label>
                         <select
                             id="standort-select"
                             value={selectedStandort}
                             onChange={(e) => setSelectedStandort(e.target.value)}
-                            style={styles.filterSelect}
+                            className="filter-select"
                         >
                             <option value="">-- Alle Standorte --</option>
                             <option value="Zürich">Zürich (Gesamt)</option>
@@ -466,12 +466,12 @@ function Home() {
 
                     {/* Filter 4: Startzeitpunkt */}
                     <div>
-                        <label htmlFor="start-select" style={styles.filterLabel}>Startzeitpunkt:</label>
+                        <label htmlFor="start-select" className="filter-label">Startzeitpunkt:</label>
                         <select
                             id="start-select"
                             value={selectedStartdatum}
                             onChange={(e) => setSelectedStartdatum(e.target.value)}
-                            style={styles.filterSelect}
+                            className="filter-select"
                         >
                             <option value="">-- Jedes Startdatum --</option>
                             <option value="August 2026">August 2026</option>
@@ -483,13 +483,12 @@ function Home() {
 
                     {/* Filter 5: Publikationsdatum */}
                     <div>
-                        <label htmlFor="pub-select" style={styles.filterLabel}>Veröffentlichungsdatum:</label>
+                        <label htmlFor="pub-select" className="filter-label">Veröffentlichungsdatum:</label>
                         <select
                             id="pub-select"
                             value={selectedPublikation}
                             onChange={(e) => setSelectedPublikation(e.target.value)}
-                            style={styles.filterSelect}
-                        >
+                            className="filter-select"                        >
                             <option value="">-- Beliebiges Datum --</option>
                             <option value="heute">Letzte 24-48 Stunden</option>
                             <option value="paar Tage">Letzte 5 Tage</option>
@@ -502,7 +501,7 @@ function Home() {
 
                 {/* Filter zurücksetzen Button */}
                 {(selectedBeruf || selectedStandort || selectedStartdatum || selectedPublikation || selectedFirma ||selectedverguetung) && (
-                    <button onClick={resetFilter} style={styles.resetButton}>
+                    <button onClick={resetFilter} className="reset-button">
                         Filter zurücksetzen
                     </button>
                 )}
@@ -556,9 +555,9 @@ function Home() {
                                 <span className="price-value">{stelle.verguetung}</span>
                             </div>
 
-                            <button
+                            <button className="delete-button"
                                 onClick={() => handleDeleteJob(stelle.id)}
-                                style={styles.deleteButton}
+
                             >
                                 Inserat entfernen
                             </button>
@@ -590,86 +589,16 @@ const styles = {
 
 
 
-    deleteButton: {
-        backgroundColor: '#ef4444',
-        color: '#ffffff',
-        border: 'none',
-        padding: '10px',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        width: '100%',
-        fontWeight: '600',
-        marginTop: '10px'
-    },
-    formContainer: {
-        backgroundColor: '#f8fafc',
-        border: '1px solid #cbd5e1',
-        borderRadius: '8px',
-        padding: '20px',
-        marginBottom: '20px'
-    },
-    form: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '10px'
-    },
-    input: {
-        padding: '8px',
-        borderRadius: '4px',
-        border: '1px solid #cbd5e1',
-        fontSize: '14px',
-        fontFamily: 'sans-serif'
-    },
-    submitButton: {
-        gridColumn: '1 / -1',
-        backgroundColor: '#10b981',
-        color: 'white',
-        border: 'none',
-        padding: '10px',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        fontWeight: '600',
-        fontSize: '15px',
-        marginTop: '5px'
-    },
-    filterContainer: {
-        margin: '20px 0',
-        padding: '20px',
-        backgroundColor: '#f1f5f9',
-        borderRadius: '8px',
-        border: '1px solid #e2e8f0'
-    },
-    filterGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '15px'
-    },
-    filterLabel: {
-        display: 'block',
-        fontSize: '13px',
-        fontWeight: 'bold',
-        marginBottom: '5px',
-        color: '#475569'
-    },
-    filterSelect: {
-        width: '100%',
-        padding: '8px',
-        borderRadius: '4px',
-        border: '1px solid #cbd5e1',
-        fontSize: '14px',
-        backgroundColor: '#fff'
-    },
-    resetButton: {
-        marginTop: '15px',
-        backgroundColor: '#64748b',
 
-        color: 'white',
-        border: 'none',
-        padding: '8px 15px',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        fontWeight: '600'
-    }
+
+
+
+
+
+
+
+
+
 };
 
 export default Home;

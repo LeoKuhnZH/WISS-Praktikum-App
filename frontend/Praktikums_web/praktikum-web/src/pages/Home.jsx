@@ -11,9 +11,21 @@ import Cloud from '../assets/Cloud.jpg';
 import Netcetera from '../assets/Netcetera.jpg';
 import Avaloq from '../assets/Avaloq.jpg';
 import "./components/style/style.css";
+import ForgotPassword from "./ForgotPassword";
+
 
 function Home() {
     const navigate = useNavigate();
+
+
+
+
+    const [formData, setFormData] = useState({
+        username: "",
+        password: "",
+        rememberMe: false,
+    });
+
 
     /**
      * Filter für Praktikas nach Datum etc
@@ -23,7 +35,7 @@ function Home() {
     const [selectedStartdatum, setSelectedStartdatum] = useState('');
     const [selectedPublikation, setSelectedPublikation] = useState('');
     const [selectedFirma, setSelectedFirma] = useState('');
-    const [selectedverguetung, setSelectedverguetung]= useState('');
+    const [selectedverguetung, setSelectedverguetung] = useState('');
 
     // State für das "Neue Stelle hinzufügen"-Formular
     /*const [newJob, setNewJob] = useState({
@@ -59,7 +71,7 @@ function Home() {
         },
         {
             id: 2,
-            titel: "Informatik-Praktikum EFZ — Web-Entwicklung",
+            titel: "Informatik-Praktikum EFZ  als Webentwickler(React)",
             firma: "Boutique Tech Agency",
             kategorie: "applikationsentwicklung",
             logo: Boutique,
@@ -76,7 +88,7 @@ function Home() {
         },
         {
             id: 3,
-            titel: "UX/UI-Designer (m/w/d)",
+            titel: " Praktikum als UX/UI-Designer (m/w/d)",
             firma: "Boutique Tech Agency",
             logo: Boutique,
             kategorie: "applikationsentwicklung",
@@ -93,7 +105,7 @@ function Home() {
         },
         {
             id: 4,
-            titel: "Informatik-Praktikum EFZ — Backend Java Entwicklung",
+            titel: "Informatik-Praktikum EFZ  in  Backend Java Entwicklung",
             firma: "Ergon Informatik AG",
             logo: Ergon,
             kategorie: "applikationsentwicklung",
@@ -127,7 +139,7 @@ function Home() {
         },
         {
             id: 6,
-            titel: "Informatik-Praktikum EFZ — Full-Stack (React & Spring Boot)",
+            titel: "Informatik-Praktikum EFZ in  Full-Stack (React & Spring Boot)",
             firma: "Smoca AG",
             logo: Smoca,
             kategorie: "applikationsentwicklung",
@@ -144,7 +156,7 @@ function Home() {
         },
         {
             id: 7,
-            titel: "Praktikum Applikationsentwicklung — Web & Security",
+            titel: "Praktikum Applikationsentwicklung  in  Web & Security",
             firma: "Escola GmbH",
             logo: Escola,
             kategorie: "applikationsentwicklung",
@@ -161,7 +173,7 @@ function Home() {
         },
         {
             id: 8,
-            titel: "Informatik-Praktikum EFZ — Software Engineering im Banking",
+            titel: "Informatik-Praktikum EFZ im Bereich Software Engineering im Banking",
             firma: "Bergos AG",
             logo: Bergos,
             kategorie: "applikationsentwicklung",
@@ -178,7 +190,7 @@ function Home() {
         },
         {
             id: 9,
-            titel: "Informatik-Praktikum EFZ — Applikationsentwicklung Way-Up(w/m/d)",
+            titel: "Informatik-Praktikum EFZ in Applikationsentwicklung Way-Up(w/m/d)",
             firma: "Netcetera AG",
             logo: Netcetera,
             kategorie: "applikationsentwicklung_wayup",
@@ -195,7 +207,7 @@ function Home() {
         },
         {
             id: 10,
-            titel: "ICT-Fachmann / Fachfrau EFZ — Support & Application Management",
+            titel: "ICT-Fachmann / Fachfrau EFZ  in Support & Application Management",
             firma: "Avaloq Evolution AG",
             logo: Avaloq,
             kategorie: "fachmann",
@@ -298,6 +310,9 @@ function Home() {
             } else if (selectedPublikation === 'monat') {
                 matchPublikation = tage <= 30;
             }
+            else if (selectedPublikation === '3 tage') {
+                matchPublikation = tage < 3;
+            }
         }
 
         let matchVergütung = true;
@@ -385,18 +400,18 @@ function Home() {
             </div>*/}
 
             {/* --- FILTER-BEREICH --- */}
-            <div className="filter-container">
+            <div className="filter-section" style={styles.filterContainer}>
                 <h3 style={{ marginTop: 0, marginBottom: '15px', color: '#1e293b' }}>  Nach beliebigen Kriterien  filtern</h3>
-                <div className="filter-group">
+                <div style={styles.filterGrid}>
 
                     {/* Filter 1: Kategorie */}
                     <div>
-                        <label htmlFor="beruf-select" className="filter-label">Fachbereich:</label>
+                        <label htmlFor="beruf-select" style={styles.filterLabel}>Fachbereich:</label>
                         <select
                             id="beruf-select"
                             value={selectedBeruf}
                             onChange={(e) => setSelectedBeruf(e.target.value)}
-                            className="filter-group"
+                            style={styles.filterSelect}
                         >
                             <option value="">-- Alle Berufe --</option>
                             <option value="applikationsentwicklung">Informatiker EFZ Applikationsentwicklung</option>
@@ -408,12 +423,12 @@ function Home() {
 
                     {/* Filter 2: Firma */}
                     <div>
-                        <label htmlFor="firma-select" className="filter-label">Firma:</label>
+                        <label htmlFor="firma-select" style={styles.filterLabel}>Firma:</label>
                         <select
                             id="firma-select"
                             value={selectedFirma}
                             onChange={(e) => setSelectedFirma(e.target.value)}
-                            className="filter-select"
+                            style={styles.filterSelect}
                         >
                             <option value="">-- Alle Firmen --</option>
                             <option value="Ergon">Ergon Informatik AG</option>
@@ -429,7 +444,7 @@ function Home() {
                     </div>
 
                     <div>
-                        <label htmlFor="lohn-select" className="filter-label">Praktikumslohn:</label>
+                        <label htmlFor="lohn-select" style={styles.filterLabel}>Praktikumslohn:</label>
                         <select
                             id="lohn-select"
                             value={selectedverguetung}
@@ -448,12 +463,12 @@ function Home() {
 
                     {/* Filter 3: Standort */}
                     <div>
-                        <label htmlFor="standort-select" className="filter-label">Region / Ort:</label>
+                        <label htmlFor="standort-select" style={styles.filterLabel}>Region / Ort:</label>
                         <select
                             id="standort-select"
                             value={selectedStandort}
                             onChange={(e) => setSelectedStandort(e.target.value)}
-                            className="filter-select"
+                            style={styles.filterSelect}
                         >
                             <option value="">-- Alle Standorte --</option>
                             <option value="Zürich">Zürich (Gesamt)</option>
@@ -461,17 +476,18 @@ function Home() {
                             <option value="Altstetten">Zürich-Altstetten</option>
                             <option value="Winterthur">Winterthur</option>
                             <option value="Zürich-West">Züri-West</option>
+                            <option value="Zürich (Zentrum)">Zürich (Zentrum)</option>
                         </select>
                     </div>
 
                     {/* Filter 4: Startzeitpunkt */}
                     <div>
-                        <label htmlFor="start-select" className="filter-label">Startzeitpunkt:</label>
+                        <label htmlFor="start-select" style={styles.filterLabel}>Startzeitpunkt:</label>
                         <select
                             id="start-select"
                             value={selectedStartdatum}
                             onChange={(e) => setSelectedStartdatum(e.target.value)}
-                            className="filter-select"
+                            style={styles.filterSelect}
                         >
                             <option value="">-- Jedes Startdatum --</option>
                             <option value="August 2026">August 2026</option>
@@ -483,25 +499,27 @@ function Home() {
 
                     {/* Filter 5: Publikationsdatum */}
                     <div>
-                        <label htmlFor="pub-select" className="filter-label">Veröffentlichungsdatum:</label>
+                        <label htmlFor="pub-select" style={styles.filterLabel}>Veröffentlichungsdatum:</label>
                         <select
                             id="pub-select"
                             value={selectedPublikation}
                             onChange={(e) => setSelectedPublikation(e.target.value)}
-                            className="filter-select"                        >
+                            style={styles.filterSelect}
+                        >
                             <option value="">-- Beliebiges Datum --</option>
                             <option value="heute">Letzte 24-48 Stunden</option>
                             <option value="paar Tage">Letzte 5 Tage</option>
                             <option value="woche">Letzte 7 Tage</option>
                             <option value="monat">Letzte 30 Tage</option>
+                            <option value="3">Letzte 3 Tage</option>
                         </select>
                     </div>
 
                 </div>
 
                 {/* Filter zurücksetzen Button */}
-                {(selectedBeruf || selectedStandort || selectedStartdatum || selectedPublikation || selectedFirma ||selectedverguetung) && (
-                    <button onClick={resetFilter} className="reset-button">
+                {(selectedBeruf || selectedStandort || selectedStartdatum || selectedPublikation || selectedFirma || selectedverguetung) && (
+                    <button onClick={resetFilter} style={styles.resetButton}>
                         Filter zurücksetzen
                     </button>
                 )}
@@ -530,12 +548,7 @@ function Home() {
 
                             {/* Details */}
                             <div style={styles.section}>
-                                <h3 style={styles.sectionTitle}>Details zur Praktikumsstelle</h3>
-                                <h2>
-                                    <a href="#login" onClick={(e) => { e.preventDefault(); navigate("/login"); }}>
-                                        Zu den Details
-                                    </a>
-                                </h2>
+
                                 <ul className="list">
                                     <li><strong>Firma:</strong> {stelle.firma}</li>
                                     <li><strong>Standort:</strong> {stelle.details.standort}</li>
@@ -555,9 +568,9 @@ function Home() {
                                 <span className="price-value">{stelle.verguetung}</span>
                             </div>
 
-                            <button className="delete-button"
+                            <button
                                 onClick={() => handleDeleteJob(stelle.id)}
-
+                                style={styles.deleteButton}
                             >
                                 Inserat entfernen
                             </button>
@@ -589,16 +602,86 @@ const styles = {
 
 
 
+    deleteButton: {
+        backgroundColor: '#ef4444',
+        color: '#ffffff',
+        border: 'none',
+        padding: '10px',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        width: '100%',
+        fontWeight: '600',
+        marginTop: '10px'
+    },
+    formContainer: {
+        backgroundColor: '#f8fafc',
+        border: '1px solid #cbd5e1',
+        borderRadius: '8px',
+        padding: '20px',
+        marginBottom: '20px'
+    },
+    form: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '10px'
+    },
+    input: {
+        padding: '8px',
+        borderRadius: '4px',
+        border: '1px solid #cbd5e1',
+        fontSize: '14px',
+        fontFamily: 'sans-serif'
+    },
+    submitButton: {
+        gridColumn: '1 / -1',
+        backgroundColor: '#10b981',
+        color: 'white',
+        border: 'none',
+        padding: '10px',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        fontWeight: '600',
+        fontSize: '15px',
+        marginTop: '5px'
+    },
+    filterContainer: {
+        margin: '20px 0',
+        padding: '20px',
+        backgroundColor: 'brown',
+        borderRadius: '8px',
+        border: '1px solid #e2e8f0'
+    },
+    filterGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '15px'
+    },
+    filterLabel: {
+        display: 'block',
+        fontSize: '13px',
+        fontWeight: 'bold',
+        marginBottom: '5px',
+        color: '#475569'
+    },
+    filterSelect: {
+        width: '100%',
+        padding: '8px',
+        borderRadius: '4px',
+        border: '1px solid #cbd5e1',
+        fontSize: '14px',
+        backgroundColor: '#fff'
+    },
+    resetButton: {
+        marginTop: '15px',
+        backgroundColor: '#64748b',
 
-
-
-
-
-
-
-
-
-
+        color: 'white',
+        border: 'none',
+        padding: '8px 15px',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        fontWeight: '600'
+    }
 };
 
 export default Home;

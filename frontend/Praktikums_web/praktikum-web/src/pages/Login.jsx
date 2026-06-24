@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
- import ForgotPassword from "./ForgotPassword.jsx";
-function Login() {
+
+function Login({ onLoginSuccess }) {
     const navigate = useNavigate();
- 
+
     const [formData, setFormData] = useState({
         username: "",
         password: "",
         rememberMe: false,
     });
- 
+
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
- 
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData((prev) => ({
@@ -21,19 +21,19 @@ function Login() {
             [name]: type === "checkbox" ? checked : value,
         }));
     };
- 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
- 
+
         if (!formData.username.trim() || !formData.password) {
             setError("Bitte alle Felder ausfüllen.");
             return;
         }
- 
+
         try {
             setLoading(true);
- 
+
             const res = await fetch("/api/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -42,29 +42,33 @@ function Login() {
                     password: formData.password,
                 }),
             });
- 
+
             if (!res.ok) {
                 throw new Error("Login failed");
             }
- 
+
             const data = await res.json();
+
             if (formData.rememberMe) {
                 localStorage.setItem("token", data.token);
             } else {
                 sessionStorage.setItem("token", data.token);
             }
- 
-            navigate("/konto");
+
+            // Navbar über Login informieren
+            if (onLoginSuccess) onLoginSuccess(data.token);
+
+            navigate("/");
         } catch (err) {
             setError("Login fehlgeschlagen.");
         } finally {
             setLoading(false);
         }
     };
- 
+
     return (
-<div className="lg-page">
-<style>{`
+        <div className="lg-page">
+            <style>{`
                 .lg-page {
                     min-height: 100vh;
                     display: flex;
@@ -188,16 +192,16 @@ function Login() {
                     .lg-card { padding: 32px 22px; border: none; box-shadow: none; }
                 }
             `}</style>
- 
+
             <div className="lg-card">
-<h1 className="lg-title">Login</h1>
-<p className="lg-sub">Melde dich an, um fortzufahren</p>
- 
+                <h1 className="lg-title">Login</h1>
+                <p className="lg-sub">Melde dich an, um fortzufahren</p>
+
                 {error && <div className="lg-error" role="alert">{error}</div>}
- 
+
                 <form onSubmit={handleSubmit}>
-<div className="lg-field">
-<input
+                    <div className="lg-field">
+                        <input
                             className="lg-input"
                             name="username"
                             type="text"
@@ -206,10 +210,10 @@ function Login() {
                             value={formData.username}
                             onChange={handleChange}
                         />
-</div>
- 
+                    </div>
+
                     <div className="lg-field">
-<input
+                        <input
                             className="lg-input"
                             name="password"
                             type={showPassword ? "text" : "password"}
@@ -219,40 +223,40 @@ function Login() {
                             onChange={handleChange}
                             style={{ paddingRight: "70px" }}
                         />
-<button
+                        <button
                             type="button"
                             className="lg-toggle"
                             onClick={() => setShowPassword((prev) => !prev)}
                             aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
->
+                        >
                             {showPassword ? "Hide" : "Show"}
-</button>
-</div>
- 
+                        </button>
+                    </div>
+
                     <label className="lg-remember">
-<input
+                        <input
                             type="checkbox"
                             name="rememberMe"
                             checked={formData.rememberMe}
                             onChange={handleChange}
                         />
                         Remember me
-</label>
- 
+                    </label>
+
                     <button type="submit" className="lg-btn" disabled={loading}>
                         {loading ? "Wird geladen..." : "Login"}
-</button>
-</form>
+                    </button>
+                </form>
 
- 
-                <div className="lg-footer">Passwort vergessen?<Link to="/forgotpassword">Passwort vergessen</Link> </div>
-
-                <div className="lg-footer">Noch kein Konto? <Link to="/register">Registriren</Link>
-</div>
-
-</div>
-</div>
+                <div className="lg-footer">
+                    Passwort vergessen? <Link to="/forgotpassword">Passwort vergessen</Link>
+                </div>
+                <div className="lg-footer">
+                    Noch kein Konto? <Link to="/register">Registrieren</Link>
+                </div>
+            </div>
+        </div>
     );
 }
- 
+
 export default Login;

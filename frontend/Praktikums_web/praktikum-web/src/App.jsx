@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 
 import RegistrirungPage from './pages/RegistrirungPage.jsx';
@@ -13,6 +13,7 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 function App() {
 
     const [suchbegriff, setsuchbegriff] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
 
     const handleSucheSubmit = (event) => {
         event.preventDefault();
@@ -42,21 +43,36 @@ function App() {
         else playRadio();
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
+    };
+
+    const handleLoginSuccess = (token) => {
+        localStorage.setItem('token', token);
+        setIsLoggedIn(true);
+    };
+
     return (
         <BrowserRouter>
             <PrivacyBanner />
             <nav className="navbar">
                 <Link to="/" className="logo-link">
-                    <img
-                        src={logo}
-                        alt="WISS Hub"
-                        className="navbar-logo"
-                    />
+                    <img src={logo} alt="WISS Hub" className="navbar-logo" />
                 </Link>
                 <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>
                 <Link to="/register">| Registrierung |</Link>
-                <Link to="/login">| Login |</Link>
 
+                {isLoggedIn ? (
+                    <button
+                        onClick={handleLogout}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', color: 'inherit' }}
+                    >
+                        | Abmelden |
+                    </button>
+                ) : (
+                    <Link to="/login">| Login |</Link>
+                )}
 
                 <button onClick={toggleRadio} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit' }}>
                     | {radioLaeuft ? '⏸ Radio' : '▶ Radio'} |
@@ -77,10 +93,9 @@ function App() {
             <Routes>
                 <Route path="/jobadd" element={<JobAdd />} />
                 <Route path="/register" element={<RegistrirungPage />} />
-                <Route path="/login" element={<LoginForm />} />
+                <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
                 <Route index="/" element={<Home />} />
-
             </Routes>
         </BrowserRouter>
     );

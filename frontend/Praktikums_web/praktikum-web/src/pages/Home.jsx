@@ -1,5 +1,6 @@
-import {useState} from 'react'; // Wichtig: useState importieren!
+
 import {useNavigate} from "react-router-dom";
+import { useState, useEffect } from 'react';
 import UBS from '../assets/UBS.png';
 import Ergon from '../assets/Ergon.png';
 import Timer from '../assets/Timer.png';
@@ -24,6 +25,33 @@ function Home() {
     const [selectedPublikation, setSelectedPublikation] = useState('');
     const [selectedFirma, setSelectedFirma] = useState('');
     const [selectedverguetung, setSelectedverguetung] = useState('');
+
+    //Backend Funktion
+    useEffect(() => {
+        fetch("http://localhost:8080/api/posting/all")
+            .then(res => res.json())
+            .then(data => {
+                const mapped = data.map(p => ({
+                    id: p.id,
+                    titel: p.title,
+                    firma: p.company,
+                    logo: UBS,
+                    beschreibung: p.body,
+                    details: {
+                        standort: "nicht im Backend",
+                        dauer: "nicht im Backend",
+                        start: "nicht im Backend",
+                        anforderung: "nicht im Backend",
+                        publikationsdatum: "nicht im Backend",
+                        timerIcon: Timer
+                    },
+                    verguetung: "nicht im Backend"
+                }));
+                setStellenAngebote(mapped);
+            })
+            .catch(err => console.error("Fehler beim Laden:", err));
+    }, []);
+
 
 
     // Die Angebote im State
@@ -209,14 +237,7 @@ function Home() {
         }
     };
 
-    // Handler für die Formular-Eingaben
-    const handleInputChange = (e) => {
-        const {name, value} = e.target;
-        setNewJob(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+
 
 
     // --- KOMBINIERTE FILTER-LOGIK ---

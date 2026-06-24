@@ -1,5 +1,5 @@
-import { useState } from 'react'; // Wichtig: useState importieren!
-import { useNavigate } from "react-router-dom";
+import {useState} from 'react'; // Wichtig: useState importieren!
+import {useNavigate} from "react-router-dom";
 import UBS from '../assets/UBS.png';
 import Ergon from '../assets/Ergon.png';
 import Timer from '../assets/Timer.png';
@@ -23,20 +23,8 @@ function Home() {
     const [selectedStartdatum, setSelectedStartdatum] = useState('');
     const [selectedPublikation, setSelectedPublikation] = useState('');
     const [selectedFirma, setSelectedFirma] = useState('');
-    const [selectedverguetung, setSelectedverguetung]= useState('');
+    const [selectedverguetung, setSelectedverguetung] = useState('');
 
-    // State für das "Neue Stelle hinzufügen"-Formular
-    /*const [newJob, setNewJob] = useState({
-        titel: '',
-        firma: '',
-        kategorie: 'applikationsentwicklung',
-        beschreibung: '',
-        standort: '',
-        dauer: '',
-        start: '',
-        anforderung: '',
-        verguetung: ''
-    });*/
 
     // Die Angebote im State
     const [stellenAngebote, setStellenAngebote] = useState([
@@ -223,55 +211,13 @@ function Home() {
 
     // Handler für die Formular-Eingaben
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setNewJob(prev => ({
             ...prev,
             [name]: value
         }));
     };
 
-    /* Funktion zum Hinzufügen einer neuen Stelle
-    const handleAddJob = (e) => {
-        e.preventDefault();
-
-        if (!newJob.titel || !newJob.firma || !newJob.beschreibung) {
-            alert("Bitte fülle mindestens Titel, Firma und Beschreibung aus!");
-            return;
-        }
-
-        const neueStelle = {
-            id: Date.now(),
-            titel: newJob.titel,
-            firma: newJob.firma,
-            logo: Timer,
-            kategorie: newJob.kategorie,
-            beschreibung: newJob.beschreibung,
-            details: {
-                standort: newJob.standort || "Nicht angegeben",
-                dauer: newJob.dauer || "Nach Vereinbarung",
-                start: newJob.start || "August 2026",
-                anforderung: newJob.anforderung || "Keine speziellen Anforderungen",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 0 Tagen"
-            },
-            verguetung: newJob.verguetung ? `CHF ${newJob.verguetung} / Monat` : "Nicht angegeben"
-        };
-
-        setStellenAngebote([neueStelle, ...stellenAngebote]);
-        alert("Neue Praktikumsstelle erfolgreich hinzugefügt!");
-
-        setNewJob({
-            titel: '',
-            firma: '',
-            kategorie: 'applikationsentwicklung',
-            beschreibung: '',
-            standort: '',
-            dauer: '',
-            start: '',
-            anforderung: '',
-            verguetung: ''
-        });
-    };*/
 
     // --- KOMBINIERTE FILTER-LOGIK ---
     const gefiltertePraktikas = stellenAngebote.filter(stelle => {
@@ -312,12 +258,10 @@ function Home() {
             if (selectedverguetung === 'lohn-bereich') {
                 // Prüft, ob der Mindestlohn im Bereich zwischen 1250 und 1350 liegt
                 matchVergütung = lohnAnzahl >= 1250 && lohnAnzahl <= 1350;
-            }
-            else if (selectedverguetung === 'lohn-bereich2') {
+            } else if (selectedverguetung === 'lohn-bereich2') {
                 // Prüft den zweiten Bereich zwischen 1350 und 1750
                 matchVergütung = lohnAnzahl >= 1350 && lohnAnzahl <= 1750;
-            }
-            else {
+            } else {
                 // Vergleicht den extrahierten Mindestlohn mit dem exakt ausgewählten Einzelwert
                 const gewaehlterLohn = parseInt(selectedverguetung, 10) || 0;
                 matchVergütung = lohnAnzahl === gewaehlterLohn;
@@ -339,54 +283,23 @@ function Home() {
     };
 
     return (
-        <div className="home-container" style={{ padding: '20px', fontFamily: 'sans-serif' }}>
+        <div className="home-container" style={{padding: '20px', fontFamily: 'sans-serif'}}>
 
             <header className="home-header">
                 <h1 className="lg-title">Aktuelle verfügbare Praktikumsstellen</h1>
             </header>
 
             <marquee>
-                <h2 style={{ textShadow: "2px 2px violet" }}>
+                <h2 style={{textShadow: "2px 2px violet"}}>
                     Entdecke einzigartige Jobangebote, welche einzigartig auf dein Profil zugeschnitten sind
                 </h2>
             </marquee>
 
-            {/* Formular zum Hinzufügen einer neuen Praktikumsstelle */}
-            {/*<div className="add-job-section" style={styles.formContainer}>
-                <h3 style={{ marginTop: 0, color: '#0f172a' }}>Neue Praktikumsstelle hinzufügen</h3>
-                <form onSubmit={handleAddJob} style={styles.form}>
-                    <input type="text" name="titel" placeholder="Job-Titel (z.B. Frontend Entwickler)" value={newJob.titel} onChange={handleInputChange} style={styles.input} />
-                    <input type="text" name="firma" placeholder="Firma (z.B. MyTech AG)" value={newJob.firma} onChange={handleInputChange} style={styles.input} />
-
-                    <select name="kategorie" value={newJob.kategorie} onChange={handleInputChange} style={styles.input}>
-                        <option value="applikationsentwicklung">Informatiker EFZ Applikationsentwicklung</option>
-                        <option value="plattformentwicklung">Informatiker EFZ Plattformentwicklung</option>
-                        <option value="applikationsentwicklung_wayup">Informatiker EFZ Applikationsentwicklung (Way-up)</option>
-                        <option value="fachmann">ICT-Fachmann/Fachfrau EFZ</option>
-                    </select>
-
-                    <input type="text" name="standort" placeholder="Standort (z.B. Zürich Oerlikon)" value={newJob.standort} onChange={handleInputChange} style={styles.input} />
-
-                    <select name="start" value={newJob.start} onChange={handleInputChange} style={styles.input}>
-                        <option value="August 2026">August 2026 (Lehrbeginn)</option>
-                        <option value="August 2027">August 2027 (Lehrbeginn)</option>
-                        <option value="Per sofort">Per sofort</option>
-                        <option value="Nach Vereinbarung">Nach Vereinbarung</option>
-                    </select>
-
-                    <input type="text" name="dauer" placeholder="Dauer (z.B. 24 Monate)" value={newJob.dauer} onChange={handleInputChange} style={styles.input} />
-                    <input type="text" name="verguetung" placeholder="Vergütung (z.B. 1'200.00)" value={newJob.verguetung} onChange={handleInputChange} style={styles.input} />
-
-                    <textarea name="beschreibung" placeholder="Kurze Berufsbeschreibung..." value={newJob.beschreibung} onChange={handleInputChange} style={{ ...styles.input, gridColumn: '1 / -1', height: '60px' }} />
-                    <textarea name="anforderung" placeholder="Anforderungen an den Bewerber..." value={newJob.anforderung} onChange={handleInputChange} style={{ ...styles.input, gridColumn: '1 / -1', height: '60px' }} />
-
-                    <button type="submit" style={styles.submitButton}>Inserat aufschalten</button>
-                </form>
-            </div>*/}
 
             {/* --- FILTER-BEREICH --- */}
             <div className="filter-container">
-                <h3 style={{ marginTop: 0, marginBottom: '15px', color: '#1e293b' }}>  Nach beliebigen Kriterien  filtern</h3>
+                <h3 style={{marginTop: 0, marginBottom: '15px', color: '#1e293b'}}> Nach beliebigen Kriterien
+                    filtern</h3>
                 <div className="filter-group">
 
                     {/* Filter 1: Kategorie */}
@@ -401,7 +314,9 @@ function Home() {
                             <option value="">-- Alle Berufe --</option>
                             <option value="applikationsentwicklung">Informatiker EFZ Applikationsentwicklung</option>
                             <option value="plattformentwicklung">Informatiker EFZ Plattformentwicklung</option>
-                            <option value="applikationsentwicklung_wayup">Informatiker EFZ Applikationsentwicklung (Way-up)</option>
+                            <option value="applikationsentwicklung_wayup">Informatiker EFZ Applikationsentwicklung
+                                (Way-up)
+                            </option>
                             <option value="fachmann">ICT-Fachmann/Fachfrau EFZ</option>
                         </select>
                     </div>
@@ -437,12 +352,12 @@ function Home() {
                             style={styles.filterSelect}
                         >
                             <option value="">-- Alle Praktikumsvergütungen --</option>
-                            <option value="lohn-bereich"> Zwischen 1'250 CHF - 1'350 CHF </option>
+                            <option value="lohn-bereich"> Zwischen 1'250 CHF - 1'350 CHF</option>
                             <option value="1250">1'250 CHF</option>
                             <option value="1100">1'100 CHF</option>
                             <option value="1350">1'350 CHF</option>
                             <option value="1280">1'280 CHF</option>
-                            <option value="lohn-bereich2">Zwischen 1'350  CHF und -1'700 CHF </option>
+                            <option value="lohn-bereich2">Zwischen 1'350 CHF und -1'700 CHF</option>
                         </select>
                     </div>
 
@@ -488,7 +403,7 @@ function Home() {
                             id="pub-select"
                             value={selectedPublikation}
                             onChange={(e) => setSelectedPublikation(e.target.value)}
-                            className="filter-select"                        >
+                            className="filter-select">
                             <option value="">-- Beliebiges Datum --</option>
                             <option value="heute">Letzte 24-48 Stunden</option>
                             <option value="paar Tage">Letzte 5 Tage</option>
@@ -500,7 +415,7 @@ function Home() {
                 </div>
 
                 {/* Filter zurücksetzen Button */}
-                {(selectedBeruf || selectedStandort || selectedStartdatum || selectedPublikation || selectedFirma ||selectedverguetung) && (
+                {(selectedBeruf || selectedStandort || selectedStartdatum || selectedPublikation || selectedFirma || selectedverguetung) && (
                     <button onClick={resetFilter} className="reset-button">
                         Filter zurücksetzen
                     </button>
@@ -508,7 +423,7 @@ function Home() {
             </div>
 
             {/* Grid-Anzeige der Stellenkarten */}
-            <main className="grid" >
+            <main className="grid">
                 {gefiltertePraktikas.length > 0 ? (
                     gefiltertePraktikas.map((stelle) => (
                         <div className="card">
@@ -521,7 +436,7 @@ function Home() {
                                 />
                             </div>
 
-                            <hr className="divider" />
+                            <hr className="divider"/>
 
                             <div className="section">
                                 <h3 className="section-title">Berufsbeschreibung</h3>
@@ -532,7 +447,10 @@ function Home() {
                             <div style={styles.section}>
                                 <h3 style={styles.sectionTitle}>Details zur Praktikumsstelle</h3>
                                 <h2>
-                                    <a href="#login" onClick={(e) => { e.preventDefault(); navigate("/login"); }}>
+                                    <a href="#login" onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate("/login");
+                                    }}>
                                         Zu den Details
                                     </a>
                                 </h2>
@@ -544,7 +462,12 @@ function Home() {
                                     <li><strong>Anforderungen:</strong> {stelle.details.anforderung}</li>
                                     <li>
                                         <strong>Publikationsdatum:</strong> {stelle.details.publikationsdatum}
-                                        {stelle.details.timerIcon && <img src={stelle.details.timerIcon} alt="Timer" style={{ width: '14px', marginLeft: '5px', verticalAlign: 'middle' }} />}
+                                        {stelle.details.timerIcon && <img src={stelle.details.timerIcon} alt="Timer"
+                                                                          style={{
+                                                                              width: '14px',
+                                                                              marginLeft: '5px',
+                                                                              verticalAlign: 'middle'
+                                                                          }}/>}
                                     </li>
                                 </ul>
                             </div>
@@ -556,7 +479,7 @@ function Home() {
                             </div>
 
                             <button className="delete-button"
-                                onClick={() => handleDeleteJob(stelle.id)}
+                                    onClick={() => handleDeleteJob(stelle.id)}
 
                             >
                                 Inserat entfernen
@@ -575,30 +498,6 @@ function Home() {
     );
 };
 
-const styles = {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-};
+const styles = {};
 
 export default Home;

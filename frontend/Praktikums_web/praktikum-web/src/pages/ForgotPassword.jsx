@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./components/style/style.css";
 function ForgotPassword() {
@@ -12,6 +12,7 @@ function ForgotPassword() {
         confirmPassword: '',
         rememberMe: false // Als Boolean für die Checkbox initialisiert
     });
+    const [showPassword, setShowPassword] = useState(false);
 
     const [error, setError] = useState('');
 
@@ -106,17 +107,24 @@ function ForgotPassword() {
 
                     {/* Neues Passwort Feld */}
                     <div className="lg-field">
-
                         <input
-                            id="newpassword"
-                            name="newpassword"
-                            type="password"
-                            required
-                            value={formData.newpassword}
-                            onChange={handleChange}
-                            placeholder="newpassword"
                             className="lg-input"
+                            name="password"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Passwort"
+                            autoComplete="current-password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            style={{ paddingRight: "70px" }}
                         />
+                        <button
+                            type="button"
+                            className="lg-toggle"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
                     </div>
 
                     {/* Passwort bestätigen Feld */}
@@ -132,6 +140,14 @@ function ForgotPassword() {
                             className="lg-input"
                             placeholder="confirmPassword"
                         />
+                         <button
+                            type="button"
+                            className="lg-toggle"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            aria-label={showPassword ? "Passwort verbergen" : "Passwort anzeigen"}
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
                     </div>
 
                     {/* Remember Me Checkbox */}

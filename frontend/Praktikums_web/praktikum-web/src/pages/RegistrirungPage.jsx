@@ -2,12 +2,10 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "./components/style/style.css";
 
-// Pfad anpassen!
-// import API from "./API";
-
 function RegistrierungPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -18,21 +16,31 @@ function RegistrierungPage() {
         e.preventDefault();
         setError("");
 
+        if (password !== confirmPassword) {
+            setError("Passwörter stimmen nicht überein.");
+            return;
+        }
+
         try {
-            const response = await API.post("/auth/register", {
-                username,
-                password,
-                email,
+            const response = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username,
+                    password,
+                    email,
+                }),
             });
 
-            console.log("Registrierung erfolgreich:", response.data);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Registrierung fehlgeschlagen");
+            }
+
             navigate("/login");
         } catch (error) {
             console.error("Fehler bei der Registrierung:", error);
-
-            setError(
-                "Bitte prüfen Sie, ob Ihr Passwort mindestens 8 Zeichen lang ist und die E-Mail-Adresse korrekt ist."
-            );
+            setError(error.message || "Fehler bei der Registrierung.");
         }
     };
 
@@ -97,8 +105,8 @@ function RegistrierungPage() {
                             type={showPassword ? "text" : "password"}
                             placeholder="Confirm Passwort"
                             autoComplete="new-password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             style={{paddingRight: "70px"}}
                             required
                         />

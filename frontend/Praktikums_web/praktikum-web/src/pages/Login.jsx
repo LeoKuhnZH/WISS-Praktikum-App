@@ -34,20 +34,20 @@ function Login({ onLoginSuccess }) {
         try {
             setLoading(true);
 
-            const res = await fetch("/api/login", {
+            const res = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    username: formData.username.trim(),
+                    usernameOrEmail: formData.username.trim(),
                     password: formData.password,
                 }),
             });
 
-            if (!res.ok) {
-                throw new Error("Login failed");
-            }
-
             const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || "Login fehlgeschlagen");
+            }
 
             if (formData.rememberMe) {
                 localStorage.setItem("token", data.token);

@@ -13,7 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import wiss.praktikumdb.backend.security.JwtAuthenticationFilter;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -69,14 +73,11 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 // CORS: Cross-Origin Request erlauben
-                // Fronten auf Port 5173 darf Backend auf 8080 ansprechen
-                .cors(org.springframework.security.config.Customizer.withDefaults())
+                // Frontend auf Port 5173 darf Backend auf 8080 ansprechen
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/swagger-ui/**",
                                 "/v3/api-docs/**").permitAll()
-                        // GEÄNDERT: Jetzt brauchen jeder Request einen gültigen Token
-                        // Vorher: permitAll() -> Jeder durfte alles
-                        // Jetzt: authenticated() -> Nur eingeloggte User
                         .anyRequest().authenticated()
                 )
                 // Stateless Sessions: Spring speichert KEINE Session-Daten
@@ -91,5 +92,19 @@ public class SecurityConfig {
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+// Cors Cofiguration from Vinci4600
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(false);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/**", configuration);
+        return source;
     }
 }

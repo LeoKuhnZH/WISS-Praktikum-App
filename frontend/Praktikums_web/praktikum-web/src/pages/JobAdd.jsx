@@ -3,7 +3,7 @@ import './JobAdd.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = 'http://localhost:8080/api/posting';
+const API_BASE = '/api/posting';
 
 function JobAdd() {
     const navigate = useNavigate();
@@ -41,6 +41,13 @@ function JobAdd() {
         setLoading(true);
 
         try {
+            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+            if (!token) {
+                setError('Bitte logge dich zuerst ein, bevor du ein Praktikum hinzufügst.');
+                setLoading(false);
+                return;
+            }
+
             const payload = {
                 title: formData.title,
                 company: formData.company,
@@ -56,7 +63,10 @@ function JobAdd() {
 
             const response = await fetch(`${API_BASE}/create`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
                 body: JSON.stringify(payload),
             });
 

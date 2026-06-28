@@ -26,207 +26,41 @@ function Home() {
     const [selectedFirma, setSelectedFirma] = useState('');
     const [selectedverguetung, setSelectedverguetung] = useState('');
 
-    //Backend Funktion
+    // Backend Funktion
+    const [stellenAngebote, setStellenAngebote] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        fetch("http://localhost:8080/api/posting/all")
-            .then(res => res.json())
+        fetch("/api/posting/all")
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Backend Fehler ${res.status}: ${res.statusText}`);
+                }
+                return res.json();
+            })
             .then(data => {
                 const mapped = data.map(p => ({
                     id: p.id,
+                    kategorie: p.position || '',
                     titel: p.title,
                     firma: p.company,
                     logo: UBS,
                     beschreibung: p.body,
                     details: {
-                        standort: "nicht im Backend",
-                        dauer: "nicht im Backend",
-                        start: "nicht im Backend",
-                        anforderung: "nicht im Backend",
-                        publikationsdatum: "nicht im Backend",
+                        standort: p.position || "Standort nicht verfügbar",
+                        dauer: p.expirationDate || "keine Angabe",
+                        start: p.dateCreated ? new Date(p.dateCreated).toLocaleDateString() : "keine Angabe",
+                        anforderung: p.companyDescription || "keine Angabe",
+                        publikationsdatum: p.dateCreated ? new Date(p.dateCreated).toLocaleDateString() : "keine Angabe",
                         timerIcon: Timer
                     },
                     verguetung: "nicht im Backend"
                 }));
                 setStellenAngebote(mapped);
             })
-            .catch(err => console.error("Fehler beim Laden:", err));
+            .catch(err => console.error("Fehler beim Laden:", err))
+            .finally(() => setLoading(false));
     }, []);
-
-
-
-    // Die Angebote im State
-    const [stellenAngebote, setStellenAngebote] = useState([
-        {
-            id: 1,
-            titel: "Praktikant Frontend Entwicklung (m/w/d)",
-            firma: "UBS AG",
-            logo: UBS,
-            kategorie: "applikationsentwicklung",
-            beschreibung: "Unterstütze unser Team bei der Modernisierung von Web-Dashboards mit React und TypeScript. Du lernst agile Softwareentwicklung in einem internationalen Umfeld kennen.",
-            details: {
-                standort: "Zürich (Oerlikon / Altstetten)",
-                dauer: "12 - 24 Monate",
-                start: "August 2026",
-                anforderung: "Grundkenntnisse in HTML, CSS und JavaScript. Erste Erfahrungen mit einem Framework (z.B. React) von Vorteil.",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 14 Tagen"
-            },
-            verguetung: "CHF 1'200.00 — CHF 1'600.00 / Monat"
-        },
-        {
-            id: 2,
-            titel: "Informatik-Praktikum EFZ — Web-Entwicklung",
-            firma: "Boutique Tech Agency",
-            kategorie: "applikationsentwicklung",
-            logo: Boutique,
-            beschreibung: "Konzeption und Umsetzung von responsiven Webseiten und Full-Stack-Komponenten (React & Spring Boot) für KMU-Kunden in einem kleinen, agilen Team.",
-            details: {
-                standort: "Zürich-West",
-                dauer: "24 Monate (Pflichtpraktikum)",
-                start: "August 2026",
-                anforderung: "Laufende Informatik-Ausbildung (z.B. WISS), Motivation für moderne Frontend-Technologien wie Vue.js, React, Angular, Ruby",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 10 Tagen",
-            },
-            verguetung: "CHF 1'100.00 — CHF 1'500.00 / Monat"
-        },
-        {
-            id: 3,
-            titel: "UX/UI-Designer (m/w/d)",
-            firma: "Boutique Tech Agency",
-            logo: Boutique,
-            kategorie: "applikationsentwicklung",
-            beschreibung: "Gestaltung von intuitiven Benutzeroberflächen, Wireframes und interaktiven Prototypen für Web- und Mobile-Applikationen in enger Zusammenarbeit mit der Entwicklung.",
-            details: {
-                standort: "Zürich-West",
-                dauer: "24 Monate (Pflichtpraktikum)",
-                start: "August 2026",
-                anforderung: "Gutes Auge für Design, Typografie und Nutzerführung. Erste Erfahrungen mit Figma oder Adobe XD von Vorteil.",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 5 Tagen",
-            },
-            verguetung: "CHF 1'100.00 — CHF 1'450.00 / Monat"
-        },
-        {
-            id: 4,
-            titel: "Informatik-Praktikum EFZ — Backend Java Entwicklung",
-            firma: "Ergon Informatik AG",
-            logo: Ergon,
-            kategorie: "applikationsentwicklung",
-            beschreibung: "Konzeption, Entwicklung und Absicherung von RESTful APIs und Microservices im Banking-Umfeld. Du arbeitest an Kernkomponenten moderner Finanzsoftware.",
-            details: {
-                standort: "Zürich (Oerlikon)",
-                dauer: "24 Monate (Pflichtpraktikum)",
-                start: "August 2026",
-                anforderung: "Solide Grundkenntnisse in Java und objektorientierter Programmierung. Erste Erfahrungen mit Spring Boot, Java SQL oder Docker sind ein Plus aber kein Muss",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 5 Tagen",
-            },
-            verguetung: "CHF 1'250.00 — CHF 1'650.00 / Monat"
-        },
-        {
-            id: 5,
-            titel: "Praktikant ICT Platform Engineering / DevOps",
-            firma: "Enterprise Cloud Systems",
-            logo: Cloud,
-            beschreibung: "Unterstützung beim Aufbau und Betrieb moderner Cloud-Infrastrukturen, der Automatisierung von CI/CD-Pipelines und der Container-Orchestrierung.",
-            kategorie: "plattformentwicklung",
-            details: {
-                standort: "Zürich (Altstetten)",
-                dauer: "12 - 24 Monate",
-                start: "August 2026",
-                anforderung: "Interesse an Linux-Systemen, Netzwerken und Automatisierung. Erste Berührungspunkte mit Docker, Kubernetes, Git oder Bash-Scripting sowie Linux",
-                publikationsdatum: "Vor 14 Tagen",
-                timerIcon: Timer
-            },
-            verguetung: "CHF 1'300.00 — CHF 1'700.00 / Monat"
-        },
-        {
-            id: 6,
-            titel: "Informatik-Praktikum EFZ — Full-Stack (React & Spring Boot)",
-            firma: "Smoca AG",
-            logo: Smoca,
-            kategorie: "applikationsentwicklung",
-            beschreibung: "Entwickle innovative Full-Stack-Webapps und Dashboards. Du arbeitest aktiv an der Schnittstelle zwischen Business und IT und setzt moderne Architekturen mit React im Frontend und Java Spring Boot im Backend um.",
-            details: {
-                standort: "Winterthur",
-                dauer: "24 Monate (Pflichtpraktikum)",
-                start: "August 2026",
-                anforderung: "Laufende Ausbildung zum Informatiker EFZ. Gute Basis in Java und JavaScript. Motivation für das Designen von übersichtlichen Dashboards und RESTful APIs.",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 2 Tagen"
-            },
-            verguetung: "CHF 1'200.00 — CHF 1'600.00 / Monat"
-        },
-        {
-            id: 7,
-            titel: "Praktikum Applikationsentwicklung — Web & Security",
-            firma: "Escola GmbH",
-            logo: Escola,
-            kategorie: "applikationsentwicklung",
-            beschreibung: "Unterstütze die Weiterentwicklung unserer Web-Plattform im Bildungsbereich. Du implementierst responsive UI-Komponenten und hilfst dabei, Backend-Logiken sowie moderne Authentifizierungslösungen (JWT, Spring Security) abzusichern.",
-            details: {
-                standort: "Zürich (Oerlikon)",
-                dauer: "24 Monate (Pflichtpraktikum)",
-                start: "August 2026",
-                anforderung: "Verständnis von relationalen Datenbanken (MySQL) und Spass an UI/UX-Design. Erste Erfahrungen mit Git und Containerisierung (Docker) von Vorteil.",
-                publikationsdatum: "Vor 5 Tagen",
-                timerIcon: Timer
-            },
-            verguetung: "CHF 1'250.00 — CHF 1'550.00 / Monat"
-        },
-        {
-            id: 8,
-            titel: "Informatik-Praktikum EFZ — Software Engineering im Banking",
-            firma: "Bergos AG",
-            logo: Bergos,
-            kategorie: "applikationsentwicklung",
-            beschreibung: "Mitarbeit an der Schnittstelle von Finanzdaten und Softwareentwicklung. Du unterstützt unser Team bei der Anbindung von REST-Schnittstellen, der Pflege von Datenbanken und der Erstellung von automatisierten Unit-Tests.",
-            details: {
-                standort: "Zürich (Zentrum)",
-                dauer: "24 Monate (Pflichtpraktikum)",
-                start: "August 2026",
-                anforderung: "Grundwissen in objektorientierter Programmierung (Java) und SQL. Interesse an wirtschaftlichen Zusammenhängen und hoher Code-Qualität durch automatisiertes Testen.",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 6 Tagen",
-            },
-            verguetung: "CHF 1'350.00 — CHF 1'750.00 / Monat"
-        },
-        {
-            id: 9,
-            titel: "Informatik-Praktikum EFZ — Applikationsentwicklung Way-Up(w/m/d)",
-            firma: "Netcetera AG",
-            logo: Netcetera,
-            kategorie: "applikationsentwicklung_wayup",
-            beschreibung: "Unterstütze unser Team bei der Entwicklung massgeschneiderter Softwarelösungen. Du arbeitest aktiv an der Schnittstelle zwischen Business-Anforderungen und IT, begleitest den gesamten Software-Lebenszyklus und hilfst bei der Anbindung und dem Design von RESTful APIs.",
-            details: {
-                standort: "Zürich (Zentrum)",
-                dauer: "24 Monate (Pflichtpraktikum)",
-                start: "August 2026",
-                anforderung: "Laufende Ausbildung Informatik EFZ. Erste praktische Erfahrungen in der objektorientierten Programmierung (Java/C#) und relationalen Datenbanken. Starkes Interesse an der Brücke zwischen Wirtschaft und IT.",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 1 Tag",
-            },
-            verguetung: "CHF 1'300.00 — CHF 1'650.00 / Monat"
-        },
-        {
-            id: 10,
-            titel: "ICT-Fachmann / Fachfrau EFZ — Support & Application Management",
-            firma: "Avaloq Evolution AG",
-            logo: Avaloq,
-            kategorie: "fachmann",
-            beschreibung: "Betreuung und Konfiguration unserer Applikationslandschaft im FinTech-Bereich. Du agierst als Bindeglied zwischen Anwendern und Entwicklung, analysierst Systemmeldungen, unterstützt im 2nd-Level-Support und hilfst bei kleineren Code-Anpassungen sowie API-Tests mit.",
-            details: {
-                standort: "Zürich-West",
-                dauer: "24 Monate (Pflichtpraktikum)",
-                start: "August 2026",
-                anforderung: "Ausbildung zum ICT-Fachmann/-frau oder Informatiker EFZ. Rasche Auffassungsgabe für komplexe IT- und Wirtschaftsstrukturen, Grundkenntnisse in SQL und Freude am direkten Kunden- und Systemkontakt.",
-                timerIcon: Timer,
-                publikationsdatum: "Vor 3 Tagen",
-            },
-            verguetung: "CHF 1'280.00 — CHF 1'580.00 / Monat"
-        }
-    ]);
 
     // Funktion zum Löschen
     const handleDeleteJob = (id) => {

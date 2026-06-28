@@ -13,7 +13,9 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 function App() {
 
     const [suchbegriff, setsuchbegriff] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+    const [isLoggedIn, setIsLoggedIn] = useState(
+        !!(localStorage.getItem('token') || sessionStorage.getItem('token'))
+    );
 
     const handleSucheSubmit = (event) => {
         event.preventDefault();
@@ -45,11 +47,11 @@ function App() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         setIsLoggedIn(false);
     };
 
     const handleLoginSuccess = (token) => {
-        localStorage.setItem('token', token);
         setIsLoggedIn(true);
     };
 

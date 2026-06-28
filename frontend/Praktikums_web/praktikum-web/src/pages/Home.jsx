@@ -25,6 +25,7 @@ function Home() {
     const [selectedPublikation, setSelectedPublikation] = useState('');
     const [selectedFirma, setSelectedFirma] = useState('');
     const [selectedverguetung, setSelectedverguetung] = useState('');
+    const [selectedDistanz, setSelectedDistanz] = useState('');
 
     // Backend Funktion
     const [stellenAngebote, setStellenAngebote] = useState([]);
@@ -52,7 +53,8 @@ function Home() {
                         start: p.dateCreated ? new Date(p.dateCreated).toLocaleDateString() : "keine Angabe",
                         anforderung: p.companyDescription || "keine Angabe",
                         publikationsdatum: p.dateCreated ? new Date(p.dateCreated).toLocaleDateString() : "keine Angabe",
-                        timerIcon: Timer
+                        timerIcon: Timer,
+                        distanz: p.distance || 5
                     },
                     verguetung: "nicht im Backend"
                 }));
@@ -85,6 +87,20 @@ function Home() {
 
         const matchSelectedFirma = selectedFirma === '' ||
             stelle.firma.toLowerCase().includes(selectedFirma.toLowerCase());
+
+        const matchEntfernung = selectedDistanz === ''||
+            stelle.firma.toLowerCase().includes(selectedFirma.toLowerCase());
+
+
+
+        let matchDistanz = true;
+        if (selectedDistanz !== '') {
+            const maxDistanz = parseInt(selectedDistanz, 10);
+            const tatsaechlicheDistanz = stelle.distanz !== undefined ? stelle.distanz : 999; // Falls undefined, setze es hoch an, damit es rausfliegt
+            matchDistanz = tatsaechlicheDistanz <= maxDistanz;
+        }
+
+
 
         let matchPublikation = true;
         if (selectedPublikation !== '') {
@@ -122,8 +138,8 @@ function Home() {
                 matchVergütung = lohnAnzahl === gewaehlterLohn;
             }
         }
+        return matchKategorie && matchStandort && matchStart && matchPublikation && matchSelectedFirma && matchVergütung && matchDistanz;
 
-        return matchKategorie && matchStandort && matchStart && matchPublikation && matchSelectedFirma && matchVergütung;
     }); // <-- Das hier behebt den Vite-Fehler! (Runde Klammer schliesst das .filter() )
 
 
@@ -134,6 +150,7 @@ function Home() {
         setSelectedPublikation('');
         setSelectedFirma('');
         setSelectedverguetung('');
+        setSelectedDistanz('');
 
     };
 
@@ -213,6 +230,28 @@ function Home() {
                             <option value="1350">1'350 CHF</option>
                             <option value="1280">1'280 CHF</option>
                             <option value="lohn-bereich2">Zwischen 1'350 CHF und -1'700 CHF</option>
+                        </select>
+                    </div>
+
+
+
+
+
+                    <div>
+                        <label htmlFor="distanz-select" className="filter-label">Distanz zu Firma:</label>
+                        <select
+                            id="distanz-select"
+                            value={selectedDistanz} // 💡 KORREKT: Variable statt Funktion!
+                            onChange={(e) => setSelectedDistanz(e.target.value)}
+                            className="filter-select" // Tipp: 'filter-select' statt 'filter-label' für korrektes CSS Styling
+                        >
+                            <option value="">-- Beliebige Distanz --</option>
+                            <option value="2">Bis zu 2 km</option>
+                            <option value="5">Bis zu 5 km</option>
+                            <option value="25">Bis zu 25 km</option>
+                            <option value="10">Bis zu 10 km</option>
+                            <option value="15">Bis zu 15 km</option>
+                            <option value="30">Bis zu 30 km</option>
                         </select>
                     </div>
 

@@ -48,7 +48,7 @@ public class PostingController {
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('ADMIN', 'SCHULE')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SCHULE')")
     public PostingDTO createPosting(@RequestBody PostingDTO dto) {
         return postingService.createPosting(dto);
     }

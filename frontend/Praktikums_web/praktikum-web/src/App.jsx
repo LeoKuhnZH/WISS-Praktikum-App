@@ -16,6 +16,9 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(
         !!(localStorage.getItem('token') || sessionStorage.getItem('token'))
     );
+    const [userRole, setUserRole] = useState(
+        localStorage.getItem('role') || sessionStorage.getItem('role') || null
+    );
 
     const handleSucheSubmit = (event) => {
         event.preventDefault();
@@ -47,12 +50,16 @@ function App() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('role');
         setIsLoggedIn(false);
+        setUserRole(null);
     };
 
-    const handleLoginSuccess = (token) => {
+    const handleLoginSuccess = (data) => {
         setIsLoggedIn(true);
+        setUserRole(data.role);
     };
 
     return (
@@ -63,7 +70,7 @@ function App() {
                     <img src={logo} alt="WISS Hub" className="navbar-logo" />
                 </Link>
 
-                {isLoggedIn && <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>}
+                {(userRole === 'ADMIN' || userRole === 'SCHULE') && <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>}
                 {!isLoggedIn && <Link to="/register">| Registrierung |</Link>}
 
                 {isLoggedIn ? (
@@ -94,11 +101,20 @@ function App() {
             </nav>
 
             <Routes>
-                <Route path="/jobadd" element={isLoggedIn ? <JobAdd /> : <Navigate to="/login" replace />} />
+                <Route
+                    path="/jobadd"
+                    element={
+                        isLoggedIn && (userRole === 'ADMIN' || userRole === 'SCHULE') ? (
+                            <JobAdd />
+                        ) : (
+                            <Navigate to="/login" replace />
+                        )
+                    }
+                />
                 <Route path="/register" element={!isLoggedIn ? <RegistrirungPage /> : <Navigate to="/" replace />} />
                 <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
-                <Route index="/" element={<Home isLoggedIn={isLoggedIn} />} />
+                <Route index="/" element={<Home isLoggedIn={isLoggedIn} userRole={userRole} />} />
             </Routes>
         </BrowserRouter>
     );

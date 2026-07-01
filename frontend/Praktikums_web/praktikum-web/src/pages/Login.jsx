@@ -49,14 +49,12 @@ function Login({ onLoginSuccess }) {
                 throw new Error(data.error || "Login fehlgeschlagen");
             }
 
-            if (formData.rememberMe) {
-                localStorage.setItem("token", data.token);
-            } else {
-                sessionStorage.setItem("token", data.token);
-            }
+            const storage = formData.rememberMe ? localStorage : sessionStorage;
+            storage.setItem("token", data.token);
+            storage.setItem("role", data.role);
 
             // Navbar über Login informieren
-            if (onLoginSuccess) onLoginSuccess(data.token);
+            if (onLoginSuccess) onLoginSuccess(data);
 
             navigate("/");
         } catch (err) {

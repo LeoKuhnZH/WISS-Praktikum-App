@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="i hope thiss is the fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Login.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +132,7 @@
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "hotfix/login__fix",
+    "git-widget-placeholder": "feature/protected__CRUD",
     "git.auto.fetch.suggestion.counter": "3",
     "ignore.virus.scanning.warn.message": "true",
     "javascript.preferred.runtime.type.id": "node",

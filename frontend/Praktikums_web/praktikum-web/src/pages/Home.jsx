@@ -13,7 +13,7 @@ import Netcetera from '../assets/Netcetera.jpg';
 import Avaloq from '../assets/Avaloq.jpg';
 import "./components/style/style.css";
 
-function Home({ isLoggedIn }) {
+function Home({ isLoggedIn, userRole }) {
     const navigate = useNavigate();
 
     /**
@@ -372,7 +372,7 @@ function Home({ isLoggedIn }) {
                                 <span className="price-value">{stelle.verguetung}</span>
                             </div>
 
-                            {isLoggedIn && (
+                            {userRole === 'ADMIN' && (
                                 <button className="delete-button"
                                         onClick={() => handleDeleteJob(stelle.id)}
                                 >

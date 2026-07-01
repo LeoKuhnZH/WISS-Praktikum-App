@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="add Prodectet root to Login.jsx">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_2026_11_40_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_2026_11_40__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/RegistrirungPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/RegistrirungPage.jsx" afterDir="false" />
+    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="i hope thiss is the fix">
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,61 +49,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000258406182407" />
-      <entry key="MS500" value="1.1263483569866288" />
-      <entry key="S2" value="2.207341874416559" />
-      <entry key="S5" value="4.17008738449775" />
-      <entry key="S10" value="5.87727273353662" />
-      <entry key="S30" value="7.734646296735755" />
-      <entry key="S60" value="8.333486129090979" />
-      <entry key="M2" value="8.657772366969159" />
-      <entry key="M5" value="8.887150904426024" />
-      <entry key="M10" value="9.86500375126948" />
-      <entry key="M15" value="12.309704341810162" />
-      <entry key="M30" value="23.09931380007874" />
-      <entry key="H1" value="48.17228268218554" />
-      <entry key="H2" value="99.86524823372503" />
-      <entry key="H4" value="171.7274884209131" />
-      <entry key="D1" value="299.86441233105717" />
-      <entry key="W1" value="333.038231753152" />
+      <entry key="MS100" value="1.0004580259016016" />
+      <entry key="MS500" value="1.3312429309013425" />
+      <entry key="S2" value="3.0782525245051766" />
+      <entry key="S5" value="4.666467595050305" />
+      <entry key="S10" value="5.679340478265321" />
+      <entry key="S30" value="8.115402365624814" />
+      <entry key="S60" value="10.561978179343708" />
+      <entry key="M2" value="12.732963932762425" />
+      <entry key="M5" value="14.552234083406182" />
+      <entry key="M10" value="16.099420333548153" />
+      <entry key="M15" value="18.66943361998349" />
+      <entry key="M30" value="29.499046373336565" />
+      <entry key="H1" value="54.547360152841875" />
+      <entry key="H2" value="106.21787105281842" />
+      <entry key="H4" value="178.1708043204644" />
+      <entry key="D1" value="306.7023265702724" />
+      <entry key="W1" value="340.0125120906559" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="4.7054891397617385E-176" />
-      <entry key="S10" value="2.1692139451335216E-88" />
-      <entry key="S30" value="6.0085193284611284E-30" />
-      <entry key="S60" value="2.451228221571259E-15" />
-      <entry key="M2" value="4.9519626219400766E-8" />
-      <entry key="M5" value="0.0012358067547272005" />
-      <entry key="M10" value="0.04092414021015876" />
-      <entry key="M15" value="0.14256699728596" />
-      <entry key="M30" value="0.6226075923733857" />
-      <entry key="H1" value="2.2236079754520133" />
-      <entry key="H2" value="6.9468872011035305" />
-      <entry key="H4" value="14.483796487264229" />
-      <entry key="D1" value="28.621094437853635" />
-      <entry key="W1" value="32.332026394895394" />
+      <entry key="S5" value="4.167138584153474E-180" />
+      <entry key="S10" value="2.041357044750739E-90" />
+      <entry key="S30" value="1.268546303014807E-30" />
+      <entry key="S60" value="1.1262976521992444E-15" />
+      <entry key="M2" value="3.356696480901556E-8" />
+      <entry key="M5" value="0.0010578021631921148" />
+      <entry key="M10" value="0.037862257693495494" />
+      <entry key="M15" value="0.1353641409242291" />
+      <entry key="M30" value="0.6066758771566457" />
+      <entry key="H1" value="2.194973999767003" />
+      <entry key="H2" value="6.902013838877472" />
+      <entry key="H4" value="14.436941716483274" />
+      <entry key="D1" value="28.605642158779215" />
+      <entry key="W1" value="32.32953213501668" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.7631465351683129" />
-      <entry key="MS500" value="1.0635993307338982" />
-      <entry key="S2" value="2.1688786788320753" />
-      <entry key="S5" value="4.128428004105747" />
-      <entry key="S10" value="5.841007269582929" />
-      <entry key="S30" value="7.716043509199843" />
-      <entry key="S60" value="8.323055666007583" />
-      <entry key="M2" value="8.652244517234754" />
-      <entry key="M5" value="8.886086086528175" />
-      <entry key="M10" value="9.904598551634882" />
-      <entry key="M15" value="12.45110742991705" />
-      <entry key="M30" value="23.72072499398434" />
-      <entry key="H1" value="50.393995517593595" />
-      <entry key="H2" value="106.80853094689267" />
-      <entry key="H4" value="186.20701589071" />
-      <entry key="D1" value="328.48395421758585" />
-      <entry key="W1" value="365.37000358160003" />
+      <entry key="MS100" value="0.9464909955298503" />
+      <entry key="MS500" value="1.3164473467809845" />
+      <entry key="S2" value="3.0684894799674307" />
+      <entry key="S5" value="4.659988367116067" />
+      <entry key="S10" value="5.674941870254825" />
+      <entry key="S30" value="8.109871894910116" />
+      <entry key="S60" value="10.556347136977985" />
+      <entry key="M2" value="12.728787938646555" />
+      <entry key="M5" value="14.551148670308278" />
+      <entry key="M10" value="16.13596532001409" />
+      <entry key="M15" value="18.803634304593416" />
+      <entry key="M30" value="30.10452724552983" />
+      <entry key="H1" value="56.74044879503449" />
+      <entry key="H2" value="113.1162963732101" />
+      <entry key="H4" value="192.60348717209425" />
+      <entry key="D1" value="335.30641640624253" />
+      <entry key="W1" value="372.3417895917622" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -172,7 +169,7 @@
       <workItem from="1782477054264" duration="1822000" />
       <workItem from="1782556123258" duration="1404000" />
       <workItem from="1782643157858" duration="6488000" />
-      <workItem from="1782887086469" duration="3045000" />
+      <workItem from="1782887086469" duration="3345000" />
     </task>
     <task id="LOCAL-00001" summary="Add Vite Projekt: praktikums-app">
       <option name="closed" value="true" />
@@ -406,7 +403,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782650140872</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="i hope thiss is the fix">
+      <option name="closed" value="true" />
+      <created>1782890288024</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1782890288024</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,7 +447,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add folder style in components" />
     <MESSAGE value="add import style" />
     <MESSAGE value="add new styles in style.css" />
     <MESSAGE value="add div1 style" />
@@ -467,6 +471,7 @@
     <MESSAGE value="conect Home.jsx with Database" />
     <MESSAGE value="anpassung Prodectet Rout" />
     <MESSAGE value="JobAdd.jsx zu Prodectet root added" />
-    <option name="LAST_COMMIT_MESSAGE" value="JobAdd.jsx zu Prodectet root added" />
+    <MESSAGE value="i hope thiss is the fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="i hope thiss is the fix" />
   </component>
 </project>

@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 
 import RegistrirungPage from './pages/RegistrirungPage.jsx';
@@ -62,8 +62,9 @@ function App() {
                 <Link to="/" className="logo-link">
                     <img src={logo} alt="WISS Hub" className="navbar-logo" />
                 </Link>
-                <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>
-                <Link to="/register">| Registrierung |</Link>
+
+                {isLoggedIn && <Link to="/jobadd">| Neuer Job Hinzufügen |</Link>}
+                {!isLoggedIn && <Link to="/register">| Registrierung |</Link>}
 
                 {isLoggedIn ? (
                     <button
@@ -93,11 +94,11 @@ function App() {
             </nav>
 
             <Routes>
-                <Route path="/jobadd" element={<JobAdd />} />
-                <Route path="/register" element={<RegistrirungPage />} />
+                <Route path="/jobadd" element={isLoggedIn ? <JobAdd /> : <Navigate to="/login" replace />} />
+                <Route path="/register" element={!isLoggedIn ? <RegistrirungPage /> : <Navigate to="/" replace />} />
                 <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
-                <Route index="/" element={<Home />} />
+                <Route index="/" element={<Home isLoggedIn={isLoggedIn} />} />
             </Routes>
         </BrowserRouter>
     );

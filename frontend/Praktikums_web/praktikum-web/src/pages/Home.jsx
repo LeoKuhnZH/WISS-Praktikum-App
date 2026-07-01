@@ -13,7 +13,7 @@ import Netcetera from '../assets/Netcetera.jpg';
 import Avaloq from '../assets/Avaloq.jpg';
 import "./components/style/style.css";
 
-function Home() {
+function Home({ isLoggedIn }) {
     const navigate = useNavigate();
 
     /**
@@ -372,12 +372,13 @@ function Home() {
                                 <span className="price-value">{stelle.verguetung}</span>
                             </div>
 
-                            <button className="delete-button"
-                                    onClick={() => handleDeleteJob(stelle.id)}
-
-                            >
-                                Inserat entfernen
-                            </button>
+                            {isLoggedIn && (
+                                <button className="delete-button"
+                                        onClick={() => handleDeleteJob(stelle.id)}
+                                >
+                                    Inserat entfernen
+                                </button>
+                            )}
                         </div>
                     ))
                 ) : (

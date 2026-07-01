@@ -39,7 +39,7 @@ function RegistrierungPage() {
 
             navigate("/login");
         } catch (error) {
-            console.error("Fehler bei der Registrierung:", error);
+            console.error("Fehler bei der Registrierung: hat ihr passwort mehr als 6 Zeichen", error);
             setError(error.message || "Fehler bei der Registrierung.");
         }
     };

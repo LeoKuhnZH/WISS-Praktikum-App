@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="add navbar.css">
+    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="add Prodectet root to Login.jsx">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_2026_11_40_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_2026_11_40__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/RegistrirungPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/RegistrirungPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,12 +16,26 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$/.." source="origin/dev" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/.." value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="HARD" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -39,61 +52,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.4821677410364418" />
-      <entry key="MS500" value="3.5449167126813634" />
-      <entry key="S2" value="6.924764355366107" />
-      <entry key="S5" value="8.532279822206547" />
-      <entry key="S10" value="9.218020620645131" />
-      <entry key="S30" value="9.727717629457823" />
-      <entry key="S60" value="9.886290017155027" />
-      <entry key="M2" value="10.755389972159522" />
-      <entry key="M5" value="17.96105562683901" />
-      <entry key="M10" value="31.045564685145344" />
-      <entry key="M15" value="42.69574480996357" />
-      <entry key="M30" value="72.04182233074002" />
-      <entry key="H1" value="112.14420867866897" />
-      <entry key="H2" value="151.97481723713324" />
-      <entry key="H4" value="181.78926727489164" />
-      <entry key="D1" value="214.40275632813066" />
-      <entry key="W1" value="220.88999576296285" />
+      <entry key="MS100" value="1.0000258406182407" />
+      <entry key="MS500" value="1.1263483569866288" />
+      <entry key="S2" value="2.207341874416559" />
+      <entry key="S5" value="4.17008738449775" />
+      <entry key="S10" value="5.87727273353662" />
+      <entry key="S30" value="7.734646296735755" />
+      <entry key="S60" value="8.333486129090979" />
+      <entry key="M2" value="8.657772366969159" />
+      <entry key="M5" value="8.887150904426024" />
+      <entry key="M10" value="9.86500375126948" />
+      <entry key="M15" value="12.309704341810162" />
+      <entry key="M30" value="23.09931380007874" />
+      <entry key="H1" value="48.17228268218554" />
+      <entry key="H2" value="99.86524823372503" />
+      <entry key="H4" value="171.7274884209131" />
+      <entry key="D1" value="299.86441233105717" />
+      <entry key="W1" value="333.038231753152" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="2.751517637010786E-122" />
-      <entry key="S5" value="2.3759041732955587E-49" />
-      <entry key="S10" value="4.874324746357756E-25" />
-      <entry key="S30" value="7.87000961622796E-9" />
-      <entry key="S60" value="8.918077693613538E-5" />
-      <entry key="M2" value="0.010751805091352587" />
-      <entry key="M5" value="0.3232113621678381" />
-      <entry key="M10" value="1.4566401176279449" />
-      <entry key="M15" value="2.8657703218945914" />
-      <entry key="M30" value="7.125274221384891" />
-      <entry key="H1" value="13.003465288584431" />
-      <entry key="H2" value="18.420358870901538" />
-      <entry key="H4" value="22.205210227725097" />
-      <entry key="D1" value="26.118686282563853" />
-      <entry key="W1" value="26.87190525050241" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="4.7054891397617385E-176" />
+      <entry key="S10" value="2.1692139451335216E-88" />
+      <entry key="S30" value="6.0085193284611284E-30" />
+      <entry key="S60" value="2.451228221571259E-15" />
+      <entry key="M2" value="4.9519626219400766E-8" />
+      <entry key="M5" value="0.0012358067547272005" />
+      <entry key="M10" value="0.04092414021015876" />
+      <entry key="M15" value="0.14256699728596" />
+      <entry key="M30" value="0.6226075923733857" />
+      <entry key="H1" value="2.2236079754520133" />
+      <entry key="H2" value="6.9468872011035305" />
+      <entry key="H4" value="14.483796487264229" />
+      <entry key="D1" value="28.621094437853635" />
+      <entry key="W1" value="32.332026394895394" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.4287041770180697" />
-      <entry key="MS500" value="3.4963340576491806" />
-      <entry key="S2" value="6.893250128249522" />
-      <entry key="S5" value="8.516259738181652" />
-      <entry key="S10" value="9.209308492348582" />
-      <entry key="S30" value="9.724642449859573" />
-      <entry key="S60" value="9.884715059504156" />
-      <entry key="M2" value="10.763405715550126" />
-      <entry key="M5" value="18.275839423454226" />
-      <entry key="M10" value="32.491166354740606" />
-      <entry key="M15" value="45.54930382174448" />
-      <entry key="M30" value="79.15192799107727" />
-      <entry key="H1" value="125.13190758148392" />
-      <entry key="H2" value="170.38288604620976" />
-      <entry key="H4" value="203.986664368233" />
-      <entry key="D1" value="240.51983818395064" />
-      <entry key="W1" value="247.76166328180156" />
+      <entry key="MS100" value="0.7631465351683129" />
+      <entry key="MS500" value="1.0635993307338982" />
+      <entry key="S2" value="2.1688786788320753" />
+      <entry key="S5" value="4.128428004105747" />
+      <entry key="S10" value="5.841007269582929" />
+      <entry key="S30" value="7.716043509199843" />
+      <entry key="S60" value="8.323055666007583" />
+      <entry key="M2" value="8.652244517234754" />
+      <entry key="M5" value="8.886086086528175" />
+      <entry key="M10" value="9.904598551634882" />
+      <entry key="M15" value="12.45110742991705" />
+      <entry key="M30" value="23.72072499398434" />
+      <entry key="H1" value="50.393995517593595" />
+      <entry key="H2" value="106.80853094689267" />
+      <entry key="H4" value="186.20701589071" />
+      <entry key="D1" value="328.48395421758585" />
+      <entry key="W1" value="365.37000358160003" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -108,32 +121,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;3&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/vince/Documents/Module/Modul_426/WISS-Praktikum-App/frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.Login.jsx.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "hotfix/login__fix",
+    "git.auto.fetch.suggestion.counter": "3",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/vince/Documents/Module/Modul_426/WISS-Praktikum-App/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -154,6 +168,11 @@
       <workItem from="1780467785879" duration="4813000" />
       <workItem from="1780474919374" duration="4676000" />
       <workItem from="1780749834977" duration="743000" />
+      <workItem from="1782301584989" duration="9000" />
+      <workItem from="1782477054264" duration="1822000" />
+      <workItem from="1782556123258" duration="1404000" />
+      <workItem from="1782643157858" duration="6488000" />
+      <workItem from="1782887086469" duration="3045000" />
     </task>
     <task id="LOCAL-00001" summary="Add Vite Projekt: praktikums-app">
       <option name="closed" value="true" />
@@ -307,11 +326,97 @@
       <option name="project" value="LOCAL" />
       <updated>1780480339055</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Delet Add Job Frontend from Home.jsx">
+      <option name="closed" value="true" />
+      <created>1782288643739</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1782288643739</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add Backend Schnittstelle zu Home.jsx">
+      <option name="closed" value="true" />
+      <created>1782294043130</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1782294043130</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add show Passwort to ForgotPassword.jsx">
+      <option name="closed" value="true" />
+      <created>1782556253044</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1782556253044</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Delet Page Delete.jsx">
+      <option name="closed" value="true" />
+      <created>1782643420574</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1782643420574</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Delet style from Login.jsx">
+      <option name="closed" value="true" />
+      <created>1782643580121</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1782643580121</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add Prodectetrooute and conection with Backend">
+      <option name="closed" value="true" />
+      <created>1782648585250</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1782648585250</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add configs to vite.config.js for the Backend">
+      <option name="closed" value="true" />
+      <created>1782648649786</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1782648649786</updated>
+    </task>
+    <task id="LOCAL-00027" summary="conect Home.jsx with Database">
+      <option name="closed" value="true" />
+      <created>1782649375611</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1782649375611</updated>
+    </task>
+    <task id="LOCAL-00028" summary="anpassung Prodectet Rout">
+      <option name="closed" value="true" />
+      <created>1782650103289</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1782650103289</updated>
+    </task>
+    <task id="LOCAL-00029" summary="JobAdd.jsx zu Prodectet root added">
+      <option name="closed" value="true" />
+      <created>1782650140872</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1782650140872</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="javascript:npm:react" />
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:vite" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -337,8 +442,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add Vite Projekt: praktikums-app" />
-    <MESSAGE value="new Folder Pages add" />
     <MESSAGE value="add folder style in components" />
     <MESSAGE value="add import style" />
     <MESSAGE value="add new styles in style.css" />
@@ -354,6 +457,16 @@
     <MESSAGE value="correct RegistrirungPage.jsx" />
     <MESSAGE value="add navbar.jsx falls nötig" />
     <MESSAGE value="add navbar.css" />
-    <option name="LAST_COMMIT_MESSAGE" value="add navbar.css" />
+    <MESSAGE value="Delet Add Job Frontend from Home.jsx" />
+    <MESSAGE value="add Backend Schnittstelle zu Home.jsx" />
+    <MESSAGE value="add show Passwort to ForgotPassword.jsx" />
+    <MESSAGE value="Delet Page Delete.jsx" />
+    <MESSAGE value="Delet style from Login.jsx" />
+    <MESSAGE value="add Prodectetrooute and conection with Backend" />
+    <MESSAGE value="add configs to vite.config.js for the Backend" />
+    <MESSAGE value="conect Home.jsx with Database" />
+    <MESSAGE value="anpassung Prodectet Rout" />
+    <MESSAGE value="JobAdd.jsx zu Prodectet root added" />
+    <option name="LAST_COMMIT_MESSAGE" value="JobAdd.jsx zu Prodectet root added" />
   </component>
 </project>

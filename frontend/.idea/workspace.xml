@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="i hope thiss is the fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikums_web/praktikum-web/src/pages/Login.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$/.." source="origin/dev" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Vinci4600&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:LeoKuhnZH/WISS-Praktikum-App.git&quot;,
+    &quot;accountId&quot;: &quot;342cb3e0-d030-4c9b-a9b3-d6b83874670a&quot;
+  }
+}</component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0004580259016016" />
+      <entry key="MS500" value="1.3312429309013425" />
+      <entry key="S2" value="3.0782525245051766" />
+      <entry key="S5" value="4.666467595050305" />
+      <entry key="S10" value="5.679340478265321" />
+      <entry key="S30" value="8.115402365624814" />
+      <entry key="S60" value="10.561978179343708" />
+      <entry key="M2" value="12.732963932762425" />
+      <entry key="M5" value="14.552234083406182" />
+      <entry key="M10" value="16.099420333548153" />
+      <entry key="M15" value="18.66943361998349" />
+      <entry key="M30" value="29.499046373336565" />
+      <entry key="H1" value="54.547360152841875" />
+      <entry key="H2" value="106.21787105281842" />
+      <entry key="H4" value="178.1708043204644" />
+      <entry key="D1" value="306.7023265702724" />
+      <entry key="W1" value="340.0125120906559" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="4.167138584153474E-180" />
+      <entry key="S10" value="2.041357044750739E-90" />
+      <entry key="S30" value="1.268546303014807E-30" />
+      <entry key="S60" value="1.1262976521992444E-15" />
+      <entry key="M2" value="3.356696480901556E-8" />
+      <entry key="M5" value="0.0010578021631921148" />
+      <entry key="M10" value="0.037862257693495494" />
+      <entry key="M15" value="0.1353641409242291" />
+      <entry key="M30" value="0.6066758771566457" />
+      <entry key="H1" value="2.194973999767003" />
+      <entry key="H2" value="6.902013838877472" />
+      <entry key="H4" value="14.436941716483274" />
+      <entry key="D1" value="28.605642158779215" />
+      <entry key="W1" value="32.32953213501668" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9464909955298503" />
+      <entry key="MS500" value="1.3164473467809845" />
+      <entry key="S2" value="3.0684894799674307" />
+      <entry key="S5" value="4.659988367116067" />
+      <entry key="S10" value="5.674941870254825" />
+      <entry key="S30" value="8.109871894910116" />
+      <entry key="S60" value="10.556347136977985" />
+      <entry key="M2" value="12.728787938646555" />
+      <entry key="M5" value="14.551148670308278" />
+      <entry key="M10" value="16.13596532001409" />
+      <entry key="M15" value="18.803634304593416" />
+      <entry key="M30" value="30.10452724552983" />
+      <entry key="H1" value="56.74044879503449" />
+      <entry key="H2" value="113.1162963732101" />
+      <entry key="H4" value="192.60348717209425" />
+      <entry key="D1" value="335.30641640624253" />
+      <entry key="W1" value="372.3417895917622" />
+    </decayedShown>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3EFkxm0cq2gYzRbdm47TcmThChQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.Login.jsx.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "feature/protected__CRUD",
+    "git.auto.fetch.suggestion.counter": "3",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/vince/Documents/Module/Modul_426/WISS-Praktikum-App/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.25134.101" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93a1cfbf-5ef7-412d-9bcb-40b570d79461" name="Changes" comment="" />
+      <created>1779781954262</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1779781954262</updated>
+      <workItem from="1779781955590" duration="1647000" />
+      <workItem from="1779866228125" duration="963000" />
+      <workItem from="1779970813345" duration="48000" />
+      <workItem from="1780467785879" duration="4813000" />
+      <workItem from="1780474919374" duration="4676000" />
+      <workItem from="1780749834977" duration="743000" />
+      <workItem from="1782301584989" duration="9000" />
+      <workItem from="1782477054264" duration="1822000" />
+      <workItem from="1782556123258" duration="1404000" />
+      <workItem from="1782643157858" duration="6488000" />
+      <workItem from="1782887086469" duration="3345000" />
+    </task>
+    <task id="LOCAL-00001" summary="Add Vite Projekt: praktikums-app">
+      <option name="closed" value="true" />
+      <created>1779782025961</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1779782025961</updated>
+    </task>
+    <task id="LOCAL-00002" summary="new Folder Pages add">
+      <option name="closed" value="true" />
+      <created>1780468208985</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1780468208985</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add folder style in components">
+      <option name="closed" value="true" />
+      <created>1780472173858</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1780472173858</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add import style">
+      <option name="closed" value="true" />
+      <created>1780472373502</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1780472373502</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add new styles in style.css">
+      <option name="closed" value="true" />
+      <created>1780472438067</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1780472438067</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add div1 style">
+      <option name="closed" value="true" />
+      <created>1780473643078</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1780473643078</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add div2 style">
+      <option name="closed" value="true" />
+      <created>1780474342844</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1780474342844</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add card style">
+      <option name="closed" value="true" />
+      <created>1780474569423</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1780474569423</updated>
+    </task>
+    <task id="LOCAL-00009" summary="corect style.css">
+      <option name="closed" value="true" />
+      <created>1780474623943</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1780474623943</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add elias Styles">
+      <option name="closed" value="true" />
+      <created>1780475952674</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1780475952674</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add Button Styles">
+      <option name="closed" value="true" />
+      <created>1780476236338</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1780476236338</updated>
+    </task>
+    <task id="LOCAL-00012" summary="RegistrirungPage.jsx done">
+      <option name="closed" value="true" />
+      <created>1780476516803</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1780476516803</updated>
+    </task>
+    <task id="LOCAL-00013" summary="RegistrirungPage.jsx done">
+      <option name="closed" value="true" />
+      <created>1780476567407</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1780476567407</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Coretur app.jsx and mai.jsx">
+      <option name="closed" value="true" />
+      <created>1780478544536</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1780478544536</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add import './components/style/style.css'">
+      <option name="closed" value="true" />
+      <created>1780479592791</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1780479592791</updated>
+    </task>
+    <task id="LOCAL-00016" summary="correct RegistrirungPage.jsx">
+      <option name="closed" value="true" />
+      <created>1780479637211</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1780479637211</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add navbar.jsx falls nötig">
+      <option name="closed" value="true" />
+      <created>1780479681116</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1780479681116</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add navbar.css">
+      <option name="closed" value="true" />
+      <created>1780480328919</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1780480328919</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add navbar.css">
+      <option name="closed" value="true" />
+      <created>1780480339055</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1780480339055</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Delet Add Job Frontend from Home.jsx">
+      <option name="closed" value="true" />
+      <created>1782288643739</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1782288643739</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add Backend Schnittstelle zu Home.jsx">
+      <option name="closed" value="true" />
+      <created>1782294043130</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1782294043130</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add show Passwort to ForgotPassword.jsx">
+      <option name="closed" value="true" />
+      <created>1782556253044</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1782556253044</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Delet Page Delete.jsx">
+      <option name="closed" value="true" />
+      <created>1782643420574</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1782643420574</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Delet style from Login.jsx">
+      <option name="closed" value="true" />
+      <created>1782643580121</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1782643580121</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add Prodectetrooute and conection with Backend">
+      <option name="closed" value="true" />
+      <created>1782648585250</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1782648585250</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add configs to vite.config.js for the Backend">
+      <option name="closed" value="true" />
+      <created>1782648649786</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1782648649786</updated>
+    </task>
+    <task id="LOCAL-00027" summary="conect Home.jsx with Database">
+      <option name="closed" value="true" />
+      <created>1782649375611</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1782649375611</updated>
+    </task>
+    <task id="LOCAL-00028" summary="anpassung Prodectet Rout">
+      <option name="closed" value="true" />
+      <created>1782650103289</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1782650103289</updated>
+    </task>
+    <task id="LOCAL-00029" summary="JobAdd.jsx zu Prodectet root added">
+      <option name="closed" value="true" />
+      <created>1782650140872</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1782650140872</updated>
+    </task>
+    <task id="LOCAL-00030" summary="i hope thiss is the fix">
+      <option name="closed" value="true" />
+      <created>1782890288024</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1782890288024</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="javascript:npm:react" />
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:vite" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add import style" />
+    <MESSAGE value="add new styles in style.css" />
+    <MESSAGE value="add div1 style" />
+    <MESSAGE value="add div2 style" />
+    <MESSAGE value="add card style" />
+    <MESSAGE value="corect style.css" />
+    <MESSAGE value="add elias Styles" />
+    <MESSAGE value="add Button Styles" />
+    <MESSAGE value="RegistrirungPage.jsx done" />
+    <MESSAGE value="Coretur app.jsx and mai.jsx" />
+    <MESSAGE value="add import './components/style/style.css'" />
+    <MESSAGE value="correct RegistrirungPage.jsx" />
+    <MESSAGE value="add navbar.jsx falls nötig" />
+    <MESSAGE value="add navbar.css" />
+    <MESSAGE value="Delet Add Job Frontend from Home.jsx" />
+    <MESSAGE value="add Backend Schnittstelle zu Home.jsx" />
+    <MESSAGE value="add show Passwort to ForgotPassword.jsx" />
+    <MESSAGE value="Delet Page Delete.jsx" />
+    <MESSAGE value="Delet style from Login.jsx" />
+    <MESSAGE value="add Prodectetrooute and conection with Backend" />
+    <MESSAGE value="add configs to vite.config.js for the Backend" />
+    <MESSAGE value="conect Home.jsx with Database" />
+    <MESSAGE value="anpassung Prodectet Rout" />
+    <MESSAGE value="JobAdd.jsx zu Prodectet root added" />
+    <MESSAGE value="i hope thiss is the fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="i hope thiss is the fix" />
+  </component>
+</project>

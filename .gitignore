@@ -1,0 +1,44 @@
+# --- General ---
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# --- IDEs ---
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.settings/
+.project
+.classpath
+.factorypath
+.springBeans
+.sts4-cache
+.apt_generated/
+
+# --- Build & Runtime ---
+target/
+build/
+dist/
+node_modules/
+.gradle/
+.mvn/
+bin/
+obj/
+
+# --- Environment & Secrets ---
+.env
+.env.local
+.env.*.local
+*.ppk
+*.jks
+*.keystore
+
+# --- OS specific ---
+$RECYCLE.BIN/
+Desktop.ini
+
+# --- Project specific ---
+# (Add any specific files you want to ignore here)

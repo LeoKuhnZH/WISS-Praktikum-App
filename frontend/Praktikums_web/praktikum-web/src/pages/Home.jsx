@@ -340,14 +340,7 @@ function Home({ isLoggedIn, userRole }) {
                             {/* Details */}
                             <div style={styles.section}>
                                 <h3 style={styles.sectionTitle}>Details zur Praktikumsstelle</h3>
-                                <h2>
-                                    <a href="#login" onClick={(e) => {
-                                        e.preventDefault();
-                                        navigate("/login");
-                                    }}>
-                                        Zu den Details
-                                    </a>
-                                </h2>
+
                                 <ul className="list">
                                     <li><strong>Firma:</strong> {stelle.firma}</li>
                                     <li><strong>Standort:</strong> {stelle.details.standort}</li>
@@ -367,10 +360,7 @@ function Home({ isLoggedIn, userRole }) {
                             </div>
 
                             {/* Praktikumsvergütung */}
-                            <div className="price-container">
-                                <span className="price-label">Praktikumsvergütung:</span>
-                                <span className="price-value">{stelle.verguetung}</span>
-                            </div>
+
 
                             {userRole === 'ADMIN' && (
                                 <button className="delete-button"

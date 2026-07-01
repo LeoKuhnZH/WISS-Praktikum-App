@@ -107,7 +107,13 @@ public class JwtService {
     }
 
     private Key getSigningKey() {
-        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
-        return Keys.hmacShaKeyFor(keyBytes);
+        try {
+            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
+            byte[] keyBytes = digest.digest(secretKey.getBytes(StandardCharsets.UTF_8));
+            return Keys.hmacShaKeyFor(keyBytes);
+        } catch (java.security.NoSuchAlgorithmException e) {
+            byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+            return Keys.hmacShaKeyFor(keyBytes);
+        }
     }
 }

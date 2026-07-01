@@ -60,7 +60,7 @@ function Login({ onLoginSuccess }) {
 
             navigate("/");
         } catch (err) {
-            setError("Login fehlgeschlagen.");
+            setError(err.message || "Login fehlgeschlagen.");
         } finally {
             setLoading(false);
         }

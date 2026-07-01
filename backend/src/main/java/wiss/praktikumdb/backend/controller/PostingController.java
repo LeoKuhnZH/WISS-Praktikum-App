@@ -18,37 +18,31 @@ public class PostingController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ADMIN', 'SCHULE', 'USER')")
     public List<PostingDTO> getAllPostings() {
         return postingService.getAllPostings();
     }
 
     @GetMapping("/active")
-    @PreAuthorize("hasRole('ADMIN', 'SCHULE', 'USER')")
     public List<PostingDTO> getActivePostings() {
         return postingService.getActivePostings();
     }
 
     @GetMapping("/search/id/{id}")
-    @PreAuthorize("hasRole('ADMIN', 'SCHULE', 'USER')")
     public PostingDTO getPostingById(@PathVariable Long id) {
         return postingService.getPostingById(id);
     }
 
     @GetMapping("/search/company/{company}")
-    @PreAuthorize("hasRole('ADMIN', 'SCHULE', 'USER')")
     public List<PostingDTO> getPostingsByCompany(@PathVariable String company) {
         return postingService.getPostingsByCompany(company);
     }
 
     @GetMapping("/search/status/{status}")
-    @PreAuthorize("hasRole('ADMIN', 'SCHULE', 'USER')")
     public List<PostingDTO> getPostingsByStatus(@PathVariable String status) {
         return postingService.getPostingsByStatus(status);
     }
 
     @GetMapping("/search/title/{keyword}")
-    @PreAuthorize("hasRole('ADMIN', 'SCHULE', 'USER')")
     public List<PostingDTO> getPostingsByTitle(@PathVariable String keyword) {
         return postingService.searchPostingsByTitle(keyword);
     }

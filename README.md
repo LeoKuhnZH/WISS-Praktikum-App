@@ -51,7 +51,7 @@ Eine moderne Fullstack-Webapplikation zur effizienten Vermittlung und Verwaltung
   * `MYSQL_DATABASE`: Erstellt beim Container-Start automatisch die Datenbank `praktikum_db`.
   * `MYSQL_USER` & `MYSQL_PASSWORD`: Richtet den Anwendungs-Benutzer (`praktikum` / `praktikum`) für das Backend ein.
   * `MYSQL_ROOT_PASSWORD`: Legt das Admin-Passwort (`root`) für volle Datenbankrechte fest.
-* **Daten-Persistenz (`volumes: praktikum_mysql_data`):** Speichert die MySQL-Daten außerhalb des Containers im Docker-Volume. So bleiben erstelle Tabellen und Testdaten auch nach einem Container-Neustart (`docker compose down`) vollständig erhalten.
+* **Daten-Persistenz (`volumes: praktikum_mysql_data`):** Speichert die MySQL-Daten außerhalb des Containers im Docker-Volume. So bleiben erstelle Tabellen und Testdaten auch nach einem Container-Neustart (`docker compose down`) vollständig erhalten durch Docker Volumes auch nach dem Löschen des Containers 
 ---
 ## 🚀 Installationsanleitung
 
@@ -63,7 +63,7 @@ Bevor das Backend gestartet wird, muss der Container "praktikum-mysql" deployed 
 * **Docker & Docker Compose**
 * **Apache Tomcat** (v10+)
 * **Git**
-* **React** Packages installiert (React-Router-Dom Libarys installiert)
+* **React Libarys **  NPM- Packages React-Dom und React-Router-Dom installiert
 
 ---
 
@@ -71,7 +71,7 @@ Bevor das Backend gestartet wird, muss der Container "praktikum-mysql" deployed 
 
 
 git clone [https://github.com/dein-user/praktikums-plattform.git](https://github.com/dein-user/praktikums-plattform.git)
-cd praktikums-plattform
+cd backend/frontend und Viteserver/Tomcatserver zu starten
 
 
 
@@ -111,7 +111,7 @@ Apache Tomcat Server in der IDE konfigurieren und das Artefakt (.war) erstellen.
 4.1 In das Frontend-Rootverzeichnis wechseln==> Users\elias\WISS-Praktikum-App\frontend\Praktikums_web\praktikum-web>
 
 4.2
-  cd frontend
+ cd frontend
  cd Praktikums_web/praktikum-web
 4.3 Packages (inkl. react-router-dom) installieren
 
@@ -120,9 +120,22 @@ npm install(Bei jedem Deployment neue Dependencies installieren)
 
 npm run dev
 
-Link zu Trello mit Sprints und Product Backlog: 
+Link zu  Trello  mit Sprints und Product Backlog gemäss SCRUM-Projektmethodik:
 
 https://trello.com/w/wissoneshot/home  
+### User-Stories:
+
+<img width="1485" height="1422" alt="image" src="https://github.com/user-attachments/assets/70894555-ee9b-41c1-9e87-fab1e19e350a" />
+<img width="1442" height="1350" alt="image" src="https://github.com/user-attachments/assets/79f955e1-1f20-4860-ba60-429061e3c350" />
+<img width="1271" height="1431" alt="image" src="https://github.com/user-attachments/assets/53ce1419-e2ce-4048-b270-81501089fcd7" />
+<img width="1320" height="1415" alt="image" src="https://github.com/user-attachments/assets/7e494b5d-3045-4e31-9b03-e1bb6e3997b9" />
+<img width="1332" height="1127" alt="image" src="https://github.com/user-attachments/assets/ffbe30f8-8785-4c68-8274-63c80cdf09cb" />
+
+
+
+
+
+
 
 ## Sprint 1:
 

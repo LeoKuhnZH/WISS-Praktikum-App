@@ -1,8 +1,6 @@
-<p align="center">
-  <img src="./wiss-connect-logo.png" alt="WISS Connect Logo" width="180">
-</p>
 
-#  ICT-Praktikumsstellenportal WISS Connect  für  WISS Praktikanten
+
+# 💼 ICT-Praktikumsstellenportal WISS Connect für WISS-Praktikanten
 
 
 

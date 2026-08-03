@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Profil from "../assets/Profil.jpg";
+import { useNavigate } from "react-router-dom";
+import Profil from "../assets/Profil.png";
 
 function Profile() {
     const navigate = useNavigate();
@@ -10,18 +10,15 @@ function Profile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    // Hilfsfunktion: Prüft, ob seit der Einreichung mehr als 10 Tage vergangen sind
     const getAppStatus = (app) => {
         if (!app.eingereichtAm) return app.status || 'Eingang der Bewerbung';
 
         const submitDate = new Date(app.eingereichtAm);
         const currentDate = new Date();
 
-        // Differenz in Tagen berechnen
         const diffInTime = currentDate.getTime() - submitDate.getTime();
         const diffInDays = diffInTime / (1000 * 3600 * 24);
 
-        // Nach 10 Tagen von "Eingang der Bewerbung" auf "In Bearbeitung" wechseln
         if (diffInDays > 10 && app.status === 'Eingang der Bewerbung') {
             return 'In Bearbeitung';
         }
@@ -30,7 +27,6 @@ function Profile() {
     };
 
     useEffect(() => {
-        // Token aus Speicher holen
         const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 
         if (!token) {
@@ -49,18 +45,13 @@ function Profile() {
                 if (!res.ok) throw new Error("Fehler beim Laden des Profils");
 
                 const data = await res.json();
-                setUser(data.user || data);
+                setUser(data);
 
-                // Falls das Backend Favoriten liefert, nutzen; sonst Fallback aus LocalStorage
-                if (data.favorites && data.favorites.length > 0) {
-                    setFavorites(data.favorites);
-                } else {
-                    const localFavs = JSON.parse(localStorage.getItem("favorites") || "[]");
-                    setFavorites(localFavs);
-                }
+                const localFavs = JSON.parse(localStorage.getItem("favorites") || "[]");
+                setFavorites(localFavs);
+
             } catch (err) {
                 setError(err.message);
-                // Fallback bei Fehler: Lokale Favoriten trotzdem laden
                 const localFavs = JSON.parse(localStorage.getItem("favorites") || "[]");
                 setFavorites(localFavs);
             } finally {
@@ -68,12 +59,17 @@ function Profile() {
             }
         };
 
-        // Eingereichte Bewerbungen aus LocalStorage laden
         const storedApplications = JSON.parse(localStorage.getItem("bewerbungen") || "[]");
         setApplications(storedApplications);
 
         fetchUserData();
     }, [navigate]);
+
+    const removeFavorite = (id) => {
+        const updatedFavs = favorites.filter(fav => fav.id !== id);
+        setFavorites(updatedFavs);
+        localStorage.setItem("favorites", JSON.stringify(updatedFavs));
+    };
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -81,134 +77,80 @@ function Profile() {
         navigate("/login");
     };
 
-    if (loading) return <div className="profile-page">Lädt Profil...</div>;
+    if (loading) return <div className="profile-page" style={{ padding: '20px' }}>Lädt Profil...</div>;
 
     return (
         <div className="profile-page" style={{ padding: '20px', maxWidth: '800px', margin: '0 auto', fontFamily: 'sans-serif' }}>
-            <div className="profile-card" style={{ backgroundColor: '#fff', padding: '25px', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-                <h2>Mein Profil</h2>
-
-                {error && <div style={{ color: '#ef4444', marginBottom: '10px' }}>{error}</div>}
-
-                {/* Benutzer-Informationen */}
-                {user && (
-                    <div className="user-info" style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '20px' }}>
-                        <img src={Profil} alt="Profilbild" style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover' }} />
-                        <div>
-                            <p style={{ margin: '4px 0' }}><strong>UserId:</strong> {user.id}</p>
-                            <p style={{ margin: '4px 0' }}><strong>Benutzername:</strong> {user.username}</p>
-                            <p style={{ margin: '4px 0' }}><strong>E-Mail:</strong> {user.email}</p>
-                        </div>
-                    </div>
-                )}
-
-                <hr style={{ margin: '20px 0', border: 'none', borderTop: '1px solid #e2e8f0' }} />
-
-                {/* ABSCHNITT: EINGEREICHTE BEWERBUNGEN & STATUS */}
-                <h3>Meine Bewerbungen ({applications.length})</h3>
-
-                {applications.length === 0 ? (
-                    <p style={{ color: '#64748b' }}>Du hast noch keine Bewerbungen eingereicht.</p>
-                ) : (
-                    <div className="applications-list" style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '25px' }}>
-                        {applications.map((app) => {
-                            const currentStatus = getAppStatus(app);
-                            const isEingang = currentStatus === 'Eingang der Bewerbung';
-                            const rawAnforderungen = app.anforderungen || app.anf ||app.requirements;
-                            const displayAnforderungen = Array.isArray(rawAnforderungen)
-                                ? rawAnforderungen.join(", ")
-                                : rawAnforderungen;
-
-                            return (
-                                <div
-                                    key={app.id}
-                                    style={{
-                                        padding: '15px',
-                                        border: '1px solid #e2e8f0',
-                                        borderRadius: '6px',
-                                        backgroundColor: '#f8fafc',
-                                        display: 'flex',
-                                        justify: 'space-between',
-                                        alignItems: 'center',
-                                        flexWrap: 'wrap',
-                                        gap: '10px'
-                                    }}
-                                >
-                                    <div>
-                                        <h4 style={{ margin: '0 0 5px 0', color: '#0f172a' }}>{app.jobTitel}</h4>
-                                        <p style={{ margin: 0, fontSize: '14px', color: '#475569' }}>
-                                            <strong>Firma:</strong> {app.firmaName}
-                                        </p>
-                                        <p style={{ margin: '4px 0', fontSize: '14px', color: '#475569' }}>
-                                            <strong>Praktikumsstart:</strong> {app.startDate || 'August 2027'}
-                                        </p>
-
-                                        {displayAnforderungen && (
-                                            <p style={{ margin: '4px 0', fontSize: '13px', color: '#334155' }}>
-                                                <strong>Anforderungen:</strong> {displayAnforderungen}
-                                            </p>
-                                        )}
-
-
-
-                                        <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#94a3b8' }}>
-                                            Eingereicht am: {new Date(app.eingereichtAm).toLocaleDateString()}
-                                        </p>
-
-
-                                    </div>
-
-                                    <div>
-                                        <span style={{
-                                            padding: '6px 12px',
-                                            borderRadius: '20px',
-                                            fontSize: '13px',
-                                            fontWeight: 'bold',
-                                            backgroundColor: isEingang ? '#e0f2fe' : '#dcfce7',
-                                            color: isEingang ? '#0369a1' : '#15803d',
-                                            border: '1px solid ' + (isEingang ? '#bae6fd' : '#bbf7d0')
-                                        }}>
-                                            Status: {currentStatus}
-                                        </span>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                )}
-
-                <hr style={{ margin: '20px 0', border: 'none', borderTop: '1px solid #e2e8f0' }} />
-
-                {/* GELIKTE / GESPEICHERTE PRAKTIKUMSSTELLEN */}
-                <h3>Meine Favoriten ({favorites.length})</h3>
-
-                {favorites.length === 0 ? (
-                    <p style={{ color: '#64748b' }}>Du hast noch keine Praktikumsstellen gelikt.</p>
-                ) : (
-                    <ul className="favorites-list" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        {favorites.map((item, index) => {
-                            const isObject = typeof item === 'object' && item !== null;
-                            const itemId = isObject ? item.id : item;
-                            const title = isObject ? (item.titel || item.title || item.name) : `Favorit ID: ${item}`;
-                            const firma = isObject ? (item.firma || item.company) : '';
-                            const standort = isObject ? (item.details?.standort || item.location) : '';
-
-                            return (
-                                <li key={itemId || index} className="favorite-item" style={{ padding: '12px', border: '1px solid #cbd5e1', borderRadius: '6px', backgroundColor: '#fff' }}>
-                                    <h4 style={{ margin: '0 0 4px 0' }}>{title}</h4>
-                                    {firma && <p style={{ margin: '0 0 6px 0', fontSize: '14px', color: '#475569' }}><strong>{firma}</strong> {standort ? `– ${standort}` : ''}</p>}
-                                    <Link to={`/api/posting/search/id/${itemId}`} style={{ color: '#0284c7', fontSize: '14px', textDecoration: 'none', fontWeight: 'bold' }}>Details ansehen →</Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                )}
-
-                <div style={{ marginTop: '30px' }}>
-                    <button onClick={handleLogout} className="logout-btn" style={{ padding: '10px 20px', backgroundColor: '#ef4444', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
+            <div className="profile-card" style={{ backgroundColor: '#fff', padding: '25px', borderRadius: '8px', border: '1px solid #cbd5e1', marginBottom: '25px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+                    <h2>Mein Profil</h2>
+                    <button onClick={handleLogout} style={{ backgroundColor: '#ef4444', color: '#fff', border: 'none', padding: '8px 14px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
                         Abmelden
                     </button>
                 </div>
+
+                {error && <div style={{ color: '#ef4444', marginBottom: '10px' }}>{error}</div>}
+
+                {user && (
+                    <div className="user-info" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                        <img
+                            src={Profil}
+                            alt="Profilbild"
+                            style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover' }}
+                        />
+                        <div>
+                            <p style={{ margin: '4px 0' }}><strong>ID:</strong> {user.id}</p>
+                            <p style={{ margin: '4px 0' }}><strong>Username / E-Mail:</strong> {user["Username/E-Mail"] || user.username || user.email}</p>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {/* GEMERKTE FAVORITEN */}
+            <div className="favorites-section" style={{ backgroundColor: '#fff', padding: '25px', borderRadius: '8px', border: '1px solid #cbd5e1', marginBottom: '25px' }}>
+                <h3>⭐ Gemerkte Praktikumsstellen ({favorites.length})</h3>
+                {favorites.length === 0 ? (
+                    <p style={{ color: '#64748b' }}>Du hast dir noch keine Stellen gemerkt.</p>
+                ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '15px' }}>
+                        {favorites.map((fav) => (
+                            <div key={fav.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', border: '1px solid #e2e8f0', borderRadius: '6px', backgroundColor: '#f8fafc' }}>
+                                <div>
+                                    <strong style={{ fontSize: '16px' }}>{fav.titel}</strong>
+                                    <p style={{ margin: '4px 0 0 0', color: '#475569', fontSize: '14px' }}>
+                                        {fav.firma} • {fav.details?.standort || 'Standort k.A.'} • {fav.verguetung}
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => removeFavorite(fav.id)}
+                                    style={{ backgroundColor: '#fee2e2', color: '#991b1b', border: 'none', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer' }}
+                                >
+                                    Entfernen
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {/* EINGEREICHTE BEWERBUNGEN */}
+            <div className="applications-section" style={{ backgroundColor: '#fff', padding: '25px', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
+                <h3>📄 Meine Bewerbungen ({applications.length})</h3>
+                {applications.length === 0 ? (
+                    <p style={{ color: '#64748b' }}>Noch keine Bewerbungen eingereicht.</p>
+                ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '15px' }}>
+                        {applications.map((app, index) => (
+                            <div key={index} style={{ padding: '12px', border: '1px solid #e2e8f0', borderRadius: '6px' }}>
+                                <strong>{app.titel || 'Praktikumsstelle'}</strong>
+                                <p style={{ margin: '4px 0', fontSize: '14px' }}>Firma: {app.firma}</p>
+                                <span style={{ display: 'inline-block', backgroundColor: '#dbeafe', color: '#1e40af', padding: '4px 8px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold' }}>
+                                    Status: {getAppStatus(app)}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

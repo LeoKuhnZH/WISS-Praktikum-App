@@ -91,6 +91,48 @@ public class AuthController {
      *
      * @return the response entity
      */
+
+
+
+
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getMe(@RequestHeader(value = "Authorization", required = false) String authHeader) {
+        try {
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of(ERROR_TEXT_BEGINNING, "Fehlender oder ungültiger Token Header"));
+            }
+
+            String token = authHeader.substring(7); // "Bearer " entfernen
+            String username = jwtService.extractUsername(token);
+
+            if (username == null || !jwtService.validateToken(token, username)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of(ERROR_TEXT_BEGINNING, "Token abgelaufen oder ungültig"));
+            }
+
+            Optional<AppUser> userOpt = appUserService.findByUsernameOrEmail(username);
+            if (userOpt.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of(ERROR_TEXT_BEGINNING, "Benutzer nicht gefunden"));
+            }
+
+            AppUser user = userOpt.get();
+
+            // Direkte Map-Rückgabe ohne DTO-Klasse
+            Map<String, Object> response = new HashMap<>();
+            response.put("id", user.getId());
+            response.put("Username/E-Mail",user.getUsername());
+            response.put("Password", user.getPassword());
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of(ERROR_TEXT_BEGINNING, "Fehler beim Abrufen des Profils: " + e.getMessage()));
+        }
+    }
     @GetMapping("/test")
     public ResponseEntity<String> test() {
         return ResponseEntity.ok("Auth Controller funktioniert!");

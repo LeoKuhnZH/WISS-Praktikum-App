@@ -1,33 +1,37 @@
-# 🚀 ICT_Stellenportal WISS Connect  für  WISS Praktikanten 
 
-Eine moderne Fullstack-Webapplikation zur effizienten Vermittlung und Verwaltung von Informatik-Praktikumsstellen. Die Webapp unterstützt WISS-Studenten bei der Suche nach Praktika, der  Verwaltung und dem Hinzufügen von neuen Inseraten. Für Unternehmen gibt es eine eigene Ansicht zur Entgegennahme und Verwaltung von Bewerbungen sowie ein persönliches Bewerber-Dashboard, welches die Favoritenstellen mit dem jeweiligen Bewerbungsstatus nach dem Login anzeigt. Um den Datenschutz der Bewerber zu gewährleisten, ist ein Privacy Banner mit integrierten AGBs eingebunden.
+
+# 💼 ICT-Praktikumsstellenportal WISS Connect für WISS-Praktikanten
+
+
+
+Eine moderne Fullstack-Webapplikation zur effizienten Vermittlung und Verwaltung von Informatik-Praktikumsstellen, welche die Praktikanten und Unternehmen direkt zusammenbringt. Die Webapp unterstützt WISS-Studenten bei der Suche nach Praktika, der  Verwaltung und dem Hinzufügen von neuen Inseraten. Für Unternehmen gibt es eine eigene Ansicht zur Entgegennahme und Verwaltung von Bewerbungen sowie ein persönliches Bewerber-Dashboard, welches die Favoritenstellen mit dem jeweiligen Bewerbungsstatus nach dem Login anzeigt. Um den Datenschutz der Bewerber zu gewährleisten, ist ein Privacy Banner mit integrierten AGBs eingebunden.
 ---
 
-## 📌 Hauptfunktionen (Key Features)
+##  Hauptfunktionen (Key Features)
 
-### 👨‍🎓 Für Schülerinnen, Schüler & Praktikanten
+###  Für Schülerinnen, Schüler & Praktikanten
 * **Praktikumsstellen anzeigen & filtern:** Übersichtliche Darstellung aller offenen Praktikumsplätze mit Such- und Filterfunktionen nach Standort, Lohn etc.
-* **Favoritenliste:** Spannende Stellenangebote schnell auf einer persönlichen Merkliste speichern.
-* **Bewerbungssystem:** Direktes Einreichen und Verwalten von Bewerbungsunterlagen über 
-* **Praktikanten-Profil:** Erstellung eines eigenen Profils inklusive Login und Einsicht in die persönlichen Profilinformationen, dem Status der Bewerbungsunterlagen
-* **Unternehmen in der Nähe:** Karten- bzw. Umkreisansicht für regionale Ausbildungsbetriebe.
+* **Favoritenliste:** Spannende Stellenangebote schnell auf einer persönlichen Merkliste speichern und in Favorites Ansicht speichern 
+* **Bewerbungssystem:** Direktes Einreichen und Verwalten von Bewerbungsunterlagen 
+* **Praktikanten-Profil:** Erstellung eines eigenen Profils inklusive Login und Einsicht in die persönlichen Profilinformationen, dem Status der Bewerbungsunterlagen sowie den gelikten Praktikumsstellen in den Favoritesansicht
 
-### 🏢 Für Betriebe & Schulen
+###  Für Praktikumsbetriebe & Schulen
 * **Stellenverwaltung (CRUD):** Erstellung neuer Angebote sowie Bearbeiten und Löschen veralteter Einträge.
 * **Verwaltungsoberfläche:** Übersichtliche Administration von Stellen und Bewerbungseingängen.
+* **Anzeige aller aktuellen vakanten der Praktikumsinserate für die jewielige Firma
 
-### 🔒 Datenschutz & Compliance
+###  Datenschutz & Compliance
 * **Datenschutz & AGB-Banner:** Integriertes Banner zur Einholung von Einwilligungen und zur Gewährleistung der Datenschutzrichtlinien mittels Datenschutzerklärung
 * **Konforme Datenverarbeitung:** Sicherer Umgang mit personenbezogenen Daten und Bewerbungsunterlagen(DSG +DSGVO)
 
-### 🛡️ Sicherheitsarchitektur
+###  Sicherheitsarchitektur
 * **Protected Routes:** Schutz vor geschützten Pages  im Frontend vor unbefugtem Zugriff  nur für ADMIN zugreifbar
 * **Role-Based Access Control (RBAC):** Strenge Berechtigungstrennung für Schüler, Praktikumbetrieben(Schulen) und dem Root(Admin)
 * **Zero-Trust-Prinzip:** Jede Anfrage wird sowohl im Frontend als auch auf Backend-Ebene durchgehend authentifiziert und autorisiert
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 ### Frontend
 * **Framework / Library:** [React](https://react.dev/) 
@@ -41,9 +45,9 @@ Eine moderne Fullstack-Webapplikation zur effizienten Vermittlung und Verwaltung
 * **Datenbank:** Relationale Datenbank (MySQL 8.4 via Docker Container)
 
 
-## 🐳 Docker & Datenbank-Setup
+##  Docker & Datenbank-Setup
 
-### 🔍 Erklärung der Docker-Container "praktikum-mysql"  Konfiguration
+###  Erklärung der Docker-Container "praktikum-mysql"  Konfiguration
 
 * **Image & Container-Name (`mysql:8.4` / `praktikum-mysql`):** Nutzt das offizielle MySQL 8.4 Image und weist dem Container einen eindeutigen Namen zur einfachen Steuerung zu.
 * **Port-Mapping (`3306:3306`):** Leitet den internen MySQL-Port auf den Port `3306` deines Host-Rechners weiter (Expose nach außen). Dadurch können sowohl das Spring Boot Backend als auch externe Tools (z. B. DBeaver, DataGrip, MySQL Workbench) über `localhost:3306` auf die Datenbank zugreifen.
@@ -53,7 +57,7 @@ Eine moderne Fullstack-Webapplikation zur effizienten Vermittlung und Verwaltung
   * `MYSQL_ROOT_PASSWORD`: Legt das Admin-Passwort (`root`) für volle Datenbankrechte fest.
 * **Daten-Persistenz (`volumes: praktikum_mysql_data`):** Speichert die MySQL-Daten außerhalb des Containers im Docker-Volume. So bleiben erstelle Tabellen und Testdaten auch nach einem Container-Neustart (`docker compose down`) vollständig erhalten durch Docker Volumes auch nach dem Löschen des Containers 
 ---
-## 🚀 Installationsanleitung
+##  Installationsanleitung
 
 ### Voraussetzungen2. Datenbank (MySQL) mit Docker starten
 Bevor das Backend gestartet wird, muss der Container "praktikum-mysql" deployed sein, um die DB mit den Stelleninseraten  und Usern  zu initalisieren

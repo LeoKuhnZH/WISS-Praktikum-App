@@ -205,7 +205,7 @@ function Home({ isLoggedIn }) {
         <div className="home-container" style={{padding: '20px', fontFamily: 'sans-serif', position: 'relative', minHeight: '100vh'}}>
 
             <header className="home-header" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px'}}>
-                <h1 className="lg-title">Praktikumsportal</h1>
+                <h1 className="lg-title">ICT-Praktikumsportal WISS Connect</h1>
 
                 <div style={{display: 'flex', gap: '10px'}}>
                     <button
@@ -376,6 +376,7 @@ function Home({ isLoggedIn }) {
                                         <li><strong>Start:</strong> {stelle.details.start}</li>
                                         <li><strong>Vergütung:</strong> {stelle.verguetung}</li>
                                         <li><strong>Anforderungen:</strong> {stelle.details.anforderung}</li>
+
                                         <li>
                                             <strong>Publikationsdatum:</strong> {stelle.details.publikationsdatum}
                                             {stelle.details.timerIcon && <img src={stelle.details.timerIcon} alt="Timer" style={{ width: '14px', marginLeft: '5px', verticalAlign: 'middle' }}/>}
@@ -396,7 +397,7 @@ function Home({ isLoggedIn }) {
                                             onClick={() => handleDeleteJob(stelle.id)}
                                             style={{flex: 1, margin: 0}}
                                         >
-                                            🗑️ Entfernen
+                                            🗑️  Stelle Entfernen
                                         </button>
                                     </div>
                                 )}
@@ -412,31 +413,43 @@ function Home({ isLoggedIn }) {
             {editingStelle && (
                 <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 2000}}>
                     <div style={{backgroundColor: '#fff', padding: '25px', borderRadius: '8px', width: '500px', maxHeight: '90vh', overflowY: 'auto'}}>
-                        <h2>Inserat bearbeiten</h2>
+                        <h2>Praktikumsinserat bearbeiten</h2>
                         <form onSubmit={handleSaveEdit} style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
                             <label>Titel:</label>
-                            <input type="text" value={editingStelle.titel} onChange={(e) => setEditingStelle({...editingStelle, titel: e.target.value})} className="filter-select" />
+                            <input type="text" required placeholder="Z.B DevOps Developer" value={editingStelle.titel} onChange={(e) => setEditingStelle({...editingStelle, titel: e.target.value})} className="filter-select" />
 
                             <label>Firma:</label>
-                            <input type="text" value={editingStelle.firma} onChange={(e) => setEditingStelle({...editingStelle, firma: e.target.value})} className="filter-select" />
+                            <input type="text" required placeholder="Z.B UBS AG" value={editingStelle.firma} onChange={(e) => setEditingStelle({...editingStelle, firma: e.target.value})} className="filter-select" />
 
                             <label>Beschreibung:</label>
-                            <textarea value={editingStelle.beschreibung} onChange={(e) => setEditingStelle({...editingStelle, beschreibung: e.target.value})} className="filter-select" style={{height: '60px'}} />
+                            <textarea value={editingStelle.beschreibung}  required placeholder="DI/CD Pipelines mit DevOps Praktiken " onChange={(e) => setEditingStelle({...editingStelle, beschreibung: e.target.value})} className="filter-select" style={{height: '60px'}} />
+
+                            <label>Publikationsdatum:</label>
+                            <input
+                                type="date"
+                                required
+                                value={editingStelle.publikationsdatum || ''}
+                                onChange={(e) => setEditingStelle({
+                                    ...editingStelle,
+                                    publikationsdatum: e.target.value
+                                })}
+                                className="filter-select"
+                            />
 
                             <label>Standort:</label>
-                            <input type="text" value={editingStelle.details.standort} onChange={(e) => setEditingStelle({...editingStelle, details: {...editingStelle.details, standort: e.target.value}})} className="filter-select" />
+                            <input type="text" required placeholder="Z.B Glattbrug" value={editingStelle.details.standort} onChange={(e) => setEditingStelle({...editingStelle, details: {...editingStelle.details, standort: e.target.value}})} className="filter-select" />
 
                             <label>Dauer:</label>
-                            <input type="text" value={editingStelle.details.dauer} onChange={(e) => setEditingStelle({...editingStelle, details: {...editingStelle.details, dauer: e.target.value}})} className="filter-select" />
+                            <input type="text"  required placeholder="12 Monate" value={editingStelle.details.dauer} onChange={(e) => setEditingStelle({...editingStelle, details: {...editingStelle.details, dauer: e.target.value}})} className="filter-select" />
 
                             <label>Startdatum:</label>
-                            <input type="text" value={editingStelle.details.start} onChange={(e) => setEditingStelle({...editingStelle, details: {...editingStelle.details, start: e.target.value}})} className="filter-select" />
+                            <input type="date" required placeholder="Ab August 2026" value={editingStelle.details.start} onChange={(e) => setEditingStelle({...editingStelle, details: {...editingStelle.details, start: e.target.value}})} className="filter-select" />
 
                             <label>Vergütung:</label>
-                            <input type="text" value={editingStelle.verguetung} onChange={(e) => setEditingStelle({...editingStelle, verguetung: e.target.value})} className="filter-select" />
+                            <input type="text" required placeholder="14'000 Fr. jährlich" value={editingStelle.verguetung} onChange={(e) => setEditingStelle({...editingStelle, verguetung: e.target.value})} className="filter-select" />
 
                             <label>Anforderungen:</label>
-                            <input type="text" value={editingStelle.details.anforderung} onChange={(e) => setEditingStelle({...editingStelle, details: {...editingStelle.details, anforderung: e.target.value}})} className="filter-select" />
+                            <input type="text"  required placeholder="DevOPs Praktikten mit Grundlagen sowie Wissen über Automatisierung per Github Pipelines" value={editingStelle.details.anforderung} onChange={(e) => setEditingStelle({...editingStelle, details: {...editingStelle.details, anforderung: e.target.value}})} className="filter-select" />
 
                             <div style={{display: 'flex', gap: '10px', marginTop: '15px'}}>
                                 <button type="submit" style={{flex: 1, backgroundColor: '#16a34a', color: '#fff', border: 'none', padding: '10px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold'}}>Speichern</button>

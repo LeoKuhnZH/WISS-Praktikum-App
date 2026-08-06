@@ -3,8 +3,7 @@
 # 💼 ICT-Praktikumsstellenportal WISS Connect für WISS-Praktikanten
 
 
-
-Eine moderne Fullstack-Webapplikation zur effizienten Vermittlung und Verwaltung von Informatik-Praktikumsstellen, welche die Praktikanten und Unternehmen direkt zusammenbringt. Die Webapp unterstützt WISS-Studenten bei der Suche nach Praktika, der  Verwaltung und dem Hinzufügen von neuen Inseraten. Für Unternehmen gibt es eine eigene Ansicht zur Entgegennahme und Verwaltung von Bewerbungen sowie ein persönliches Bewerber-Dashboard, welches die Favoritenstellen mit dem jeweiligen Bewerbungsstatus nach dem Login anzeigt. Um den Datenschutz der Bewerber zu gewährleisten, ist ein Privacy Banner mit integrierten AGBs eingebunden.
+Eine moderne Full-Stack-Webapplikation zur effizienten Vermittlung und Verwaltung von Informatik-Praktikumsstellen, welche WISS-Studierende und Unternehmen direkt zusammenbringt. Die Webapp unterstützt bei der Suche nach Praktika sowie beim Erfassen, Bearbeiten, liken der priorisierten Firmen,  und Verwalten von neuen Praktikumsinseraten (wobei das Erfassen und Verwalten von Inseraten ausschließlich für Praktikumsbetriebe vorgesehen ist). Für Unternehmen gibt es eine eigene Ansicht zur Entgegennahme und Verwaltung von Bewerbungen, während Studierende ein persönliches Dashboard mit Favoritenfunktion, transparenter Statusverfolgung eingereichter Bewerbungen und einem integrierten KI-Chatbot nach dem Login nutzen können. Um den Datenschutz der Bewerber zu gewährleisten, ist zudem ein Privacy-Banner mit integrierten AGBs eingebunden.
 ---
 
 ##  Hauptfunktionen (Key Features)

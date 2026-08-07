@@ -46,8 +46,8 @@
         <!-- LangChain4j OpenAI Support -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
-            <version>${langchain4j.version}</version>
+            <artifactId>langchain4j-ollama-spring-boot-starter</artifactId>
+            <version>0.35.0</version>
         </dependency>
 
         <!-- Spring Security & JWT -->

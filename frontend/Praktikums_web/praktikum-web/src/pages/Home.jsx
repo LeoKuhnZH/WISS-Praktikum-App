@@ -41,20 +41,143 @@ function Home({ isLoggedIn }) {
         name: "",
         email: "",
         gitUrl: "",
-        gitlabURL: "",
+        gitlabUrl: "",
         linkedIn: "",
         nachricht: "",
         cvFile: null,
+        telefon: "",
         zeugnisseFile: null,
         weitereDokus: null,
     });
 
+
+
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [chatFile, setChatFile] = useState(null);
+    const [chatPreviewUrl, setChatPreviewUrl] = useState(null);
+    const [chatInput, setChatInput] = useState("");
+    const chatFileInputRef = useRef(null);
+    const chatEndRef = useRef(null);
+    const [messages, setMessages] = useState([
+        {
+            sender: "bot",
+            text: "Hallo! 👋 Ich bin dein persönlicher KI-Assistent Superchat. Lade gerne deinen CV hoch oder stelle mir Fragen zu Praktika!",
+        },
+    ]);
+
+    const handleRemoveChatFile = () => {
+        setChatFile(null);
+        setChatPreviewUrl(null);
+        if (chatFileInputRef.current) chatFileInputRef.current.value = "";
+    };
+
+    const handleChatFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setChatFile(file);
+            if (file.type.startsWith("image/")) {
+                setChatPreviewUrl(URL.createObjectURL(file));
+            } else {
+                setChatPreviewUrl(null);
+            }
+        }
+    };
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
+
+        // 1. Abbrechen, wenn weder Text noch Datei vorhanden ist
+        if (!chatInput.trim() && !chatFile) return;
+
+        // 2. Werte sichern
+        const userMsg = chatInput.trim();
+        const attachedFile = chatFile;
+        const attachedPreview = chatPreviewUrl;
+
+        // 3. Kontext aufbauen (Sicherer Zugriff: Verwendet applyingStelle oder stellt Fallback bereit)
+        let contextMessage = userMsg;
+
+        // Anmerkung: Prüfe hier, wie deine State-Variable für die ausgewählte Stelle wirklich heißt:
+        const aktuelleStelle = applyingStelle || editingStelle;
+        if (aktuelleStelle && aktuelleStelle.titel) {
+            contextMessage = `[Frage zu Stelle: "${aktuelleStelle.titel}" bei "${aktuelleStelle.firma}"]\n${userMsg}`;
+        }
+
+        // 4. Nachricht LOKAL im UI anzeigen
+        setMessages((prev) => [
+            ...prev,
+            {
+                sender: "user",
+                text: userMsg,
+                fileName: attachedFile ? attachedFile.name : null,
+                filePreview: attachedPreview,
+            },
+        ]);
+
+        // 5. Eingabefelder leeren
+        setChatInput("");
+        if (typeof handleRemoveChatFile === "function") {
+            handleRemoveChatFile();
+        }
+
+        // Basis-URL zentral (oder z.B. nur "/api/chat" falls Proxy aktiv)
+        const API_BASE_URL = "http://localhost:8080";
+
+        // 6. Request an Backend senden
+        try {
+            let response;
+
+            if (attachedFile) {
+                // MULTIPART / FILE UPLOAD
+                const formData = new FormData();
+                formData.append("message", contextMessage);
+                formData.append("file", attachedFile);
+
+                response = await fetch(`${API_BASE_URL}/api/chat/${sessionId}/upload`, {
+                    method: "POST",
+                    body: formData, // Kein Header "Content-Type" angeben, macht der Browser automatisch
+                });
+            } else {
+                // REINER TEXT (JSON)
+                response = await fetch(`${API_BASE_URL}/api/chat/${sessionId}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ message: contextMessage }),
+                });
+            }
+
+            if (!response.ok) {
+                throw new Error(`Server-Fehler: ${response.status}`);
+            }
+
+            // 7. Antwort erhalten und dem Verlauf hinzufügen
+            const botReply = await response.text();
+            setMessages((prev) => [
+                ...prev,
+                { sender: "bot", text: botReply },
+            ]);
+
+        } catch (error) {
+            console.error("Chatbot-Fehler:", error);
+            setMessages((prev) => [
+                ...prev,
+                {
+                    sender: "bot",
+                    text: "Entschuldigung, es gab ein Problem bei der Verbindung zum backend.",
+                },
+            ]);
+        }
+    };
+
+    useEffect(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages, isChatOpen]);
+
     // --- FAVORITEN / GEMERKT STATE ---
     const [favorites, setFavorites] = useState([]);
 
-    const [sessionId] = useState(
-        () => "session-" + Math.random().toString(36).substring(2, 9)
-    );
+    const [sessionId] = useState(() => "session-" + Math.random().toString(36).substring(2, 9));
 
     useEffect(() => {
         const storedFavs = JSON.parse(localStorage.getItem("favorites") || "[]");
@@ -78,104 +201,6 @@ function Home({ isLoggedIn }) {
         localStorage.setItem("favorites", JSON.stringify(updatedFavs));
     };
 
-    // --- KI CHATBOT STATES ---
-// --- KI CHATBOT STATES ---
-    const [isChatOpen, setIsChatOpen] = useState(false);
-    const [chatFile, setChatFile] = useState(null);
-    const [chatPreviewUrl, setChatPreviewUrl] = useState(null);
-    const [chatInput, setChatInput] = useState("");
-    const chatFileInputRef = useRef(null);
-    const chatEndRef = useRef(null);
-    const [messages, setMessages] = useState([
-        {
-            sender: "bot",
-            text: "Hallo! 👋 Ich bin dein persönlicher KI-Assistent Superchat. Frag mich etwas zu den aktuellen Praktikumsstellen!",
-        },
-    ]);
-
-    const handleRemoveChatFile = () => {
-        setChatFile(null);
-        setChatPreviewUrl(null);
-        if (chatFileInputRef.current) chatFileInputRef.current.value = "";
-    };
-
-    const handleChatFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setChatFile(file);
-            if (file.type.startsWith("image/")) {
-                setChatPreviewUrl(URL.createObjectURL(file));
-            } else {
-                setChatPreviewUrl(null);
-            }
-        }
-    };
-
-
-
-    const handleSendMessage = async (e) => {
-        e.preventDefault();
-        if (!chatInput.trim() && !chatFile) return;
-
-        const userMsg = chatInput.trim();
-        const attachedFile = chatFile;
-        const attachedPreview = chatPreviewUrl;
-
-        setMessages((prev) => [
-            ...prev,
-            {
-                sender: "user",
-                text: userMsg,
-                fileName: attachedFile ? attachedFile.name : null,
-                filePreview: attachedPreview,
-            },
-        ]);
-
-        setChatInput("");
-        handleRemoveChatFile();
-
-        try {
-            let response;
-            if (attachedFile) {
-                const formData = new FormData();
-                formData.append("message", userMsg);
-                formData.append("file", attachedFile);
-
-                response = await fetch(`/api/chat/${sessionId}/upload`, {
-                    method: "POST",
-                    body: formData,
-                });
-            } else {
-                response = await fetch(`/api/chat/${sessionId}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "text/plain" },
-                    body: userMsg,
-                });
-            }
-
-            if (!response.ok) throw new Error(`Serverfehler: ${response.status}`);
-
-            const botReply = await response.text();
-            setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
-        } catch (error) {
-            console.error("Chatbot Fehler:", error);
-            setMessages((prev) => [
-                ...prev,
-                {
-                    sender: "bot",
-                    text: "Entschuldigung, es gab ein Problem bei der Verbindung zum Backend.",
-                },
-            ]);
-        }
-    };
-
-    useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages, isChatOpen]);
-
-    useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages, isChatOpen]);
 
     useEffect(() => {
         fetch("/api/posting/all")
@@ -233,6 +258,7 @@ function Home({ isLoggedIn }) {
         setEditingStelle(null);
         alert("Inserat erfolgreich aktualisiert!");
     };
+
     // --- BEWERBUNG ABSCHICKEN ---
     const handleFileChange = (e, field) => {
         const file = e.target.files[0];
@@ -250,7 +276,6 @@ function Home({ isLoggedIn }) {
 
     const handleSubmitBewerbung = (e) => {
         e.preventDefault();
-
         const neueBewerbung = {
             id: Date.now(),
             stelleId: applyingStelle.id,
@@ -273,14 +298,15 @@ function Home({ isLoggedIn }) {
             name: "",
             email: "",
             gitUrl: "",
+            gitlabUrl: "",
+            linkedIn: "",
             nachricht: "",
             cvFile: null,
+            telefon: "",
             zeugnisseFile: null,
             weitereDokus: null,
         });
     };
-
-
 
     // SCHUTZ VOR NULL/UNDEFINED BEIM FILTERN
     const gefiltertePraktikas = stellenAngebote.filter((stelle) => {
@@ -397,7 +423,7 @@ function Home({ isLoggedIn }) {
                             fontWeight: "bold",
                         }}
                     >
-                        👨‍🎓 Bewerbersicht
+                        👨‍🎓 Für Bewerber
                     </button>
                     <button
                         onClick={() => setViewMode("unternehmen")}
@@ -412,7 +438,7 @@ function Home({ isLoggedIn }) {
                             fontWeight: "bold",
                         }}
                     >
-                        🏢 Unternehmenssicht ({bewerbungen.length} Bewerbungen)
+                        🏢 Für Unternehmen ({bewerbungen.length} Bewerbungen)
                     </button>
                 </div>
             </header>
@@ -550,8 +576,6 @@ function Home({ isLoggedIn }) {
                         <select
                             id="start-select"
                             value={selectedStartdatum}
-                            required
-                            placeholder="14.August 2026"
                             onChange={(e) => setSelectedStartdatum(e.target.value)}
                             className="filter-select"
                         >
@@ -632,73 +656,91 @@ function Home({ isLoggedIn }) {
                                             display: "flex",
                                             justify: "space-between",
                                             alignItems: "center",
+                                            flexWrap: "wrap",
+                                            gap: "10px",
                                         }}
                                     >
                                         <h3 style={{ margin: 0 }}>
                                             {b.name} ({b.email})
                                         </h3>
                                         <span style={{ fontSize: "12px", color: "#64748b" }}>
-                      Eingegangen am: {b.datum}
-                    </span>
+                                            Eingegangen am: {b.datum}
+                                        </span>
                                     </div>
+
                                     <p style={{ margin: "5px 0" }}>
                                         <strong>Stelle:</strong> {b.stelleTitel} bei {b.firma}
                                     </p>
-                                    {b.gitUrl && (
-                                        <p style={{ margin: "5px 0" }}>
-                                            <strong>GitHub / Portfolio:</strong>{" "}
-                                            <a href={b.gitUrl} target="_blank" rel="noreferrer">
-                                                {b.gitUrl}
-                                            </a>
-                                        </p>
-                                    )}
-                                    {b.nachricht && (
-                                        <p style={{ margin: "5px 0" }}>
-                                            <strong>Nachricht:</strong> {b.nachricht}
-                                        </p>
-                                    )}
 
-                                    <div
-                                        style={{
-                                            marginTop: "10px",
-                                            display: "flex",
-                                            gap: "10px",
-                                            flexWrap: "wrap",
-                                        }}
-                                    >
-                                        <strong>Angehängte Dokumente:</strong>
-                                        {b.cvFile ? (
-                                            <a
-                                                href={b.cvFile.url}
-                                                download={b.cvFile.name}
-                                                style={{ color: "#2563eb", fontWeight: "bold" }}
-                                            >
-                                                📄 Lebenslauf ({b.cvFile.name})
-                                            </a>
+                                    <div style={{ marginTop: "10px", padding: "8px", backgroundColor: "#f8fafc", borderRadius: "4px", border: "1px solid #e2e8f0" }}>
+                                        <strong>Telefonnummer / Natel:</strong>
+                                        {b.telefon ? (
+                                            <p style={{ margin: "3px 0 0 0" }}>
+                                                <a
+                                                    href={`tel:${b.telefon}`}
+                                                    style={{ color: "#0284c7", textDecoration: "underline", fontWeight: "bold" }}
+                                                >
+                                                    📞 {b.telefon}
+                                                </a>
+                                            </p>
                                         ) : (
-                                            <span style={{ color: "#94a3b8" }}>Kein CV</span>
-                                        )}
-
-                                        {b.zeugnisseFile && (
-                                            <a
-                                                href={b.zeugnisseFile.url}
-                                                download={b.zeugnisseFile.name}
-                                                style={{ color: "#2563eb", fontWeight: "bold" }}
-                                            >
-                                                📂 Zeugnisse ({b.zeugnisseFile.name})
-                                            </a>
-                                        )}
-
-                                        {b.weitereDokus && (
-                                            <a
-                                                href={b.weitereDokus.url}
-                                                download={b.weitereDokus.name}
-                                                style={{ color: "#2563eb", fontWeight: "bold" }}
-                                            >
-                                                📎 Weitere Doku ({b.weitereDokus.name})
-                                            </a>
+                                            <p style={{ margin: "3px 0 0 0", color: "#888", fontStyle: "italic" }}>
+                                                Keine Telefonnummer angegeben
+                                            </p>
                                         )}
                                     </div>
+
+                                    <div style={{ marginTop: "8px", padding: "8px", backgroundColor: "#f8fafc", borderRadius: "4px", border: "1px solid #e2e8f0" }}>
+                                        <strong>LinkedIn-Profil URL:</strong>
+                                        {b.linkedIn ? (
+                                            <p style={{ margin: "3px 0 0 0", wordBreak: "break-all" }}>
+                                                <a href={b.linkedIn} target="_blank" rel="noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
+                                                    🔗 {b.linkedIn}
+                                                </a>
+                                            </p>
+                                        ) : (
+                                            <p style={{ margin: "3px 0 0 0", color: "#888", fontStyle: "italic" }}>
+                                                Kein LinkedIn-Profil angegeben
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    <div style={{ marginTop: "8px", padding: "8px", backgroundColor: "#f8fafc", borderRadius: "4px", border: "1px solid #e2e8f0" }}>
+                                        <strong>GitHub-Profil URL:</strong>
+                                        {b.githubUrl || b.gitUrl ? (
+                                            <p style={{ margin: "3px 0 0 0", wordBreak: "break-all" }}>
+                                                <a href={b.githubUrl || b.gitUrl} target="_blank" rel="noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
+                                                    💻 {b.githubUrl || b.gitUrl}
+                                                </a>
+                                            </p>
+                                        ) : (
+                                            <p style={{ margin: "3px 0 0 0", color: "#888", fontStyle: "italic" }}>
+                                                Kein GitHub-Profil angegeben
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    <div style={{ marginTop: "8px", padding: "8px", backgroundColor: "#f8fafc", borderRadius: "4px", border: "1px solid #e2e8f0" }}>
+                                        <strong>GitLab-Profil URL:</strong>
+                                        {b.gitlabUrl ? (
+                                            <p style={{ margin: "3px 0 0 0", wordBreak: "break-all" }}>
+                                                <a href={b.gitlabUrl} target="_blank" rel="noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
+                                                    🦊 {b.gitlabUrl}
+                                                </a>
+                                            </p>
+                                        ) : (
+                                            <p style={{ margin: "3px 0 0 0", color: "#888", fontStyle: "italic" }}>
+                                                Kein GitLab-Profil angegeben
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {b.nachricht && (
+                                        <div style={{ marginTop: "8px", padding: "8px", backgroundColor: "#f8fafc", borderRadius: "4px", border: "1px solid #e2e8f0" }}>
+                                            <strong>Nachricht:</strong>
+                                            <p style={{ margin: "3px 0 0 0" }}>{b.nachricht}</p>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -706,433 +748,115 @@ function Home({ isLoggedIn }) {
                 </div>
             )}
 
-
-            <div
-                style={{
-                    position: "fixed",
-                    bottom: "25px",
-                    right: "25px",
-                    zIndex: 3000,
-                }}
-            >
-                {!isChatOpen ? (
-                    <button
-                        onClick={() => setIsChatOpen(true)}
-                        style={{
-                            backgroundColor: "#2563eb",
-                            color: "#fff",
-                            border: "none",
-                            borderRadius: "50px",
-                            padding: "14px 22px",
-                            fontSize: "16px",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                            boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                        }}
-                    >
-                        💬 KI-Chatbot
-                    </button>
-                ) : (
-                    <div
-                        style={{
-                            width: "360px",
-                            height: "500px",
-                            backgroundColor: "#fff",
-                            borderRadius: "12px",
-                            boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
-                            display: "flex",
-                            flexDirection: "column",
-                            overflow: "hidden",
-                            border: "1px solid #cbd5e1",
-                        }}
-                    >
-                        {/* Header */}
-                        <div
-                            style={{
-                                backgroundColor: "#2563eb",
-                                color: "#fff",
-                                padding: "12px 16px",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                fontWeight: "bold",
-                            }}
-                        >
-                            <span>🤖 KI Support Assistant</span>
-                            <button
-                                onClick={() => setIsChatOpen(false)}
-                                style={{
-                                    background: "none",
-                                    border: "none",
-                                    color: "#fff",
-                                    fontSize: "18px",
-                                    cursor: "pointer",
-                                }}
-                            >
-                                ✖
-                            </button>
-                        </div>
-
-                        {/* Nachrichtenverlauf */}
-                        <div
-                            style={{
-                                flex: 1,
-                                padding: "12px",
-                                overflowY: "auto",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "10px",
-                                backgroundColor: "#f8fafc",
-                            }}
-                        >
-                            {messages.map((msg, index) => (
-                                <div
-                                    key={index}
-                                    style={{
-                                        alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
-                                        backgroundColor: msg.sender === "user" ? "#2563eb" : "#e2e8f0",
-                                        color: msg.sender === "user" ? "#fff" : "#0f172a",
-                                        padding: "8px 12px",
-                                        borderRadius: "12px",
-                                        maxWidth: "80%",
-                                        fontSize: "14px",
-                                        wordBreak: "break-word",
-                                    }}
-                                >
-                                    {msg.text}
-                                    {msg.filePreview && (
-                                        <img
-                                            src={msg.filePreview}
-                                            alt="Anhang"
-                                            style={{
-                                                marginTop: "6px",
-                                                maxWidth: "100%",
-                                                maxHeight: "120px",
-                                                borderRadius: "6px",
-                                                display: "block",
-                                            }}
-                                        />
-                                    )}
-                                    {msg.fileName && !msg.filePreview && (
-                                        <div
-                                            style={{
-                                                marginTop: "4px",
-                                                fontSize: "11px",
-                                                opacity: 0.8,
-                                                fontStyle: "italic",
-                                            }}
-                                        >
-                                            📎 {msg.fileName}
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                            <div ref={chatEndRef} />
-                        </div>
-
-                        {/* DATEI-VORSCHAU IN DER EINGABEZEILE */}
-                        {chatFile && (
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "8px",
-                                    padding: "6px 12px",
-                                    backgroundColor: "#f1f5f9",
-                                    borderTop: "1px solid #cbd5e1",
-                                }}
-                            >
-                                {chatPreviewUrl ? (
-                                    <img
-                                        src={chatPreviewUrl}
-                                        alt="Vorschau"
-                                        style={{
-                                            width: "32px",
-                                            height: "32px",
-                                            objectFit: "cover",
-                                            borderRadius: "4px",
-                                        }}
-                                    />
-                                ) : (
-                                    <span style={{ fontSize: "12px", color: "#475569" }}>
-                                        📄 {chatFile.name}
-                                    </span>
-                                )}
-                                <button
-                                    type="button"
-                                    onClick={handleRemoveChatFile}
-                                    style={{
-                                        marginLeft: "auto",
-                                        border: "none",
-                                        background: "transparent",
-                                        cursor: "pointer",
-                                        fontWeight: "bold",
-                                        color: "#ef4444",
-                                    }}
-                                >
-                                    ✕
-                                </button>
-                            </div>
-                        )}
-
-                        {/* Input Formular */}
-                        <form
-                            onSubmit={handleSendMessage}
-                            style={{
-                                display: "flex",
-                                padding: "8px",
-                                borderTop: "1px solid #cbd5e1",
-                                backgroundColor: "#fff",
-                                gap: "6px",
-                                alignItems: "center",
-                            }}
-                        >
-                            <input
-                                type="file"
-                                ref={chatFileInputRef}
-                                onChange={handleChatFileChange}
-                                style={{ display: "none" }}
-                                accept="image/*,application/pdf"
-                            />
-
-                            <button
-                                type="button"
-                                onClick={() => chatFileInputRef.current?.click()}
-                                style={{
-                                    border: "none",
-                                    background: "transparent",
-                                    fontSize: "18px",
-                                    cursor: "pointer",
-                                    padding: "4px",
-                                }}
-                                title="Datei oder Bild anhängen"
-                            >
-                                📎
-                            </button>
-
-                            <input
-                                type="text"
-                                value={chatInput}
-                                onChange={(e) => setChatInput(e.target.value)}
-                                placeholder="Schreibe eine Nachricht..."
-                                style={{
-                                    flex: 1,
-                                    border: "1px solid #cbd5e1",
-                                    borderRadius: "6px",
-                                    padding: "8px",
-                                    outline: "none",
-                                }}
-                            />
-
-                            <button
-                                type="submit"
-                                style={{
-                                    backgroundColor: "#2563eb",
-                                    color: "#fff",
-                                    border: "none",
-                                    borderRadius: "6px",
-                                    padding: "8px 12px",
-                                    cursor: "pointer",
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                Senden
-                            </button>
-                        </form>
-                   </div>
-                )}
-            </div>
-            {/* JOBCARDS ANZEIGE */}
-            <main className="grid">
-                {loading ? (
-                    <p>Lade Inserate...</p>
-                ) : gefiltertePraktikas.length > 0 ? (
-                    gefiltertePraktikas.map((stelle) => {
-                        const isFav = favorites.some((f) => f.id === stelle.id);
+            {/* KARTEN-LISTE BEREICH */}
+            <h2>Praktikumsstellen ({gefiltertePraktikas.length})</h2>
+            {loading ? (
+                <p>Lade Inserate...</p>
+            ) : (
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px" }}>
+                    {gefiltertePraktikas.map((stelle) => {
+                        const isFav = favorites.some((fav) => fav.id === stelle.id);
                         return (
                             <div
                                 key={stelle.id}
-                                className="card"
                                 style={{
-                                    position: "relative",
+                                    border: "1px solid #cbd5e1",
+                                    borderRadius: "8px",
+                                    padding: "16px",
+                                    backgroundColor: "#fff",
                                     display: "flex",
                                     flexDirection: "column",
                                     justify: "space-between",
                                 }}
                             >
                                 <div>
-                                    <div
-                                        className="card-header"
-                                        style={{
-                                            display: "flex",
-                                            justify: "space-between",
-                                            alignItems: "flex-start",
-                                        }}
-                                    >
-                                        <div>
-                                            <h2 className="job-title">{stelle.titel}</h2>
-                                        </div>
-                                        <div
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                        <h3 style={{ margin: "0 0 8px 0" }}>{stelle.titel}</h3>
+                                        <button
+                                            onClick={() => toggleFavorite(stelle)}
                                             style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: "10px",
+                                                background: "none",
+                                                border: "none",
+                                                fontSize: "20px",
+                                                cursor: "pointer",
                                             }}
                                         >
-                                            <button
-                                                onClick={() => toggleFavorite(stelle)}
-                                                style={{
-                                                    background: "none",
-                                                    border: "none",
-                                                    fontSize: "22px",
-                                                    cursor: "pointer",
-                                                    padding: "4px",
-                                                }}
-                                                title={
-                                                    isFav
-                                                        ? "Gemerktes Inserat entfernen"
-                                                        : "Inserat merken"
-                                                }
-                                            >
-                                                {isFav ? "⭐" : "🤍"}
-                                            </button>
-                                            <img
-                                                className="logo"
-                                                src={stelle.logo}
-                                                alt={`${stelle.firma} Logo`}
-                                            />
-                                        </div>
+                                            {isFav ? "❤️" : "🤍"}
+                                        </button>
                                     </div>
-
-                                    <hr className="divider" />
-
-                                    <div className="section">
-                                        <h3 className="section-title">Berufsbeschreibung</h3>
-                                        <p>{stelle.beschreibung}</p>
-                                    </div>
-
-                                    <div className="section">
-                                        <h3 className="section-title">
-                                            Details zur Praktikumsstelle
-                                        </h3>
-                                        <ul className="list">
-                                            <li>
-                                                <strong>Firma:</strong> {stelle.firma}
-                                            </li>
-                                            <li>
-                                                <strong>Standort:</strong>{" "}
-                                                {stelle.details?.standort || "keine Angabe"}
-                                            </li>
-                                            <li>
-                                                <strong>Praktikumsdauer:</strong>{" "}
-                                                {stelle.details?.dauer || "keine Angabe"}
-                                            </li>
-                                            <li>
-                                                <strong>Start:</strong>{" "}
-                                                {stelle.details?.start || "keine Angabe"}
-                                            </li>
-                                            <li>
-                                                <strong>Vergütung:</strong> {stelle.verguetung}
-                                            </li>
-                                            <li>
-                                                <strong>Anforderungen:</strong>{" "}
-                                                {stelle.details?.anforderung || "keine Angabe"}
-                                            </li>
-
-                                            <li>
-                                                <strong>Publikationsdatum:</strong>{" "}
-                                                {stelle.details?.publikationsdatum || "keine Angabe"}
-                                                {stelle.details?.timerIcon && (
-                                                    <img
-                                                        src={stelle.details.timerIcon}
-                                                        alt="Timer"
-                                                        style={{
-                                                            width: "14px",
-                                                            marginLeft: "5px",
-                                                            verticalAlign: "middle",
-                                                        }}
-                                                    />
-                                                )}
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <p style={{ color: "#64748b", margin: "0 0 12px 0", fontWeight: "bold" }}>
+                                        {stelle.firma}
+                                    </p>
+                                    <p style={{ fontSize: "14px", margin: "0 0 8px 0" }}>
+                                        <strong>Ort:</strong> {stelle.details?.standort}
+                                    </p>
+                                    <p style={{ fontSize: "14px", margin: "0 0 8px 0" }}>
+                                        <strong>Start:</strong> {stelle.details?.start}
+                                    </p>
+                                    <p style={{ fontSize: "14px", margin: "0 0 12px 0" }}>
+                                        <strong>Lohn:</strong> {stelle.verguetung}
+                                    </p>
+                                    <p style={{ fontSize: "14px", color: "#334155" }}>{stelle.beschreibung}</p>
                                 </div>
 
-                                {/* BEWERBEN & BEARBEITEN BUTTONS */}
-                                <div style={{ marginTop: "15px" }}>
-                                    {viewMode === "bewerber" && (
+                                <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
+                                    {viewMode === "bewerber" ? (
                                         <button
                                             onClick={() => setApplyingStelle(stelle)}
                                             style={{
-                                                width: "100%",
+                                                flex: 1,
+                                                padding: "8px",
                                                 backgroundColor: "#2563eb",
                                                 color: "#fff",
                                                 border: "none",
-                                                padding: "10px",
-                                                borderRadius: "6px",
+                                                borderRadius: "4px",
                                                 cursor: "pointer",
                                                 fontWeight: "bold",
-                                                fontSize: "15px",
                                             }}
                                         >
-                                            📤 Jetzt Bewerben / Unterlagen hochladen
+                                            Jetzt bewerben
                                         </button>
-                                    )}
-
-                                    {(isLoggedIn || viewMode === "unternehmen") && (
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                gap: "10px",
-                                                marginTop: "10px",
-                                            }}
-                                        >
+                                    ) : (
+                                        <>
                                             <button
                                                 onClick={() => setEditingStelle(stelle)}
                                                 style={{
                                                     flex: 1,
+                                                    padding: "8px",
                                                     backgroundColor: "#f59e0b",
                                                     color: "#fff",
                                                     border: "none",
-                                                    padding: "8px",
-                                                    borderRadius: "6px",
+                                                    borderRadius: "4px",
                                                     cursor: "pointer",
                                                     fontWeight: "bold",
                                                 }}
                                             >
-                                                ✏️ Bearbeiten
+                                                Bearbeiten
                                             </button>
                                             <button
                                                 onClick={() => handleDeleteJob(stelle.id)}
                                                 style={{
-                                                    flex: 1,
+                                                    padding: "8px",
                                                     backgroundColor: "#ef4444",
                                                     color: "#fff",
                                                     border: "none",
-                                                    padding: "8px",
-                                                    borderRadius: "6px",
+                                                    borderRadius: "4px",
                                                     cursor: "pointer",
                                                     fontWeight: "bold",
                                                 }}
                                             >
-                                                🗑️ Löschen
+                                                Löschen
                                             </button>
-                                        </div>
+                                        </>
                                     )}
                                 </div>
                             </div>
                         );
-                    })
-                ) : (
-                    <p>Keine Stellenangebote für die gewählten Filter gefunden.</p>
-                )}
-            </main>
+                    })}
+                </div>
+            )}
 
-
-            {/* BEARBEITEN-MODAL (Pop-up) */}
+            {/* EDIT MODAL */}
             {editingStelle && (
                 <div
                     style={{
@@ -1143,7 +867,7 @@ function Home({ isLoggedIn }) {
                         height: "100%",
                         backgroundColor: "rgba(0,0,0,0.5)",
                         display: "flex",
-                        justify: "center",
+                        justifyContent: "center",
                         alignItems: "center",
                         zIndex: 4000,
                     }}
@@ -1153,149 +877,85 @@ function Home({ isLoggedIn }) {
                             backgroundColor: "#fff",
                             padding: "24px",
                             borderRadius: "8px",
-                            maxWidth: "550px",
+                            maxWidth: "500px",
                             width: "90%",
                             maxHeight: "90vh",
                             overflowY: "auto",
                         }}
                     >
-                        <h2>✏️ Stelleninserat bearbeiten</h2>
-
-                        <form
-                            onSubmit={handleSaveEdit}
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "12px",
-                            }}
-                        >
-                            <label>
-                                <strong>Jobtitel:</strong>
-                            </label>
+                        <h2>Inserat bearbeiten</h2>
+                        <form onSubmit={handleSaveEdit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                            <label><strong>Titel:</strong></label>
                             <input
                                 type="text"
                                 required
                                 value={editingStelle.titel}
-                                onChange={(e) =>
-                                    setEditingStelle({ ...editingStelle, titel: e.target.value })
-                                }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                onChange={(e) => setEditingStelle({ ...editingStelle, titel: e.target.value })}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>Firma:</strong>
-                            </label>
+                            <label><strong>Firma:</strong></label>
                             <input
                                 type="text"
                                 required
                                 value={editingStelle.firma}
-                                onChange={(e) =>
-                                    setEditingStelle({ ...editingStelle, firma: e.target.value })
-                                }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                onChange={(e) => setEditingStelle({ ...editingStelle, firma: e.target.value })}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>Anforderungen:</strong>
-                            </label>
+                            <label><strong>Anforderungen:</strong></label>
                             <textarea
                                 rows="3"
                                 value={editingStelle.details?.anforderung || ""}
                                 onChange={(e) =>
                                     setEditingStelle({
                                         ...editingStelle,
-                                        details: {
-                                            ...editingStelle.details,
-                                            anforderung: e.target.value,
-                                        },
+                                        details: { ...editingStelle.details, anforderung: e.target.value },
                                     })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            {/* STARTDATUM ALS KALENDER-PICKER */}
-                            <label>
-                                <strong>Startdatum:</strong>
-                            </label>
+                            <label><strong>Startdatum:</strong></label>
                             <input
                                 type="date"
                                 value={editingStelle.details?.start || ""}
                                 onChange={(e) =>
                                     setEditingStelle({
                                         ...editingStelle,
-                                        details: {
-                                            ...editingStelle.details,
-                                            start: e.target.value,
-                                        },
+                                        details: { ...editingStelle.details, start: e.target.value },
                                     })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            {/* PUBLIKATIONSDATUM ALS KALENDER-PICKER */}
-                            <label>
-                                <strong>Veröffentlichungsdatum:</strong>
-                            </label>
+                            <label><strong>Veröffentlichungsdatum:</strong></label>
                             <input
                                 type="date"
                                 value={editingStelle.details?.publikationsdatum || ""}
                                 onChange={(e) =>
                                     setEditingStelle({
                                         ...editingStelle,
-                                        details: {
-                                            ...editingStelle.details,
-                                            publikationsdatum: e.target.value,
-                                        },
+                                        details: { ...editingStelle.details, publikationsdatum: e.target.value },
                                     })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>Praktikumsdauer:</strong>
-                            </label>
+                            <label><strong>Praktikumsdauer:</strong></label>
                             <input
-                                type="text"
+                                type="number"
                                 value={editingStelle.details?.dauer || ""}
                                 onChange={(e) =>
                                     setEditingStelle({
                                         ...editingStelle,
-                                        details: {
-                                            ...editingStelle.details,
-                                            dauer: e.target.value,
-                                        },
+                                        details: { ...editingStelle.details, dauer: e.target.value },
                                     })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>Distanz (in km):</strong>
-                            </label>
+                            <label><strong>Distanz (in km):</strong></label>
                             <input
                                 type="number"
                                 value={editingStelle.details?.distanz ?? 0}
@@ -1308,81 +968,42 @@ function Home({ isLoggedIn }) {
                                         },
                                     })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>Standort:</strong>
-                            </label>
+                            <label><strong>Standort:</strong></label>
                             <input
                                 type="text"
+                                placeholder={"Z.B Glattbrug"}
+                                required
                                 value={editingStelle.details?.standort || ""}
                                 onChange={(e) =>
                                     setEditingStelle({
                                         ...editingStelle,
-                                        details: {
-                                            ...editingStelle.details,
-                                            standort: e.target.value,
-                                        },
+                                        details: { ...editingStelle.details, standort: e.target.value },
                                     })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>Vergütung:</strong>
-                            </label>
+                            <label><strong>Vergütung:</strong></label>
                             <input
                                 type="text"
                                 value={editingStelle.verguetung || ""}
-                                onChange={(e) =>
-                                    setEditingStelle({
-                                        ...editingStelle,
-                                        verguetung: e.target.value,
-                                    })
-                                }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                onChange={(e) => setEditingStelle({ ...editingStelle, verguetung: e.target.value })}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>Beschreibung:</strong>
-                            </label>
+                            <label><strong>Beschreibung:</strong></label>
                             <textarea
                                 rows="4"
+                                required
                                 value={editingStelle.beschreibung || ""}
-                                onChange={(e) =>
-                                    setEditingStelle({
-                                        ...editingStelle,
-                                        beschreibung: e.target.value,
-                                    })
-                                }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                onChange={(e) => setEditingStelle({ ...editingStelle, beschreibung: e.target.value })}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justify: "flex-end",
-                                    gap: "10px",
-                                    marginTop: "15px",
-                                }}
-                            >
+                            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "15px" }}>
                                 <button
                                     type="button"
                                     onClick={() => setEditingStelle(null)}
@@ -1406,6 +1027,7 @@ function Home({ isLoggedIn }) {
                                         color: "#fff",
                                         fontWeight: "bold",
                                         cursor: "pointer",
+
                                     }}
                                 >
                                     Änderungen Speichern
@@ -1416,6 +1038,9 @@ function Home({ isLoggedIn }) {
                 </div>
             )}
 
+
+
+            {/* --- FLOATING KI CHATBOT (SUPERCHAT) --- */}
 
 
             {/* BEWERBUNGS-MODAL (Pop-up) */}
@@ -1457,86 +1082,95 @@ function Home({ isLoggedIn }) {
                                 gap: "12px",
                             }}
                         >
-                            <label>
-                                <strong>Vollständiger Name *</strong>
-                            </label>
+                            <label><strong>Vollständiger Name *</strong></label>
                             <input
                                 type="text"
                                 required
+                                placeholder="Vincent"
                                 value={bewerbungForm.name}
                                 onChange={(e) =>
-                                    setBewerbungForm({
-                                        ...bewerbungForm,
-                                        name: e.target.value,
-                                    })
+                                    setBewerbungForm({ ...bewerbungForm, name: e.target.value })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>E-Mail-Adresse *</strong>
-                            </label>
+                            <label><strong>E-Mail-Adresse *</strong></label>
                             <input
                                 type="email"
                                 required
+                                placeholder="elias.kaiser@gmx.net"
                                 value={bewerbungForm.email}
                                 onChange={(e) =>
-                                    setBewerbungForm({
-                                        ...bewerbungForm,
-                                        email: e.target.value,
-                                    })
+                                    setBewerbungForm({ ...bewerbungForm, email: e.target.value })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>GitHub / GitLab / Portfolio Link</strong>
-                            </label>
+                            <label><strong>GitHub</strong></label>
                             <input
                                 type="url"
+                                required
                                 placeholder="https://github.com/..."
                                 value={bewerbungForm.gitUrl}
                                 onChange={(e) =>
-                                    setBewerbungForm({
-                                        ...bewerbungForm,
-                                        gitUrl: e.target.value,
-                                    })
+                                    setBewerbungForm({ ...bewerbungForm, gitUrl: e.target.value })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
-                                <strong>Nachricht an das Unternehmen</strong>
+                            <label style={{ fontWeight: "bold", display: "block", marginTop: "10px", marginBottom: "4px" }}>
+                                <strong>GitLab-Profil:</strong>
+                            </label>
+                            <input
+                                type="url"
+                                placeholder="https://gitlab.com/username"
+                                value={bewerbungForm.gitlabUrl || ""}
+                                onChange={(e) =>
+                                    setBewerbungForm({ ...bewerbungForm, gitlabUrl: e.target.value })
+                                }
+                                style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
+                            />
+
+                            <label style={{ fontWeight: "bold", display: "block", marginTop: "10px", marginBottom: "4px" }}>
+                                <strong>LinkedIn-Account:</strong>
+                            </label>
+                            <input
+                                type="url"
+                                required
+                                placeholder="https://linkedin.com/in/username"
+                                value={bewerbungForm.linkedIn || ""}
+                                onChange={(e) =>
+                                    setBewerbungForm({ ...bewerbungForm, linkedIn: e.target.value })
+                                }
+                                style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
+                            />
+                            <label style={{ fontWeight: "bold", display: "block", marginTop: "10px", marginBottom: "4px" }}>
+                                <strong>Telefonnummer / Natel:*</strong>
+                            </label>
+                            <input
+                                type="number"
+                                required
+                                placeholder="+41 79 123 45 67"
+                                value={bewerbungForm.telefon || ""}
+                                onChange={(e) =>
+                                    setBewerbungForm({ ...bewerbungForm, telefon: e.target.value })
+                                }
+                                style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
+                            />
+
+                            <label style={{ fontWeight: "bold", display: "block", marginTop: "10px", marginBottom: "4px" }}>
+                                <strong>Nachricht an das Unternehmen:</strong>
                             </label>
                             <textarea
                                 rows="4"
-                                value={bewerbungForm.nachricht}
+                                value={bewerbungForm.nachricht || ""}
                                 onChange={(e) =>
-                                    setBewerbungForm({
-                                        ...bewerbungForm,
-                                        nachricht: e.target.value,
-                                    })
+                                    setBewerbungForm({ ...bewerbungForm, nachricht: e.target.value })
                                 }
-                                style={{
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #cbd5e1",
-                                }}
+                                style={{ width: "100%", padding: "8px", borderRadius: "4px", border: "1px solid #cbd5e1" }}
                             />
 
-                            <label>
+                            <label style={{ fontWeight: "bold", display: "block", marginTop: "10px", marginBottom: "4px" }}>
                                 <strong>Lebenslauf (CV):</strong>
                             </label>
                             <input
@@ -1545,32 +1179,25 @@ function Home({ isLoggedIn }) {
                                 onChange={(e) => handleFileChange(e, "cvFile")}
                             />
 
-                            <label>
+                            <label style={{ fontWeight: "bold", display: "block", marginTop: "10px", marginBottom: "4px" }}>
                                 <strong>Zeugnisse / Diplome:</strong>
                             </label>
                             <input
                                 type="file"
-                                accept=".pdf,.zip"
+                                accept=".docx,.pdf,.zip"
                                 onChange={(e) => handleFileChange(e, "zeugnisseFile")}
                             />
 
-                            <label>
+                            <label style={{ fontWeight: "bold", display: "block", marginTop: "10px", marginBottom: "4px" }}>
                                 <strong>Weitere Dokumente (Portfolio etc.):</strong>
                             </label>
                             <input
                                 type="file"
-                                accept=".pdf,.zip"
+                                accept=".docx,.pdf,.zip"
                                 onChange={(e) => handleFileChange(e, "weitereDokus")}
                             />
 
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justify: "flex-end",
-                                    gap: "10px",
-                                    marginTop: "15px",
-                                }}
-                            >
+                            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "15px" }}>
                                 <button
                                     type="button"
                                     onClick={() => setApplyingStelle(null)}
@@ -1603,6 +1230,214 @@ function Home({ isLoggedIn }) {
                     </div>
                 </div>
             )}
+
+            {/* 4. FLOATING KI-CHAT WIDGET (Jetzt innerhalb des Haupt-Divs) */}
+            <div style={{ position: "fixed", bottom: "25px", right: "25px", zIndex: 1000 }}>
+                {!isChatOpen ? (
+                    <button
+                        onClick={() => setIsChatOpen(true)}
+                        style={{
+                            backgroundColor: "#2563eb",
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: "50px",
+                            padding: "14px 22px",
+                            fontSize: "16px",
+                            fontWeight: "bold",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "8px",
+                        }}
+                    >
+                        💬 KI-Superchat
+                    </button>
+                ) : (
+                    <div
+                        style={{
+                            width: "360px",
+                            height: "500px",
+                            backgroundColor: "#fff",
+                            borderRadius: "12px",
+                            boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
+                            display: "flex",
+                            flexDirection: "column",
+                            overflow: "hidden",
+                            border: "1px solid #cbd5e1",
+                        }}
+                    >
+                        {/* Chat Header */}
+                        <div
+                            style={{
+                                backgroundColor: "#2563eb",
+                                color: "#fff",
+                                padding: "12px 16px",
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <strong style={{ fontSize: "16px" }}>🤖 KI-Superchat</strong>
+                            <button
+                                onClick={() => setIsChatOpen(false)}
+                                style={{
+                                    background: "none",
+                                    border: "none",
+                                    color: "#fff",
+                                    fontSize: "18px",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        {/* Chat Nachrichtenverlauf */}
+                        <div
+                            style={{
+                                flex: 1,
+                                padding: "12px",
+                                overflowY: "auto",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "10px",
+                                backgroundColor: "#f8fafc",
+                            }}
+                        >
+                            {messages?.map((m, idx) => (
+                                <div
+                                    key={idx}
+                                    style={{
+                                        alignSelf: m.sender === "user" ? "flex-end" : "flex-start",
+                                        maxWidth: "80%",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            backgroundColor: m.sender === "user" ? "#2563eb" : "#e2e8f0",
+                                            color: m.sender === "user" ? "#fff" : "#000",
+                                            padding: "10px 14px",
+                                            borderRadius: "12px",
+                                            fontSize: "14px",
+                                        }}
+                                    >
+                                        {m.text}
+                                        {m.fileName && (
+                                            <div
+                                                style={{
+                                                    marginTop: "6px",
+                                                    fontSize: "12px",
+                                                    opacity: 0.9,
+                                                    fontStyle: "italic",
+                                                }}
+                                            >
+                                                📎 Datei: {m.fileName}
+                                            </div>
+                                        )}
+                                        {m.filePreview && (
+                                            <img
+                                                src={m.filePreview}
+                                                alt="Preview"
+                                                style={{ width: "100%", borderRadius: "6px", marginTop: "6px" }}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                            <div ref={chatEndRef} />
+                        </div>
+
+                        {/* Vorschau der angehängten Datei */}
+                        {chatFile && (
+                            <div
+                                style={{
+                                    padding: "6px 12px",
+                                    backgroundColor: "#e0f2fe",
+                                    display: "flex",
+                                    justify: "space-between",
+                                    alignItems: "center",
+                                    fontSize: "13px",
+                                }}
+                            >
+                                <span>📄 {chatFile.name}</span>
+                                <button
+                                    onClick={handleRemoveChatFile}
+                                    style={{
+                                        border: "none",
+                                        background: "none",
+                                        color: "#ef4444",
+                                        cursor: "pointer",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Chat Input Formular */}
+                        <form
+                            onSubmit={handleSendMessage}
+                            style={{
+                                padding: "10px",
+                                display: "flex",
+                                gap: "6px",
+                                borderTop: "1px solid #e2e8f0",
+                                backgroundColor: "#fff",
+                            }}
+                        >
+                            <input
+                                type="file"
+                                ref={chatFileInputRef}
+                                onChange={handleChatFileChange}
+                                style={{ display: "none" }}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => chatFileInputRef.current?.click()}
+                                style={{
+                                    backgroundColor: "#f1f5f9",
+                                    border: "1px solid #cbd5e1",
+                                    borderRadius: "6px",
+                                    padding: "8px",
+                                    cursor: "pointer",
+                                }}
+                                title="CV oder Dokument anhängen"
+                            >
+                                📎
+                            </button>
+                            <input
+                                type="text"
+                                placeholder="Frage stellen oder CV senden..."
+                                value={chatInput}
+                                onChange={(e) => setChatInput(e.target.value)}
+                                style={{
+                                    flex: 1,
+                                    padding: "8px 12px",
+                                    borderRadius: "6px",
+                                    border: "1px solid #cbd5e1",
+                                    fontSize: "14px",
+                                }}
+                            />
+                            <button
+                                type="submit"
+                                style={{
+                                    backgroundColor: "#2563eb",
+                                    color: "#fff",
+                                    border: "none",
+                                    padding: "8px 14px",
+                                    borderRadius: "6px",
+                                    fontWeight: "bold",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                Send
+                            </button>
+                        </form>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

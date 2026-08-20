@@ -29,6 +29,13 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.30</version>
+        </dependency>
+
         <!-- LangChain4j Core & Community Edition -->
         <dependency>
             <groupId>dev.langchain4j</groupId>

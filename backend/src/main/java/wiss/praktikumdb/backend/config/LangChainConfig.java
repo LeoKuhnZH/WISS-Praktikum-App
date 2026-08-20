@@ -11,10 +11,12 @@ import java.time.Duration;
 public class LangChainConfig {
 
     @Bean
-    public ChatLanguageModel chatLanguageModel() {
+    public ChatLanguageModel ollamaChatModel() {
         return OllamaChatModel.builder()
-                .baseUrl("http://localhost:3000") // <-- Diese URL hat gefehlt oder war null
-                .modelName("llama3")                // Passe den Modellnamen entsprechend an
+                .baseUrl("http://localhost:11434") // <-- Diese URL hat gefehlt oder war null
+                .modelName("gemma2:2b")
+                .timeout(Duration.ofMinutes(6))
+// Passe den Modellnamen entsprechend an
                 .build();
     }
 }

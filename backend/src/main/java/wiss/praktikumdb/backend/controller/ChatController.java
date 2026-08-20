@@ -1,11 +1,12 @@
 package wiss.praktikumdb.backend.controller;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import wiss.praktikumdb.backend.dto.ChatRequest;
 import wiss.praktikumdb.backend.repository.CustomerSupportAgent;
 import wiss.praktikumdb.backend.service.ChatService;
 
@@ -30,30 +31,63 @@ public class ChatController {
 
     // public ChatController(CustomerSupportAgent agent) { this.agent = agent; }
 
-    /**
-     * 1. Reine Textnachricht senden
-     */
     @PostMapping(value = "/{sessionId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> handleTextMessage(
             @PathVariable("sessionId") String sessionId,
-            @RequestBody Map<String, String> payload
+            @RequestBody Map<String, Object> payload
     ) {
-        String message = payload.getOrDefault("message", "");
-        if (message.isBlank()) {
+        if (payload == null) {
+            return ResponseEntity.badRequest().body("Der Body darf nicht leer sein.");
+        }
+
+        String userMessage = String.valueOf(payload.getOrDefault("message", "")).trim();
+        if (userMessage.isBlank()) {
             return ResponseEntity.badRequest().body("Die Nachricht darf nicht leer sein.");
         }
 
-        // TODO: Hier deinen AI-Agent / ChatService aufrufen
-        // String botResponse = agent.chat(sessionId, message);
-        String botResponse = "Danke für deine Frage bezüglich der Stelle! " +
-                "Hier ist die Antwort auf deine Anfrage: " + message;
+        // Stelle-Kontext aus dem Payload auslesen (falls vorhanden)
+        // Stelle-Kontext aus dem Payload auslesen (falls vorhanden)
+        // Stelle-Kontext aus dem Payload auslesen (falls vorhanden)
+        String contextMessage = userMessage;
 
-        return ResponseEntity.ok(botResponse);
+        if (payload.get("aktuelleStelle") instanceof Map<?, ?> rawMap) {
+            // Sicheres Casting auf Map<String, Object>
+            @SuppressWarnings("unchecked")
+            Map<String, Object> stelle = (Map<String, Object>) rawMap;
+
+            String titel = String.valueOf(stelle.getOrDefault("titel", "")).trim();
+
+            if (!titel.isBlank()) {
+                String firma = String.valueOf(stelle.getOrDefault("firma", "Smoca AG"));
+                String beschreibung = String.valueOf(stelle.getOrDefault("beschreibung", "Keine Beschreibung"));
+                String fachbereich = String.valueOf(stelle.getOrDefault("fachbereich", "K.A."));
+                String praktikumsstart = String.valueOf(stelle.getOrDefault("praktikumsstart", "Nicht angegeben"));
+
+                // Beschreibung auf 1000 Zeichen begrenzen
+                if (beschreibung.length() > 1000) {
+                    beschreibung = beschreibung.substring(0, 1000) + "... [Inhalt gekürzt]";
+                }
+
+                contextMessage = String.format(
+                        "[Frage zu Stelle: \"%s\" bei \"%s\" | Fachbereich: %s | Start: %s | Beschreibung: %s]\n\nFrage: %s",
+                        titel, firma, fachbereich, praktikumsstart, beschreibung, userMessage
+                );
+            }
+        }
+
+        try {
+            // KI-Agent Aufruf mit angereichertem Prompt
+            String botResponse = agent.chat(sessionId, contextMessage);
+            return ResponseEntity.ok(botResponse);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Fehler bei der Verarbeitung: " + e.getMessage());
+        }
     }
 
-    /**
-     * 2. Nachricht mit Dateiupload (z.B. CV / Lebenslauf als PDF oder TXT)
-     */
+
+
     @PostMapping(value = "/{sessionId}/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> handleFileUploadMessage(
             @PathVariable("sessionId") String sessionId,
@@ -65,29 +99,42 @@ public class ChatController {
         }
 
         try {
-            // Text aus der Datei auslesen (für .txt, .md, .csv)
             String fileContent = "";
-            if (file.getContentType() != null && file.getContentType().contains("text")) {
+            String contentType = file.getContentType() != null ? file.getContentType() : "";
+            String originalFilename = file.getOriginalFilename() != null ? file.getOriginalFilename() : "Unbekannt";
+
+            // 1. Plain-Text (.txt, .md, .csv)
+            if (contentType.contains("text")) {
                 fileContent = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))
                         .lines()
                         .collect(Collectors.joining("\n"));
             }
+            // 2. PDF-Dateien auslesen via PDFBox
+            else if (contentType.equals("application/pdf") || originalFilename.toLowerCase().endsWith(".pdf")) {
+                try (PDDocument document = PDDocument.load(file.getInputStream())) {
+                    PDFTextStripper stripper = new PDFTextStripper();
+                    fileContent = stripper.getText(document);
+                }
+            }
 
-            // Prompt für die KI zusammensetzen
+            // HIER KÜRZEN: Erst wenn fileContent befüllt ist
+            if (fileContent.length() > 3000) {
+                fileContent = fileContent.substring(0, 3000) + "\n...[Inhalt aus Platzgründen gekürzt]";
+            }
+
+            // Prompt für den KI-Agenten aufbauen
             String combinedPrompt = String.format(
                     "Der Benutzer hat eine Datei hochgeladen: '%s' (Typ: %s).\n" +
-                            "Dateiinhalt (Auszug):\n%s\n\n" +
-                            "Benutzernachricht: %s",
-                    file.getOriginalFilename(),
-                    file.getContentType(),
-                    fileContent.isBlank() ? "[Binärdatei/PDF - Inhalt verarbeitet]" : fileContent,
-                    message
+                            "Inhalt der Datei:\n%s\n\n" +
+                            "Zusätzliche Benutzernachricht: %s",
+                    originalFilename,
+                    contentType,
+                    fileContent.isBlank() ? "[Kein Text extrahierbar]" : fileContent,
+                    message.isBlank() ? "Bitte analysiere diese Datei." : message
             );
 
-            // TODO: An deinen KI-Agent weiterleiten
-            // String botResponse = agent.chat(sessionId, combinedPrompt);
-            String botResponse = "Ich habe deine Datei '" + file.getOriginalFilename() + "' erhalten! " +
-                    (message.isBlank() ? "Was möchtest du dazu wissen?" : "Ich analysiere das für dich.");
+            // KI-Agent mit dem kombinierten Prompt aufrufen
+            String botResponse = agent.chat(sessionId, combinedPrompt);
 
             return ResponseEntity.ok(botResponse);
 
@@ -96,4 +143,10 @@ public class ChatController {
                     .body("Fehler beim Verarbeiten der Datei: " + e.getMessage());
         }
     }
+
+
+
+
+
+
 }

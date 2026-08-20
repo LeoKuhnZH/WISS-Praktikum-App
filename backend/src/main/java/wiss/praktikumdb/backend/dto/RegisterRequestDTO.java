@@ -21,7 +21,7 @@ public class RegisterRequestDTO {
     public RegisterRequestDTO() {
     }
 
-    private RegisterRequestDTO(String username, String email, String password) {
+    public RegisterRequestDTO(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;

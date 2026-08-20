@@ -65,6 +65,11 @@ function Profile() {
         fetchUserData();
     }, [navigate]);
 
+
+    /**
+     * Favorites löschen
+     * @param id
+     */
     const removeFavorite = (id) => {
         const updatedFavs = favorites.filter(fav => fav.id !== id);
         setFavorites(updatedFavs);
@@ -132,23 +137,73 @@ function Profile() {
                     </div>
                 )}
             </div>
-
-            {/* EINGEREICHTE BEWERBUNGEN */}
             <div className="applications-section" style={{ backgroundColor: '#fff', padding: '25px', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
                 <h3>📄 Meine Bewerbungen ({applications.length})</h3>
                 {applications.length === 0 ? (
                     <p style={{ color: '#64748b' }}>Noch keine Bewerbungen eingereicht.</p>
                 ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '15px' }}>
-                        {applications.map((app, index) => (
-                            <div key={index} style={{ padding: '12px', border: '1px solid #e2e8f0', borderRadius: '6px' }}>
-                                <strong>{app.titel || 'Praktikumsstelle'}</strong>
-                                <p style={{ margin: '4px 0', fontSize: '14px' }}>Firma: {app.firma}</p>
-                                <span style={{ display: 'inline-block', backgroundColor: '#dbeafe', color: '#1e40af', padding: '4px 8px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold' }}>
-                                    Status: {getAppStatus(app)}
-                                </span>
-                            </div>
-                        ))}
+                        {applications.map((app, index) => {
+                            // Zeitberechnung seit der Bewerbung
+                            const bewerbungsZeitpunkt = app.id || Date.now();
+                            const verringerteZeit = Date.now() - bewerbungsZeitpunkt;
+                            const istAbsage = app.status === 'absage';
+                            const vierStundenInMs = 4 * 60 * 60 * 1000;
+                            const vierUndZwanzigStundenInMs = 24 * 60 * 60 * 1000;
+
+                            // Zustände prüfen
+                            const istEingeladen = app.status === 'eingeladen' || verringerteZeit > vierUndZwanzigStundenInMs;
+                            const istAngeschaut = verringerteZeit > vierStundenInMs;
+
+
+                            // Farbe & Text dynamisch bestimmen
+                            let statusText = '⏳ In Bearbeitung';
+                            let bgColor = '#fef9c3'; // Gelb
+                            let textColor = '#a16207';
+
+                            if (istEingeladen) {
+                                statusText = '🎉 Zum Gespräch eingeladen';
+                                bgColor = '#dbeafe'; // Blau
+                                textColor = '#1e40af';
+                            } else if (istAngeschaut) {
+                                statusText = '👀 Bewerbung angeschaut';
+                                bgColor = '#dcfce7'; // Grün
+                                textColor = '#15803d';
+                            }
+
+
+                            else if(istAbsage){
+                                statusText = 'Absage'
+                                bgColor = "#eb5b34"
+                                textColor="#eb5b34"
+
+                            }
+
+                            return (
+                                <div key={app.id || index} style={{ padding: '12px', border: '1px solid #e2e8f0', borderRadius: '6px', backgroundColor: '#f8fafc' }}>
+                                    <strong style={{ fontSize: '16px', color: '#1e293b' }}>
+                                        {app.titel || app.stelleTitel || 'Unbenannte Praktikumsstelle'}
+                                    </strong>
+                                    <p style={{ margin: '4px 0 8px 0', fontSize: '14px', color: '#475569' }}>
+                                        <strong>Firma:</strong> {app.firma || 'Keine Angabe'}
+                                    </p>
+
+                                    <span
+                                        style={{
+                                            display: 'inline-block',
+                                            backgroundColor: bgColor,
+                                            color: textColor,
+                                            padding: '4px 10px',
+                                            borderRadius: '4px',
+                                            fontSize: '12px',
+                                            fontWeight: 'bold'
+                                        }}
+                                    >
+                                        Status: {statusText}
+                                    </span>
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
             </div>
@@ -157,3 +212,4 @@ function Profile() {
 }
 
 export default Profile;
+

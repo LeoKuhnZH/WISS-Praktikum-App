@@ -92,28 +92,28 @@ function Home({ isLoggedIn }) {
         const userMsg = chatInput.trim();
         const attachedFile = chatFile;
         const attachedPreview = chatPreviewUrl;
-
-        // 3. Kontext aufbauen (Sicherer Zugriff: Verwendet applyingStelle oder stellt Fallback bereit)
         let contextMessage = userMsg;
+        // 3. Kontext aufbauen (Sicherer Zugriff: Verwendet applyingStelle oder stellt Fallback bereit)
 
-        // Anmerkung: Prüfe hier, wie deine State-Variable für die ausgewählte Stelle wirklich heißt:
-        const aktuelleStelle = applyingStelle || editingStelle;
-        if (aktuelleStelle && aktuelleStelle.titel) {
-            contextMessage = `[Frage zu Stelle: "${aktuelleStelle.titel}" bei "${aktuelleStelle.firma}"]\n${userMsg}`;
+        if (!contextMessage && attachedFile) {
+            contextMessage= `Bitte analysiere die angehängte Datei (${attachedFile.name}) und gib mir eine Zusammenfassung oder relevante Informationen dazu.`;
         }
 
+        const aktuelleStelle = applyingStelle || editingStelle;
+        if (aktuelleStelle && aktuelleStelle.titel) {
+            contextMessage = `[Frage zu Stelle: "${aktuelleStelle.titel}" bei "${aktuelleStelle.firma || ''}"]\n\n${contextMessage}`;
+        }
         // 4. Nachricht LOKAL im UI anzeigen
         setMessages((prev) => [
             ...prev,
             {
                 sender: "user",
-                text: userMsg,
+                text: userMsg||`Datei:${attachedFile.name}`,
                 fileName: attachedFile ? attachedFile.name : null,
                 filePreview: attachedPreview,
             },
         ]);
 
-        // 5. Eingabefelder leeren
         setChatInput("");
         if (typeof handleRemoveChatFile === "function") {
             handleRemoveChatFile();
@@ -164,7 +164,7 @@ function Home({ isLoggedIn }) {
                 ...prev,
                 {
                     sender: "bot",
-                    text: "Entschuldigung, es gab ein Problem bei der Verbindung zum backend.",
+                    text: "Entschuldigung, es gab ein Problem bei der Verbindung zum Backend.",
                 },
             ]);
         }
@@ -477,6 +477,8 @@ function Home({ isLoggedIn }) {
                             <option value="applikationsentwicklung_wayup">
                                 Informatiker EFZ Applikationsentwicklung (Way-up)
                             </option>
+
+                            <option value="plattformentwicklung_wayup">Informatiker in Plattformentwicklung(Way-up)</option>
                             <option value="fachmann">ICT-Fachmann/Fachfrau EFZ</option>
                         </select>
                     </div>
@@ -582,7 +584,7 @@ function Home({ isLoggedIn }) {
                             <option value="">-- Jedes Startdatum --</option>
                             <option value="August 2026">August 2026</option>
                             <option value="August 2027">August 2027</option>
-                            <option value="Per sofort">Per sofort</option>
+                            <option value="Per sofort(As Soon as Possible)">Per sofort</option>
                             <option value="Nach Vereinbarung">Nach Vereinbarung</option>
                         </select>
                     </div>
@@ -601,6 +603,7 @@ function Home({ isLoggedIn }) {
                             <option value="heute">Letzte 24-48 Stunden</option>
                             <option value="paar Tage">Letzte 5 Tage</option>
                             <option value="woche">Letzte 7 Tage</option>
+                            <option value="tag">Vor 1 Tag</option>
                             <option value="monat">Letzte 30 Tage</option>
                         </select>
                     </div>
